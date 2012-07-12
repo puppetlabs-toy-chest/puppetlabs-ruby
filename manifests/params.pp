@@ -13,14 +13,19 @@
 #
 class ruby::params {
 
- case $operatingsystem {
-    "centos": {
+  $version          = 'installed'
+  $gems_version     = 'latest'
+  $rubygems_update  = true
+  $ruby_package     = 'ruby'
+
+  case $osfamily {
+    "redhat": {
       $ruby_dev="ruby-devel"
     }
-    "ubuntu": {
+    "debian": {
       $ruby_dev= [ "ruby-dev", "rake", "irb" ]
     }
- }
+  }
 
 }
 
