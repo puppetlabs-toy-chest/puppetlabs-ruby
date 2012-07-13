@@ -15,15 +15,16 @@ class ruby::params {
 
   $version          = 'installed'
   $gems_version     = 'latest'
-  $rubygems_update  = true
   $ruby_package     = 'ruby'
 
   case $osfamily {
     "redhat": {
       $ruby_dev="ruby-devel"
+      $rubygems_update  = true
     }
     "debian": {
       $ruby_dev= [ "ruby-dev", "rake", "irb" ]
+      $rubygems_update  = false
     }
   }
 
