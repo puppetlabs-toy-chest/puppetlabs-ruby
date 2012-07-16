@@ -14,7 +14,7 @@
 class ruby::params {
 
   $version          = 'installed'
-  $gems_version     = 'latest'
+  $gems_version     = 'installed'
   $ruby_package     = 'ruby'
 
   case $osfamily {
