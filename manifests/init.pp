@@ -7,7 +7,7 @@
 #  version: (default installed)
 #  Set the version of Ruby to install
 #
-#  gems_version: (default latest)
+#  gems_version: (default installed)
 #  Set the version of Rubygems to be installed
 #
 #  rubygems_update: (default true)
@@ -26,10 +26,12 @@
 #
 # Sample Usage:
 #
-# For a standard install using the latest Rubygems provided by rubygems-update
+# For a standard install using the latest Rubygems provided by rubygems-update on Redhat
 #		use:
 #		
-#		  class { 'ruby': }
+#		  class { 'ruby': 
+#       gems_version  => 'latest',
+#     }
 #		
 #		On Redhat this is equivilant to
 #		  $ yum install ruby rubygems
