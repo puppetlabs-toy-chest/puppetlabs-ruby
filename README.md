@@ -7,7 +7,7 @@ This module manages Ruby and Rubygems on Debian and Redhat based systems.
 *  version: (default installed)
  Set the version of Ruby to install
 
-* gems_version: (default latest)
+* gems_version: (default installed)
  Set the version of Rubygems to be installed
 
 * rubygems_update: (default true)
@@ -16,9 +16,11 @@ This module manages Ruby and Rubygems on Debian and Redhat based systems.
 ## Usage
 
  For a standard install using the latest Rubygems provided by rubygems-update
-	use:
+ on CentOS or Redhat	use:
 
-		  class { 'ruby': }
+		  class { 'ruby': 
+              gems_version  => 'latest'
+      }
 
 		On Redhat this is equivilant to
 		  $ yum install ruby rubygems
