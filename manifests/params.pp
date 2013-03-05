@@ -14,7 +14,7 @@ class ruby::params {
       $rubygems_update = true
     }
     'debian': {
-      $ruby_dev = [ 'ruby-dev', 'rake', 'irb' ]
+      $ruby_dev = [ 'ruby-dev', 'rake', 'ri' ]
       $rubygems_update = false
     }
     default: {
