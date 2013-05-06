@@ -21,12 +21,12 @@
 #    Set the package name for ruby
 #
 #  rubygems_package: (default rubygems)
-#    Set the package name for ruby
+#    Set the package name for rubygems
 #
 # Actions:
 #   - Install Ruby
-#   - Install Ruby Gems
-#   - Update Ruby Gems
+#   - Install Rubygems
+#   - Update Rubygems
 #
 # Requires:
 #
