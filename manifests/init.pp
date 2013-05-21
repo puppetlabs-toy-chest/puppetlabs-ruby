@@ -26,31 +26,30 @@
 #
 # Sample Usage:
 #
-# For a standard install using the latest Rubygems provided by rubygems-update on Redhat
-#		use:
-#		
-#		  class { 'ruby': 
-#       gems_version  => 'latest',
-#     }
-#		
-#		On Redhat this is equivilant to
-#		  $ yum install ruby rubygems
-#		  $ gem update --system
-#		
-#		To install a specific version of ruby and rubygems but *not* use rubygems-update
-#		use:
-#		
-#		  class { 'ruby':
-#		    version         => '1.8.7',
-#		    gems_version    => '1.8.24',
-#		    rubygems_update => false
-#		  }
-#		
-#		On Redhat this is equivilent to
-#		  $ yum install ruby-1.8.7 rubygems-1.8.24
-#		
+# For a standard install using the latest Rubygems provided by rubygems-update
+# on Redhat use:
 #
-class ruby ( 
+# class { 'ruby':
+#   gems_version  => 'latest',
+# }
+#
+# On Redhat this is equivilant to
+#   $ yum install ruby rubygems
+#   $ gem update --system
+#
+#  To install a specific version of ruby and rubygems but *not* use
+#  rubygems-update use:
+#
+# class { 'ruby':
+#   version         => '1.8.7',
+#   gems_version    => '1.8.24',
+#   rubygems_update => false,
+# }
+#
+# On Redhat this is equivilent to
+#   $ yum install ruby-1.8.7 rubygems-1.8.24
+#
+class ruby (
     $version          = $ruby::params::version,
     $gems_version     = $ruby::params::gems_version,
     $rubygems_update  = $ruby::params::rubygems_update,
@@ -59,8 +58,8 @@ class ruby (
 ) inherits ruby::params {
 
   package{ 'ruby':
-    name  => $ruby_package,
     ensure => $version,
+    name   => $ruby_package,
   }
 
   # if rubygems_update is set to true then we only need to make the package
@@ -73,9 +72,9 @@ class ruby (
     $rubygems_ensure  = $gems_version
   }
 
-  package{'rubygems':
-     ensure => $rubygems_ensure,
-     require => Package['ruby'],
+  package{ 'rubygems':
+    ensure  => $rubygems_ensure,
+    require => Package['ruby'],
   }
 
   if $rubygems_update {
@@ -86,11 +85,10 @@ class ruby (
     }
 
     exec { 'ruby::update_rubygems':
-      path    => '/usr/local/bin:/usr/bin:/bin',
-      command => 'update_rubygems',
-      subscribe => Package['rubygems-update'],
+      path        => '/usr/local/bin:/usr/bin:/bin',
+      command     => 'update_rubygems',
+      subscribe   => Package['rubygems-update'],
       refreshonly => true,
     }
   }
-
 }
