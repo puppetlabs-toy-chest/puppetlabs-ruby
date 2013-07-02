@@ -45,7 +45,7 @@ rubygems-update use:
       rubygems_update => false
     }
 
-On Redhat this is equivilent to
+On Redhat this is equivilant to
 
     $ yum install ruby-1.8.7 rubygems-1.8.24
 
