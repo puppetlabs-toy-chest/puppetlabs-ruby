@@ -1,4 +1,4 @@
-# Class: ruby
+# == Class: ruby
 #
 # This class installs Ruby and manages rubygems
 #
@@ -66,13 +66,41 @@
 #    }
 #
 class ruby (
-    $version          = $ruby::params::version,
-    $gems_version     = $ruby::params::gems_version,
-    $rubygems_update  = $ruby::params::rubygems_update,
-    $ruby_dev         = $ruby::params::ruby_dev,
-    $ruby_package     = $ruby::params::ruby_package,
-    $rubygems_package = $ruby::params::rubygems_package,
-) inherits ruby::params {
+  $version          = 'installed',
+  $gems_version     = 'installed',
+  $ruby_package     = 'ruby',
+  $rubygems_package = 'rubygems',
+  $rubygems_update  = 'USE_DEFAULTS',
+  $ruby_dev         = 'USE_DEFAULTS',
+) {
+
+  case $::osfamily {
+    'redhat': {
+      $default_ruby_dev        = 'ruby-devel'
+      $default_rubygems_update = true
+    }
+    'debian': {
+      $default_ruby_dev        = [ 'ruby-dev',
+                                    'rake',
+                                    'ri' ]
+      $default_rubygems_update = false
+    }
+    default: {
+      fail("Ruby module supports OS families 'RedHat' and 'Debian'. Detected osfamily is <${::osfamily}>.")
+    }
+  }
+
+  if $rubygems_update == 'USE_DEFAULTS' {
+    $rubygems_update_real = $default_rubygems_update
+  } else {
+    $rubygems_update_real = $rubygems_update
+  }
+
+  if $ruby_dev == 'USE_DEFAULTS' {
+    $ruby_dev_real = $default_ruby_dev
+  } else {
+    $ruby_dev_real = $ruby_dev
+  }
 
   package { 'ruby':
     ensure => $version,
@@ -83,7 +111,7 @@ class ruby (
   # resource for rubygems ensure to installed, we'll let rubygems-update
   # take care of the versioning.
 
-  if $rubygems_update == true {
+  if $rubygems_update_real == true {
     $rubygems_ensure = 'installed'
   } else {
     $rubygems_ensure = $gems_version
@@ -95,7 +123,7 @@ class ruby (
     require => Package['ruby'],
   }
 
-  if $rubygems_update {
+  if $rubygems_update_real {
     package { 'rubygems-update':
       ensure    => $gems_version,
       provider  => 'gem',
@@ -109,5 +137,4 @@ class ruby (
       subscribe   => Package['rubygems-update'],
     }
   }
-
 }
