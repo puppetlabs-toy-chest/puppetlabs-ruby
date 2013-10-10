@@ -9,6 +9,9 @@ This module manages Ruby and Rubygems on Debian and Redhat based systems.
 * *version*: (default installed) -
  Set the version of Ruby to install
 
+ * *latest_release*: (default undefined) -
+ Set this to true and the Ruby module will install new releases if they are updated in the repositories, or if a new repository is added with a newer release. Note: In Debian and Ubuntu where Ruby version is specified by package name, this parameter will effectively install the latest release of the Ruby version specified with the `version` parameter.
+
 * *gems_version*: (default installed) -
  Set the version of Rubygems to be installed
 
@@ -76,6 +79,10 @@ Ruby Enterprise Edition, Ruby versions [later than 1.9.3-preview1](http://www.ru
 
 The `ruby::config` class sets global environment variables that tune the Ruby memory heap and it's garbage collection as [per the Ruby Enterprise Edition documentation](http://www.rubyenterpriseedition.com/documentation.html#_garbage_collector_performance_tuning). This should allow the configuration of Ruby to better suit a deployed application and reduce the memory overhead of long-running Ruby processes (e.g. the [Puppet daemon](http://www.masterzen.fr/2010/01/28/puppet-memory-usage-not-a-fatality/)). The memory overhead issue can be further reduced by upgrading Ruby to a distribution using a [bitmap marked garbage collection](http://patshaughnessy.net/2012/3/23/why-you-should-be-excited-about-garbage-collection-in-ruby-2-0) patch (e.g. as provided by [BrightBox](http://docs.brightbox.com/ruby/ubuntu/)) or to [Ruby 2.x](https://www.ruby-lang.org/en/news/2013/02/24/ruby-2-0-0-p0-is-released/).
 
+### More References
+
+* [Demystifying the Ruby GC](http://samsaffron.com/archive/2013/11/22/demystifying-the-ruby-gc) by Sam Saffron
+
 ### Parameters
 
 All the parameters are not set by default, which will revert to the default values for Ruby.
@@ -83,8 +90,8 @@ All the parameters are not set by default, which will revert to the default valu
 * *gc_malloc_limit* : Sets `RUBY_GC_MALLOC_LIMIT`, which is the amount of memory that can be allocated without triggering garbage collection. The default is 8000000.
 * *heap_free_min* : Sets `RUBY_HEAP_FREE_MIN`, which is the number of heap slots that should be available after garbage collection is run. If fewer slots are available, new heap slots will be allocated. The default is 4096.
 * *heap_slots_growth_factor* : Sets `RUBY_HEAP_SLOTS_GROWTH_FACTOR`, which is the multiplier for how many new slots to be created if fewer slots than `RUBY_HEAP_FREE_MIN` remain after garbage collection. The default is 1.8.
-* *heap_min_slots* : This sets `RUBY_HEAP_MIN_SLOTS`, which is intial number of heap slots. The default is 10000.
-* *heap_slots_increment* : This sets `RUBY_HEAP_SLOTS_INCREMENT`, which is the number of additional slots allocated the first time addtional slots are required. The default is 10000.
+* *heap_min_slots* : This sets `RUBY_HEAP_MIN_SLOTS`, which is initial number of heap slots. The default is 10000.
+* *heap_slots_increment* : This sets `RUBY_HEAP_SLOTS_INCREMENT`, which is the number of additional slots allocated the first time additional slots are required. The default is 10000.
 
 ### Usage
 

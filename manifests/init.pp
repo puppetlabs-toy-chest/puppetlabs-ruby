@@ -65,18 +65,76 @@
 #      gems_version     => 'latest',
 #    }
 #
+# Ruby package names are not straightforward. Especially in Debian
+# osfamily Linux distributions
+# ruby is a virtual package that points to ruby1.8
+# ruby1.8 installs Ruby 1.8.7 (and earlier versions)
+# ruby1.9.1 installs Ruby 1.9.1
+# ruby1.9.1-full installs Ruby 1.9.1
+# ruby1.9.3 installs Ruby 1.9.3
+# Ruby 2.0.0 is availible from a PPA or Ubuntu 13.10 or later.
+# Ruby 2.1.0 is availible from a PPA or Ubuntu 13.10 or later.
+# ...and this should all be overridden if a package is specified
+#
 class ruby (
-    $version          = $ruby::params::version,
-    $gems_version     = $ruby::params::gems_version,
-    $rubygems_update  = $ruby::params::rubygems_update,
-    $ruby_dev         = $ruby::params::ruby_dev,
-    $ruby_package     = $ruby::params::ruby_package,
-    $rubygems_package = $ruby::params::rubygems_package,
+  $version            = $ruby::params::version,
+  $latest_release     = undef,
+  $gems_version       = $ruby::params::gems_version,
+  $rubygems_update    = $ruby::params::rubygems_update,
+  $ruby_package       = $ruby::params::ruby_package,
+  $ruby_dev_packages  = $ruby::params::ruby_dev,
+  $rubygems_package   = $ruby::params::rubygems_package,
+  $switch             = undef
 ) inherits ruby::params {
 
+  if $latest_release {
+    $ruby_package_ensure = 'latest'
+  } else {
+    $ruby_package_ensure = 'installed'
+  }
+
+  case $::osfamily {
+    Debian: {
+      case $ruby_package {
+        installed: {
+          $real_ruby_package  = $ruby_package
+          $ruby_dev           = $ruby_dev_packages
+        }
+        default:{
+          case $version {
+            /^1\.8.*$/:{
+              $real_ruby_package  = "${ruby::params::ruby_package}1.8"
+              $ruby_dev           = [ 'ruby1.8-dev', 'rake', 'ri1.8', 'pkg-config' ]
+            }
+            /^1\.9.*$/:{
+              $real_ruby_package  = "${ruby::params::ruby_package}${version}"
+              $ruby_dev           = [ "ruby${version}-dev", 'rake', 'ri', 'pkg-config' ]
+            }
+            /^2\.0.*$/:{
+              $real_ruby_package  = "${ruby::params::ruby_package}2.0"
+              $ruby_dev           = [ 'ruby2.0-dev', 'rake', 'ri', 'pkg-config' ]
+            }
+            /^2\.1.*$/:{
+              $real_ruby_package  = "${ruby::params::ruby_package}2.1"
+              $ruby_dev           = [ 'ruby2.1-dev', 'rake', 'ri', 'pkg-config' ]
+            }
+            default: {
+              $real_ruby_package  = $ruby_package
+              $ruby_dev           = $ruby_dev_packages
+            }
+          }
+        }
+      }
+    }
+    default: {
+      $real_ruby_package  = $ruby_package
+      $ruby_dev           = $ruby_dev_packages
+    }
+  }
+
   package { 'ruby':
-    ensure => $version,
-    name   => $ruby_package,
+    ensure => $ruby_package_ensure,
+    name   => $real_ruby_package,
   }
 
   # if rubygems_update is set to true then we only need to make the package
@@ -110,4 +168,23 @@ class ruby (
     }
   }
 
+  if $switch {
+    case $::operatingsystem {
+      Ubuntu: {
+        package{'ruby-switch':
+          ensure  => installed,
+          name    => $ruby::params::ruby_switch_package,
+          require => Package['ruby'],
+        }
+        exec{'switch_ruby':
+          command => "/usr/bin/ruby-switch --set ${real_ruby_package}",
+          unless  => "/usr/bin/ruby-switch --check|/bin/grep ${real_ruby_package}",
+          require => Package['ruby-switch'],
+        }
+      }
+      default: {
+        notice("The switch parameter for the ruby class does not work for ${::operatingsystem}, no action taken.")
+      }
+    }
+  }
 }
