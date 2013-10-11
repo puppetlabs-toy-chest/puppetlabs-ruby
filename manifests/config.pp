@@ -25,7 +25,7 @@ class ruby::config (
   file{'ruby_environment':
     ensure  => $ensure,
     path    => $ruby::params::ruby_environment_file,
-    content => template('ruby/etc/profile.d/ruby.sh.erb'),
+    content => template('ruby/ruby.sh.erb'),
   }
 
 }
