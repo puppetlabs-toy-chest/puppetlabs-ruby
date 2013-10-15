@@ -27,11 +27,12 @@ the rubygems package resource will be versioned from $gems_version
 ### Usage
 
 For a standard install using the latest Rubygems provided by rubygems-update on
-CentOS or Redhat use:
-
+CentOS or Redhat use:  
+```puppet
     class { 'ruby':
       gems_version  => 'latest'
     }
+```
 
 On Redhat this is equivilant to
 
@@ -41,13 +42,14 @@ On Redhat this is equivilant to
 #### Specify Version
 
 To install a specific version of ruby and rubygems but *not* use
-rubygems-update use:
-
+rubygems-update use:  
+```puppet
     class { 'ruby':
       version         => '1.8.7',
       gems_version    => '1.8.24',
       rubygems_update => false
     }
+```
 
 On Redhat this is equivilant to
 
@@ -57,17 +59,22 @@ On Redhat this is equivilant to
 
 If you need to use different packages for either ruby or rubygems you
 can. This could be for different versions or custom packages. For
-instance the following installs ruby 1.9 on Ubuntu 12.04.
-
+instance the following installs ruby 1.9 on Ubuntu 12.04.  
+```puppet
     class { 'ruby':
       ruby_package     => 'ruby1.9.1-full',
       rubygems_package => 'rubygems1.9.1',
       gems_version     => 'latest',
     }
+```  
+This parameter will be particularly important if an alternative package repository is defined with [`yumrepo`](http://docs.puppetlabs.com/references/latest/type.html#yumrepo) or [`apt::source`](https://forge.puppetlabs.com/puppetlabs/apt).
+
 
 ## Ruby Configuration
 
-The `ruby::config` class sets global environment variables that tune the Ruby memory heap and it's garbage collection as [per the Ruby documentation](http://www.rubyenterpriseedition.com/documentation.html#_garbage_collector_performance_tuning). This should allow the configuration of Ruby to better suit a deployed application and reduce the memory overhead of long-running Ruby processes (e.g. the [Puppet daemon](http://www.masterzen.fr/2010/01/28/puppet-memory-usage-not-a-fatality/)). The memory overhead issue can be further reduced by upgrading Ruby to a distribution using a [bitmap marked garbage collection](http://patshaughnessy.net/2012/3/23/why-you-should-be-excited-about-garbage-collection-in-ruby-2-0) patch (e.g. as provided by [BrightBox](http://docs.brightbox.com/ruby/ubuntu/)) or to [Ruby 2.x](https://www.ruby-lang.org/en/news/2013/02/24/ruby-2-0-0-p0-is-released/).
+Ruby Enterprise Edition, Ruby versions [later than 1.9.3-preview1](http://www.rubyinside.com/ruby-1-9-3-preview-1-released-5229.html), and some patched Ruby distributions allow some tuning of the Ruby memory heap and garbage collection. These features will not work with the standard Ruby distributions prior to 1.9.3.
+
+The `ruby::config` class sets global environment variables that tune the Ruby memory heap and it's garbage collection as [per the Ruby Enterprise Edition documentation](http://www.rubyenterpriseedition.com/documentation.html#_garbage_collector_performance_tuning). This should allow the configuration of Ruby to better suit a deployed application and reduce the memory overhead of long-running Ruby processes (e.g. the [Puppet daemon](http://www.masterzen.fr/2010/01/28/puppet-memory-usage-not-a-fatality/)). The memory overhead issue can be further reduced by upgrading Ruby to a distribution using a [bitmap marked garbage collection](http://patshaughnessy.net/2012/3/23/why-you-should-be-excited-about-garbage-collection-in-ruby-2-0) patch (e.g. as provided by [BrightBox](http://docs.brightbox.com/ruby/ubuntu/)) or to [Ruby 2.x](https://www.ruby-lang.org/en/news/2013/02/24/ruby-2-0-0-p0-is-released/).
 
 ### Parameters
 
