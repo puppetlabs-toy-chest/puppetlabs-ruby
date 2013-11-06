@@ -66,17 +66,30 @@
 #    }
 #
 class ruby (
-    $version          = $ruby::params::version,
-    $gems_version     = $ruby::params::gems_version,
-    $rubygems_update  = $ruby::params::rubygems_update,
-    $ruby_dev         = $ruby::params::ruby_dev,
-    $ruby_package     = $ruby::params::ruby_package,
-    $rubygems_package = $ruby::params::rubygems_package,
+    $version              = $ruby::params::version,
+    $gems_version         = $ruby::params::gems_version,
+    $rubygems_update      = $ruby::params::rubygems_update,
+    $ruby_dev             = $ruby::params::ruby_dev,
+    $ruby_package         = $ruby::params::ruby_package,
+    $rubygems_package     = $ruby::params::rubygems_package,
+    $ruby_gentoo_keywords = $ruby::params::ruby_gentoo_keywords,
+    $ruby_gentoo_use      = $ruby::params::ruby_gentoo_use,
+    $gems_gentoo_keywords = $ruby::params::gems_gentoo_keywords,
+    $gems_gentoo_use      = $ruby::params::gems_gentoo_use,
 ) inherits ruby::params {
 
-  package { 'ruby':
-    ensure => $version,
-    name   => $ruby_package,
+  if $::operatingsystem == 'gentoo' {
+    portage::package { 'ruby':
+      ensure   => $version,
+      name     => $ruby_package,
+      keywords => $ruby_gentoo_keywords,
+      use      => $ruby_gentoo_use,
+    }
+  } else {
+    package { 'ruby':
+      ensure => $version,
+      name   => $ruby_package,
+    }
   }
 
   # if rubygems_update is set to true then we only need to make the package
@@ -89,10 +102,20 @@ class ruby (
     $rubygems_ensure = $gems_version
   }
 
-  package { 'rubygems':
-    ensure  => $rubygems_ensure,
-    name    => $rubygems_package,
-    require => Package['ruby'],
+  if $::operatingsystem == 'gentoo' {
+    portage::package { 'rubygems':
+      ensure   => $rubygems_ensure,
+      name     => $rubygems_package,
+      require  => Portage::Package['ruby'],
+      keywords => $gems_gentoo_keywords,
+      use      => $gems_gentoo_use,
+    }
+  } else {
+    package { 'rubygems':
+      ensure  => $rubygems_ensure,
+      name    => $rubygems_package,
+      require => Package['ruby'],
+    }
   }
 
   if $rubygems_update {

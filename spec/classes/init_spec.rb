@@ -44,6 +44,25 @@ describe 'ruby', :type => :class do
     }
   end
 
+  describe 'when called with no parameters on gentoo' do
+    let (:facts) { { :osfamily => 'Gentoo',
+                     :operatingsystem => 'gentoo',
+                     :path     => '/usr/local/bin:/usr/bin:/bin' } }
+    it {
+      should contain_portage__package('ruby').with({
+        'ensure'  => 'installed',
+        'name'    => 'dev-lang/ruby',
+      })
+      should contain_portage__package('rubygems').with({
+        'ensure'  => 'installed',
+        'name'    => 'dev-ruby/rubygems',
+        'require' => 'Portage::Package[ruby]',
+      })
+      should_not contain_package('rubygems-update')
+      should_not contain_exec('ruby::update_rubygems')
+    }
+  end
+
   describe 'when called with custom rubygems version on redhat' do
     let (:facts) { {   :osfamily  => 'Redhat',
                        :path      => '/usr/local/bin:/usr/bin:/bin' } }
@@ -71,7 +90,7 @@ describe 'ruby', :type => :class do
     }
   end
 
-  describe 'when called with custom ruby package name' do
+  describe 'when called with custom ruby package name on debian' do
     let (:facts) { { :osfamily => 'Debian',
                      :path     => '/usr/local/bin:/usr/bin:/bin' } }
     let (:params) { {  :ruby_package  => 'ruby1.9' } }
@@ -89,7 +108,7 @@ describe 'ruby', :type => :class do
     }
   end
 
-  describe 'when called with custom rubygems package name' do
+  describe 'when called with custom rubygems package name on debian' do
     let (:facts) { { :osfamily => 'Debian',
                      :path     => '/usr/local/bin:/usr/bin:/bin' } }
     let (:params) { { :rubygems_package  => 'rubygems1.9.1' } }
@@ -107,6 +126,43 @@ describe 'ruby', :type => :class do
     }
   end
 
+  describe 'when called with custom ruby package name on gentoo' do
+    let (:facts) { { :osfamily => 'Gentoo',
+                     :operatingsystem => 'gentoo',
+                     :path     => '/usr/local/bin:/usr/bin:/bin' } }
+    let (:params) { {  :ruby_package  => 'dev-lang/ruby-custom' } }
+    it {
+      should contain_portage__package('ruby').with({
+        'ensure'  => 'installed',
+        'name'    => 'dev-lang/ruby-custom',
+      })
+      should contain_portage__package('rubygems').with({
+        'ensure'  => 'installed',
+        'require' => 'Portage::Package[ruby]',
+      })
+      should_not contain_package('rubygems-update')
+      should_not contain_exec('ruby::update_rubygems')
+    }
+  end
+
+  describe 'when called with custom rubygems package name on gentoo' do
+    let (:facts) { { :osfamily => 'Gentoo',
+                     :operatingsystem => 'gentoo',
+                     :path     => '/usr/local/bin:/usr/bin:/bin' } }
+    let (:params) { { :rubygems_package  => 'dev-ruby/rubygems-custom' } }
+    it {
+      should contain_portage__package('ruby').with({
+        'ensure'  => 'installed',
+      })
+      should contain_portage__package('rubygems').with({
+        'name'    => 'dev-ruby/rubygems-custom',
+        'ensure'  => 'installed',
+        'require' => 'Portage::Package[ruby]',
+      })
+      should_not contain_package('rubygems-update')
+      should_not contain_exec('ruby::update_rubygems')
+    }
+  end
 
   describe 'when called with custom rubygems and ruby versions on redhat' do
     let (:facts) { {  :osfamily => 'Redhat',
@@ -149,6 +205,53 @@ describe 'ruby', :type => :class do
       should contain_package('rubygems').with({
         'ensure'  => '1.8.6',
         'require' => 'Package[ruby]',
+      })
+      should_not contain_package('rubygems-update')
+      should_not contain_exec('ruby::update_rubygems')
+    }
+  end
+
+  describe 'when called with custom rubygems and ruby versions on gentoo' do
+    let (:facts) { { :osfamily => 'Gentoo',
+                     :operatingsystem => 'gentoo',
+                      :path     => '/usr/local/bin:/usr/bin:/bin' } }
+    let (:params) { {   :gems_version => '1.9.3_p448',
+                        :version      => '2.0.3', } }
+    it {
+      should contain_portage__package('ruby').with({
+        'ensure'  => '2.0.3',
+        'name'    => 'dev-lang/ruby',
+      })
+      should contain_portage__package('rubygems').with({
+        'ensure'  => '1.9.3_p448',
+        'require' => 'Portage::Package[ruby]',
+      })
+      should_not contain_package('rubygems-update')
+      should_not contain_exec('ruby::update_rubygems')
+    }
+  end
+
+  describe 'when called with keywords and useflags on gentoo' do
+    let (:facts) { { :osfamily => 'Gentoo',
+                     :operatingsystem => 'gentoo',
+                     :path     => '/usr/local/bin:/usr/bin:/bin' } }
+    let (:params) { {   :ruby_gentoo_keywords => ['~amd64', '~x86'],
+                        :ruby_gentoo_use      => ['rdoc', 'readline', 'ssl'],
+                        :gems_gentoo_keywords => ['~amd64', '~x86'],
+                        :gems_gentoo_use      => ['rdoc', 'readline', 'ssl'], } }
+    it {
+      should contain_portage__package('ruby').with({
+        'ensure'   => 'installed',
+        'name'     => 'dev-lang/ruby',
+        'keywords' => ['~amd64', '~x86'],
+        'use'      => ['rdoc', 'readline', 'ssl'],
+      })
+      should contain_portage__package('rubygems').with({
+        'ensure'   => 'installed',
+        'name'     => 'dev-ruby/rubygems',
+        'require'  => 'Portage::Package[ruby]',
+        'keywords' => ['~amd64', '~x86'],
+        'use'      => ['rdoc', 'readline', 'ssl'],
       })
       should_not contain_package('rubygems-update')
       should_not contain_exec('ruby::update_rubygems')
