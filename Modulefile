@@ -6,3 +6,5 @@ license 'Apache License 2.0'
 summary 'Puppet Labs Ruby Module'
 description 'Ruby Module for Puppet'
 project_page 'https://github.com/puppetlabs/puppetlabs-ruby'
+
+dependency 'gentoo/portage', '2.1.0'

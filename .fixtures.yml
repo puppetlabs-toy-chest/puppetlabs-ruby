@@ -1,3 +1,5 @@
 fixtures:
+  repositories:
+    "portage": "git://github.com/gentoo/puppet-portage"
   symlinks:
     "ruby": "#{source_dir}"
