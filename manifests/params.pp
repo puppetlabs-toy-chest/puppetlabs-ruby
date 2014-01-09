@@ -3,10 +3,11 @@
 # This class handles the Ruby module parameters
 #
 class ruby::params {
-  $version          = 'installed'
-  $gems_version     = 'installed'
-  $ruby_package     = 'ruby'
-  $rubygems_package = 'rubygems'
+  $version              = 'installed'
+  $gems_version         = 'installed'
+  $ruby_package         = 'ruby'
+  $rubygems_package     = 'rubygems'
+  $ruby_switch_package  = 'ruby-switch'
 
   case $::osfamily {
     'redhat', 'amazon': {
@@ -14,7 +15,7 @@ class ruby::params {
       $rubygems_update = true
     }
     'debian': {
-      $ruby_dev = [ 'ruby-dev', 'rake', 'ri' ]
+      $ruby_dev = [ 'ruby-dev', 'rake', 'ri', 'pkg-config' ]
       $rubygems_update = false
     }
     default: {

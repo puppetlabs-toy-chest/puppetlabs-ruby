@@ -27,6 +27,8 @@ the rubygems package resource will be versioned from $gems_version
 * *rubygems_package*: (default rubygems) -
  Set the package name for rubygems
 
+* *switch*: Installs `ruby-switch` and uses this to set the installed package as the system default. This may not be available for all distributions.
+
 ### Usage
 
 For a standard install using the latest Rubygems provided by rubygems-update on
@@ -70,8 +72,7 @@ instance the following installs ruby 1.9 on Ubuntu 12.04.
       gems_version     => 'latest',
     }
 ```  
-This parameter will be particularly important if an alternative package repository is defined with [`yumrepo`](http://docs.puppetlabs.com/references/latest/type.html#yumrepo) or [`apt::source`](https://forge.puppetlabs.com/puppetlabs/apt).
-
+This parameter will be particularly important if an alternative package repository is defined with [`yumrepo`](http://docs.puppetlabs.com/references/latest/type.html#yumrepo) or [`apt::source` or `apt::ppa`](https://forge.puppetlabs.com/puppetlabs/apt).
 
 ## Ruby Configuration
 
@@ -123,4 +124,14 @@ RUBY_HEAP_MIN_SLOTS=500000
 RUBY_HEAP_SLOTS_INCREMENT=250000
 RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 RUBY_GC_MALLOC_LIMIT=50000000
+```
+
+# Package sources
+
+If the required Ruby version is not available for the distribution being used check the following repositories:
+
+* For Ubuntu Lucid onward: [Brightbox Ruby PPA](http://www.ubuntuupdates.org/ppa/brightbox_ruby_ng_experimental), use the following puppet code:  
+```puppet
+include apt
+apt::ppa{'ppa:brightbox/ruby-ng-experimental':}
 ```
