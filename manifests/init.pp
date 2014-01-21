@@ -89,10 +89,18 @@ class ruby (
     $rubygems_ensure = $gems_version
   }
 
-  package { 'rubygems':
-    ensure  => $rubygems_ensure,
-    name    => $rubygems_package,
-    require => Package['ruby'],
+  if $rubygems_package == 'rubygems1.9.1' and $::lsbdistid == 'Ubuntu' and  $::lsbmajdistrelease >= 10 {
+    package { 'rubygems':
+        ensure  => $rubygems_ensure,
+        name    => 'ruby1.9.1',
+        require => Package['ruby'],
+    }
+  } else {
+    package { 'rubygems':
+        ensure  => $rubygems_ensure,
+        name    => $rubygems_package,
+        require => Package['ruby'],
+    }
   }
 
   if $rubygems_update {
