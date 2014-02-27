@@ -74,9 +74,11 @@ class ruby (
     $rubygems_package = $ruby::params::rubygems_package,
 ) inherits ruby::params {
 
-  package { 'ruby':
-    ensure => $version,
-    name   => $ruby_package,
+  if ! defined(Package[$ruby_package]) {
+    package { 'ruby':
+      ensure => $version,
+      name   => $ruby_package,
+    }
   }
 
   # if rubygems_update is set to true then we only need to make the package
@@ -89,10 +91,12 @@ class ruby (
     $rubygems_ensure = $gems_version
   }
 
-  package { 'rubygems':
-    ensure  => $rubygems_ensure,
-    name    => $rubygems_package,
-    require => Package['ruby'],
+  if ! defined(Package[$rubygems_package]) {
+    package { 'rubygems':
+      ensure  => $rubygems_ensure,
+      name    => $rubygems_package,
+      require => Package['ruby'],
+    }
   }
 
   if $rubygems_update {
