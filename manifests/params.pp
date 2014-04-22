@@ -23,4 +23,5 @@ class ruby::params {
   }
 
   $ruby_environment_file = '/etc/profile.d/ruby.sh'
+  $gemrc                 = '/etc/gemrc'
 }
