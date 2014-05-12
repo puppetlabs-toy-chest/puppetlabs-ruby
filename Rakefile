@@ -7,8 +7,8 @@ PuppetLint.configuration.send('disable_class_parameter_defaults')
 PuppetLint.configuration.send('disable_class_inherits_from_params_class')
 PuppetLint.configuration.ignore_paths = ["spec/**/*.pp", "pkg/**/*.pp", "tests/**/*.pp"]
 
-desc "Check for puppet and ruby syntax errors."
-task :validate do
+desc 'Check for puppet syntax errors.'
+task :validate_puppet_syntax do
   if ENV['PUPPET_GEM_VERSION'] == '~> 2.6.0'
     puppet_parse_command = 'puppet --parseonly --ignoreimport'
   else
@@ -16,11 +16,20 @@ task :validate do
   end
   Dir['manifests/**/*.pp'].each do |path|
    sh "#{puppet_parse_command} #{path}"
-   sh "file #{path}|grep -v CRLF"
   end
+end
+
+desc 'Check for ruby syntax errors.'
+task :validate_ruby_syntax do
   ruby_parse_command = 'ruby -c'
   Dir['spec/**/*.rb'].each do |path|
    sh "#{ruby_parse_command} #{path}"
+  end
+end
+
+desc 'Check for evil line endings.'
+task :check_line_endings do
+  Dir['spec/**/*.rb','manifests/**/*.pp'].each do |path|
    sh "file #{path}|grep -v CRLF"
   end
 end
