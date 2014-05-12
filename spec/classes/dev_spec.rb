@@ -23,6 +23,36 @@ describe 'ruby::dev', :type => :class do
           })
         }
       end
+      context 'when using latest version' do
+        let :params do
+          { :ensure  => 'latest' }
+        end
+        it {
+          should contain_package('ruby-devel').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+      end
+      context 'when using custom packages' do
+        let :params do
+          { :ruby_dev_packages  => ['magic-ruby-dev','rubygems-bundler'] }
+        end
+        it {
+          should contain_package('magic-ruby-dev').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+      end
     end
 
     describe 'when called on Amazon' do
@@ -61,6 +91,36 @@ describe 'ruby::dev', :type => :class do
       context 'with no parameters' do
         it {
           should contain_package('ruby-devel').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+      end
+      context 'when using latest version' do
+        let :params do
+          { :ensure  => 'latest' }
+        end
+        it {
+          should contain_package('ruby-devel').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+      end
+      context 'when using custom packages' do
+        let :params do
+          { :ruby_dev_packages  => ['magic-ruby-dev','rubygems-bundler'] }
+        end
+        it {
+          should contain_package('magic-ruby-dev').with({
             'ensure' => 'installed',
           })
         }
@@ -118,6 +178,36 @@ describe 'ruby::dev', :type => :class do
           })
         }
       end
+      context 'when using latest version' do
+        let :params do
+          { :ensure  => 'latest' }
+        end
+        it {
+          should contain_package('ruby-devel').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+      end
+      context 'when using custom packages' do
+        let :params do
+          { :ruby_dev_packages  => ['magic-ruby-dev','rubygems-bundler'] }
+        end
+        it {
+          should contain_package('magic-ruby-dev').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+      end
     end
 
     describe 'when called on Amazon' do
@@ -157,6 +247,36 @@ describe 'ruby::dev', :type => :class do
       context 'with no parameters' do
         it {
           should contain_package('ruby-devel').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+      end
+      context 'when using latest version' do
+        let :params do
+          { :ensure  => 'latest' }
+        end
+        it {
+          should contain_package('ruby-devel').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+      end
+      context 'when using custom packages' do
+        let :params do
+          { :ruby_dev_packages  => ['magic-ruby-dev','rubygems-bundler'] }
+        end
+        it {
+          should contain_package('magic-ruby-dev').with({
             'ensure' => 'installed',
           })
         }
