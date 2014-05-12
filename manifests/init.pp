@@ -98,29 +98,23 @@ class ruby (
       case $ruby_package {
         installed: {
           $real_ruby_package  = $ruby_package
-          $ruby_dev           = $ruby_dev_packages
         }
         default:{
           case $version {
             /^1\.8.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}1.8"
-              $ruby_dev           = [ 'ruby1.8-dev', 'rake', 'ri1.8', 'pkg-config' ]
             }
             /^1\.9.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}${version}"
-              $ruby_dev           = [ "ruby${version}-dev", 'rake', 'ri', 'pkg-config' ]
             }
             /^2\.0.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}2.0"
-              $ruby_dev           = [ 'ruby2.0-dev', 'rake', 'ri', 'pkg-config' ]
             }
             /^2\.1.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}2.1"
-              $ruby_dev           = [ 'ruby2.1-dev', 'rake', 'ri', 'pkg-config' ]
             }
             default: {
               $real_ruby_package  = $ruby_package
-              $ruby_dev           = $ruby_dev_packages
             }
           }
         }
@@ -128,7 +122,6 @@ class ruby (
     }
     default: {
       $real_ruby_package  = $ruby_package
-      $ruby_dev           = $ruby_dev_packages
     }
   }
 
