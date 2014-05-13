@@ -683,7 +683,7 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
-          should_not contain_package('ruby-dev')
+          should_not contain_package('ruby2.0-dev')
         }
         it {
           should_not contain_package('rake')
