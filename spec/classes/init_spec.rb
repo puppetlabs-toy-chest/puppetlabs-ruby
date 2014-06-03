@@ -356,9 +356,26 @@ describe 'ruby', :type => :class do
     }
   end
 
-  describe 'when using ruby-switch on Ubuntu' do
+  describe 'when trying to use ruby-switch on Ubuntu 14.04' do
     let (:facts) { {    :osfamily         => 'Debian',
                         :operatingsystem  => 'Ubuntu',
+                        :lsbdistrelease   => '14.04',
+                        :path             => '/usr/local/bin:/usr/bin:/bin' } }
+    let (:params) { {   :version  => '1.9.1',
+                        :switch   => true, } }
+    it {
+      should_not contain_package('ruby-switch')
+    }
+    it {
+      should_not contain_exec('switch_ruby')
+      # there is no rspec-puppet test for notice()
+    }
+  end
+
+  describe 'when using ruby-switch on Ubuntu earlier than 14.04' do
+    let (:facts) { {    :osfamily         => 'Debian',
+                        :operatingsystem  => 'Ubuntu',
+                        :lsbdistrelease   => '12.04',
                         :path             => '/usr/local/bin:/usr/bin:/bin' } }
     let (:params) { {   :version  => '1.9.1',
                         :switch   => true, } }

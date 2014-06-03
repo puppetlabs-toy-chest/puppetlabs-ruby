@@ -164,15 +164,19 @@ class ruby (
   if $switch {
     case $::operatingsystem {
       Ubuntu: {
-        package{'ruby-switch':
-          ensure  => installed,
-          name    => $ruby::params::ruby_switch_package,
-          require => Package['ruby'],
-        }
-        exec{'switch_ruby':
-          command => "/usr/bin/ruby-switch --set ${real_ruby_package}",
-          unless  => "/usr/bin/ruby-switch --check|/bin/grep ${real_ruby_package}",
-          require => Package['ruby-switch'],
+        if versioncmp($::lsbdistrelease, '14.04') < 0 {
+          package{'ruby-switch':
+            ensure  => installed,
+            name    => $ruby::params::ruby_switch_package,
+            require => Package['ruby'],
+          }
+          exec{'switch_ruby':
+            command => "/usr/bin/ruby-switch --set ${real_ruby_package}",
+            unless  => "/usr/bin/ruby-switch --check|/bin/grep ${real_ruby_package}",
+            require => Package['ruby-switch'],
+          }
+        } else {
+          notice('The ruby-switch package is no longer provided for Ubuntu versions later than 14.04.')
         }
       }
       default: {
