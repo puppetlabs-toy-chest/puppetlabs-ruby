@@ -17,6 +17,10 @@ class ruby::dev (
 ) inherits ruby::params {
   require ruby
 
+  # as the package ensure covers _multiple_ packages
+  # specifying a version may cause issues.
+  validate_re($ensure,['^installed$','^present$','^absent$','^latest$'])
+
   case $::osfamily {
     Debian: {
       if $ruby_dev_packages {
