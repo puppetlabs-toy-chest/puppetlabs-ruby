@@ -68,6 +68,21 @@ describe 'ruby', :type => :class do
     }
   end
 
+  describe 'when called with no parameters on Ubuntu trusty' do
+    let (:facts) { {  :osfamily        => 'Debian',
+                      :lsbdistcodename => 'trusty',
+                      :path            => '/usr/local/bin:/usr/bin:/bin' } }
+    it {
+      should contain_package('ruby').with({
+        'ensure'  => 'installed',
+        'name'    => 'ruby',
+      })
+      should_not contain_package('rubygems')
+      should_not contain_package('rubygems-update')
+      should_not contain_exec('ruby::update_rubygems')
+    }
+  end
+
   describe 'when called with custom rubygems version on redhat' do
     let (:facts) { {   :osfamily  => 'Redhat',
                        :path      => '/usr/local/bin:/usr/bin:/bin' } }
