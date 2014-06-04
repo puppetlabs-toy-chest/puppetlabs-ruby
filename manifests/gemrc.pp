@@ -43,7 +43,7 @@ class ruby::gemrc (
   $owner                      = 'root',
   $group                      = 'root',
   $mode                       = '0644',
-  $disable_default_gem_server = undef,
+  $disable_default_gem_server = undef
 ) inherits ruby::params {
 
   if $verbose != undef and $verbose != ':really' {
