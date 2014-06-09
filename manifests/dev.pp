@@ -31,8 +31,6 @@ class ruby::dev (
             $ruby_dev = [
               'ruby1.8-dev',
               'ri1.8',
-              'rake',
-              'ruby-bundler',
               'pkg-config'
             ]
           }
@@ -40,8 +38,6 @@ class ruby::dev (
             $ruby_dev = [
               'ruby1.9.1-dev',
               'ri1.9.1',
-              'rake',
-              'ruby-bundler',
               'pkg-config'
             ]
           }
@@ -49,8 +45,6 @@ class ruby::dev (
             $ruby_dev = [
               'ruby2.0-dev',
               'ri',
-              'rake',
-              'ruby-bundler',
               'pkg-config'
             ]
           }
@@ -58,8 +52,6 @@ class ruby::dev (
             $ruby_dev = [
               'ruby2.0-dev',
               'ri',
-              'rake',
-              'ruby-bundler',
               'pkg-config'
             ]
           }

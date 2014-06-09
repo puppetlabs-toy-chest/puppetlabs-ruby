@@ -84,8 +84,25 @@ class ruby (
   $ruby_package       = $ruby::params::ruby_package,
   $ruby_dev_packages  = $ruby::params::ruby_dev,
   $rubygems_package   = $ruby::params::rubygems_package,
+  $rake_ensure        = 'installed',
+  $rake_package       = $ruby::params::rake_package,
+  $bundler_ensure     = 'installed',
+  $bundler_package    = $ruby::params::bundler_package,
   $switch             = undef
 ) inherits ruby::params {
+
+  # these ensure parameters are either valid Puppet
+  # ensure strings, or version numbers...
+  # ...almost certain the regex for versions is wrong
+  validate_re($rake_ensure,['^installed$','^present$','^absent$','^latest$','^(\\d+\\\\.)?(\\d+\\\\.)?(\\\\*|\\d+)$]'])
+  validate_re($bundler_ensure,['^installed$','^present$','^absent$','^latest$','^(\\d+\\\\.)?(\\d+\\\\.)?(\\\\*|\\d+)$]'])
+
+  if $rake_ensure != 'absent' and !defined(Class['ruby::dev']) {
+    warning ('The rake utility for Ruby may not work correctly without ruby::dev')
+  }
+  if $bundler_ensure != 'absent' and !defined(Class['ruby::dev']) {
+    warning ('The bundler utility for Ruby may not work correctly without ruby::dev')
+  }
 
   if $latest_release {
     $ruby_package_ensure = 'latest'
@@ -134,6 +151,18 @@ class ruby (
   package { 'ruby':
     ensure => $ruby_package_ensure,
     name   => $real_ruby_package,
+  }
+
+  package { 'rake':
+    ensure  => $rake_ensure,
+    name    => $rake_package,
+    require => Package['ruby'],
+  }
+
+  package { 'bundler':
+    ensure  => $bundler_ensure,
+    name    => $bundler_package,
+    require => Package['ruby'],
   }
 
   # if rubygems_update is set to true then we only need to make the package
