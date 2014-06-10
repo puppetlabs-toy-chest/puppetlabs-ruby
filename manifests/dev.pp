@@ -13,7 +13,11 @@
 #
 class ruby::dev (
   $ensure             = 'installed',
-  $ruby_dev_packages  = undef
+  $ruby_dev_packages  = undef,
+  $rake_ensure        = 'installed',
+  $rake_package       = $ruby::params::rake_package,
+  $bundler_ensure     = 'installed',
+  $bundler_package    = $ruby::params::bundler_package,
 ) inherits ruby::params {
   require ruby
 
@@ -82,7 +86,21 @@ class ruby::dev (
   # specify a version and it will just silently continue installing the
   # default version.
   package { $ruby_dev:
-    ensure => $ensure,
+    ensure  => $ensure,
+    before  => Package['rake','bundler'],
+    require => Package['ruby'],
+  }
+
+  package { 'rake':
+    ensure  => $rake_ensure,
+    name    => $rake_package,
+    require => Package['ruby'],
+  }
+
+  package { 'bundler':
+    ensure  => $bundler_ensure,
+    name    => $bundler_package,
+    require => Package['ruby'],
   }
 
   if $ruby_dev_gems {
