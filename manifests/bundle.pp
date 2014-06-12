@@ -17,7 +17,6 @@ define ruby::bundle
   $timeout      = undef,
   $tries        = undef,
   $try_sleep    = undef,
-  $umask        = undef,
   $unless       = undef,
 ) {
 
@@ -39,26 +38,39 @@ define ruby::bundle
 
   case $command {
     'install': {
-      validate_re(
-        $option,
-        ['--clean','--deployment','--gemfile=','--path=','--no-prune'],
-        'Only bundler options supported for the install command are: clean, deployment, gemfile, path, and no-prune'
-      )
-      $real_command = join(['bundle',$command,$option],' ')
+      if $option {
+        validate_re(
+          $option,
+          ['--clean','--deployment','--gemfile=','--path=','--no-prune'],
+          'Only bundler options supported for the install command are: clean, deployment, gemfile, path, and no-prune'
+        )
+        $real_command = join(['bundle',$command,$option],' ')
+      } else {
+        $real_command = join(['bundle',$command],' ')
+      }
       $real_unless  = 'bundle check'
     }
     'exec': {
-      $real_command = join(['bundle',$command,$option],' ')
-      $real_unless  = $unless
+      if $option {
+        $real_command = join(['bundle',$command,$option],' ')
+        $real_unless  = $unless
+      } else {
+        fail ('When given the exec command the ruby::bundle resource requires the command to be executed to be passed to the option parameter')
+      }
     }
     'update':{
-      validate_re(
-        $option,
-        ['--local','--source='],
-        'Only bundler options supported for the update command are: local and source'
-      )
-      $real_command = join(['bundle',$command,$option],' ')
-      $real_unless  = join(['bundle','outdated',$option],' ')
+      if $option {
+        validate_re(
+          $option,
+          ['--local','--source='],
+          'Only bundler options supported for the update command are: local and source'
+        )
+        $real_command = join(['bundle',$command,$option],' ')
+        $real_unless  = join(['bundle','outdated',$option],' ')
+      } else {
+        $real_command = join(['bundle',$command],' ')
+        $real_unless  = 'bundle outdated'
+      }
     }
     default: {
       fail ('Only the bundler commands install, exec, and update are supported.')
@@ -80,9 +92,8 @@ define ruby::bundle
     timeout      => $timeout,
     tries        => $tries,
     try_sleep    => $try_sleep,
-    umask        => $umask,
     unless       => $real_unless,
-    require      => Package[$ruby::params::bundler_package]
+    require      => Package['bundler']
   }
 
 }
