@@ -17,7 +17,6 @@ define ruby::rake
   $timeout      = undef,
   $tries        = undef,
   $try_sleep    = undef,
-  $umask        = undef,
   $unless       = undef,
 ) {
 
@@ -61,9 +60,8 @@ define ruby::rake
       timeout      => $timeout,
       tries        => $tries,
       try_sleep    => $try_sleep,
-      umask        => $umask,
       unless       => $unless,
-      require      => Package[$ruby::params::rake_package]
+      require      => Package['rake']
     }
   } else {
     exec{"ruby_rake_${name}":
@@ -81,9 +79,8 @@ define ruby::rake
       timeout      => $timeout,
       tries        => $tries,
       try_sleep    => $try_sleep,
-      umask        => $umask,
       unless       => $unless,
-      require      => Package[$ruby::params::rake_package]
+      require      => Package['rake']
     }
   }
 

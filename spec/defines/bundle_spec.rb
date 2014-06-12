@@ -19,6 +19,7 @@ describe 'ruby::bundle', :type => :define do
           'command'     => 'bundle install',
           'environment' => 'RAILS_ENV=production',
           'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
+          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
           'unless'      => 'bundle check',
           'require'     => 'Package[bundler]'
         })

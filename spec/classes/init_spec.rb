@@ -24,20 +24,6 @@ describe 'ruby', :type => :class do
       })
     }
     it {
-      should contain_package('rake').with({
-        'ensure'    => 'installed',
-        'name'      => 'rubygem-rake',
-        'require'   => 'Package[ruby]',
-      })
-    }
-    it {
-      should contain_package('bundler').with({
-        'ensure'    => 'installed',
-        'name'      => 'rubygem-bundler',
-        'require'   => 'Package[ruby]',
-      })
-    }
-    it {
       should contain_exec('ruby::update_rubygems').with({
         'path'        => '/usr/local/bin:/usr/bin:/bin',
         'command'     => 'update_rubygems',
@@ -66,20 +52,6 @@ describe 'ruby', :type => :class do
       should contain_package('rubygems').with({
         'ensure'  => 'installed',
         'require' => 'Package[ruby]',
-      })
-    }
-    it {
-      should contain_package('rake').with({
-        'ensure'    => 'installed',
-        'name'      => 'rake',
-        'require'   => 'Package[ruby]',
-      })
-    }
-    it {
-      should contain_package('bundler').with({
-        'ensure'    => 'installed',
-        'name'      => 'ruby-bundler',
-        'require'   => 'Package[ruby]',
       })
     }
     it {
@@ -490,6 +462,19 @@ describe 'ruby', :type => :class do
         'require' => 'Package[ruby-switch]'
       })
     }
+  end
+
+  describe 'on an Unknown OS' do
+    let :facts do
+      {
+        :osfamily   => 'Unknown',
+      }
+    end
+    it do
+      expect {
+        should contain_class('puppet::params')
+      }.to raise_error(Puppet::Error, /Unsupported OS family: Unknown/)
+    end
   end
 
 end
