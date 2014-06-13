@@ -4,12 +4,31 @@
 #
 # Parameters:
 #
+# [*ensure*]
+# (default is 'installed') This parameter sets the `ensure` parameter for all the Ruby development packages.
+# [*ruby_dev_packages*]
+# (default is depends on OS distribution) This parameter replaces the list of default Ruby development packages.
+# [*rake_ensure*]
+# (default is 'installed') This sets the `ensure` parameter of the rake package.
+# [*rake_package*]
+# (default depends on OS distribution) This parameter replaces the default rake package.
+# [*bundler_ensure*]
+# (default is 'installed') This sets the `ensure` parameter of the bundler package.
+# [*bundler_package*]
+# (default is depends on OS distribution) This parameter replaces the default bundler package.
+#
 # Actions:
-#   - Install RDoc, IRB, Rake and development libraries
+#   - Install RDoc, IRB, and development libraries
+#   - Optionally install Rake and Bundler (installed by default)
 #
 # Requires:
 #
+#   - Ruby
+#
 # Sample Usage:
+#
+# include ruby
+# include ruby::dev
 #
 class ruby::dev (
   $ensure             = 'installed',
@@ -23,7 +42,7 @@ class ruby::dev (
 
   # as the package ensure covers _multiple_ packages
   # specifying a version may cause issues.
-  validate_re($ensure,['^installed$','^present$','^absent$','^latest$'])
+  validate_re($ensure,['^installed$', '^present$', '^absent$', '^latest$'])
 
   case $::osfamily {
     'Debian': {
@@ -87,7 +106,7 @@ class ruby::dev (
   # default version.
   package { $ruby_dev:
     ensure  => $ensure,
-    before  => Package['rake','bundler'],
+    before  => Package['rake', 'bundler'],
     require => Package['ruby'],
   }
 
