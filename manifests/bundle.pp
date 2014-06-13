@@ -1,4 +1,53 @@
-# Defines an exec wrapper for bundle tasks
+# == Define: ruby::bundle
+#
+# This resource runs [Bundler](http://bundler.io/) tasks. This resource was created to be sure that Bundler tasks would only be executed once their requirements were met by the `ruby::dev` class.
+#
+# === Parameters
+#
+# * *command*: (default is 'install') -
+# This sets the command passed to the `bundler` executable. Not all bundler commands are currently supported. Only `exec`, `install` and `update` are currently supported.
+# * *option*: (default is undefined) -
+# This sets the options for the bundler command. Not all options are supported.
+# * *rails_env*: (default is $ruby::params::rails_env) -
+#  This parameter is used to set the `RAILS_ENV` environment variable, the default is to set it to production. This parameter is combined with the `environment` parameter to be passed to the `environment` parameter of the underlying `exec` resource that runs the bundler task.
+# [*creates*]
+# (default is undefined) Passed through to the underlying `exec` resource that runs the bundler task.
+# [*cwd*]
+# (default is undefined) Passed through to the underlying `exec` resource that runs the bundler task.
+# [*environment*]
+# (default is undefined) This parameter is combined with the `rails_env` parameter to be passed to the `environment` parameter of the underlying `exec` resource that runs the bundler task.
+# [*user*]
+# (default is undefined) Passed through to the underlying `exec` resource that runs the bundler task.
+# [*group*]
+# (default is undefined) Passed through to the underlying `exec` resource that runs the bundler task.
+# [*logoutput*]
+# (default is undefined) Passed through to the underlying `exec` resource that runs the bundler task.
+# [*onlyif*]
+# (default is undefined) Passed through to the underlying `exec` resource that runs the bundler task.
+# [*path*]
+# (default is undefined) The bundle executable has a minimum path requirement, if this parameter is left undefined, the default minimum path will be used. If a list of paths is provided, this list will be modified to be sure that it still meets the minimum path requirements for the bundle executable. This is then passed to the underlying `exec` resource that runs the bundle task.
+# [*refresh*]
+# (default is undefined) Passed through to the underlying `exec` resource that runs the bundler task.
+# [*refreshonly*]
+# (default is undefined) Passed through to the underlying `exec` resource that runs the bundler task.
+# [*timeout*]
+# (default is undefined) Passed through to the underlying `exec` resource that runs the bundler task.
+# [*tries*]
+# (default is undefined) Passed through to the underlying `exec` resource that runs the bundler task.
+# [*try_sleep*]
+# (default is undefined) Passed through to the underlying `exec` resource that runs the bundler task.
+# [*unless*]
+# (default is undefined) The `unless` parameter is only passed through to the underlying `exec` resource that runs the bundler task if the `ruby::bundler` resource `command` parameter is `exec`. For the `install` or `update` commands `unless` will be automatically set to, or overridden with, a command that makes the `ruby::bundle` resource idempotent.
+#
+# === Examples
+#
+# Using ruby::bundle to install gems:
+#
+#   ruby::bundle { 'install_app_gems':
+#     option  => '--deployment',
+#     cwd     => '/path/to/app',
+#   }
+#
 define ruby::bundle
 (
   $command      = 'install',
@@ -24,14 +73,14 @@ define ruby::bundle
 
   # ensure minimum path requirements for bundler
   if $path {
-    $real_path = unique(flatten([$path,$ruby::params::minimum_path]))
+    $real_path = unique(flatten([$path, $ruby::params::minimum_path]))
   } else {
     $real_path = $ruby::params::minimum_path
   }
 
   # merge the environment and rails_env parameters
   if $environment {
-    $real_environment = unique(flatten([$environment,["RAILS_ENV=${rails_env}"]]))
+    $real_environment = unique(flatten([$environment, ["RAILS_ENV=${rails_env}"]]))
   } else {
     $real_environment = "RAILS_ENV=${rails_env}"
   }
@@ -41,18 +90,18 @@ define ruby::bundle
       if $option {
         validate_re(
           $option,
-          ['--clean','--deployment','--gemfile=','--path=','--no-prune'],
+          ['--clean', '--deployment', '--gemfile=', '--path=', '--no-prune'],
           'Only bundler options supported for the install command are: clean, deployment, gemfile, path, and no-prune'
         )
-        $real_command = join(['bundle',$command,$option],' ')
+        $real_command = join(['bundle', $command, $option], ' ')
       } else {
-        $real_command = join(['bundle',$command],' ')
+        $real_command = join(['bundle', $command], ' ')
       }
       $real_unless  = 'bundle check'
     }
     'exec': {
       if $option {
-        $real_command = join(['bundle',$command,$option],' ')
+        $real_command = join(['bundle', $command, $option], ' ')
         $real_unless  = $unless
       } else {
         fail ('When given the exec command the ruby::bundle resource requires the command to be executed to be passed to the option parameter')
@@ -62,13 +111,13 @@ define ruby::bundle
       if $option {
         validate_re(
           $option,
-          ['--local','--source='],
+          ['--local', '--source='],
           'Only bundler options supported for the update command are: local and source'
         )
-        $real_command = join(['bundle',$command,$option],' ')
-        $real_unless  = join(['bundle','outdated',$option],' ')
+        $real_command = join(['bundle', $command, $option], ' ')
+        $real_unless  = join(['bundle', 'outdated', $option], ' ')
       } else {
-        $real_command = join(['bundle',$command],' ')
+        $real_command = join(['bundle', $command], ' ')
         $real_unless  = 'bundle outdated'
       }
     }
