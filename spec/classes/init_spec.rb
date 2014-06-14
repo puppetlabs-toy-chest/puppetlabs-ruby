@@ -395,4 +395,54 @@ describe 'ruby', :type => :class do
     }
   end
 
+  describe 'when using ruby-switch on Ubuntu earlier than 14.04 and the Ruby package is ruby1.9.1-full' do
+    let (:facts) { {    :osfamily         => 'Debian',
+                        :operatingsystem  => 'Ubuntu',
+                        :lsbdistrelease   => '12.04',
+                        :path             => '/usr/local/bin:/usr/bin:/bin' } }
+    let (:params) { {   :version            => 'installed',
+                        :ruby_package       => 'ruby1.9.1-full',
+                        :switch             => true,
+                        } }
+    it {
+      should contain_package('ruby-switch').with({
+        'ensure'  => 'installed',
+        'name'    => 'ruby-switch',
+        'require' => 'Package[ruby]'
+      })
+    }
+    it {
+      should contain_exec('switch_ruby').with({
+        'command' => '/usr/bin/ruby-switch --set ruby1.9.1',
+        'unless'  => '/usr/bin/ruby-switch --check|/bin/grep ruby1.9.1',
+        'require' => 'Package[ruby-switch]'
+      })
+    }
+  end
+
+  describe 'when using ruby-switch on Ubuntu earlier than 14.04 and the Ruby package is ruby1.8-full' do
+    let (:facts) { {    :osfamily         => 'Debian',
+                        :operatingsystem  => 'Ubuntu',
+                        :lsbdistrelease   => '12.04',
+                        :path             => '/usr/local/bin:/usr/bin:/bin' } }
+    let (:params) { {   :version            => 'installed',
+                        :ruby_package       => 'ruby1.8-full',
+                        :switch             => true,
+                        } }
+    it {
+      should contain_package('ruby-switch').with({
+        'ensure'  => 'installed',
+        'name'    => 'ruby-switch',
+        'require' => 'Package[ruby]'
+      })
+    }
+    it {
+      should contain_exec('switch_ruby').with({
+        'command' => '/usr/bin/ruby-switch --set ruby1.8',
+        'unless'  => '/usr/bin/ruby-switch --check|/bin/grep ruby1.8',
+        'require' => 'Package[ruby-switch]'
+      })
+    }
+  end
+
 end
