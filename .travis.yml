@@ -1,9 +1,6 @@
 language: ruby
 bundler_args: --without development
 script:
-  - bundle exec rake validate_puppet_syntax
-  - bundle exec rake validate_ruby_syntax
-  - bundle exec rake check_line_endings
   - bundle exec rake lint
   - bundle exec rake spec SPEC_OPTS='--format documentation'
 rvm:
