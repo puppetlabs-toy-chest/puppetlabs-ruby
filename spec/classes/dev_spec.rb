@@ -103,11 +103,6 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
-          should contain_package('ruby-bundler').with({
-            'ensure' => 'installed',
-          })
-        }
-        it {
           should contain_package('pkg-config').with({
             'ensure' => 'installed',
           })
@@ -129,11 +124,6 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should contain_package('ri').with({
-            'ensure' => 'latest',
-          })
-        }
-        it {
-          should contain_package('ruby-bundler').with({
             'ensure' => 'latest',
           })
         }
@@ -165,9 +155,6 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should_not contain_package('ri')
-        }
-        it {
-          should_not contain_package('ruby-bundler')
         }
         it {
           should_not contain_package('pkg-config')
@@ -278,11 +265,6 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
-          should contain_package('ruby-bundler').with({
-            'ensure' => 'installed',
-          })
-        }
-        it {
           should contain_package('pkg-config').with({
             'ensure' => 'installed',
           })
@@ -304,11 +286,6 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should contain_package('ri1.9.1').with({
-            'ensure' => 'latest',
-          })
-        }
-        it {
-          should contain_package('ruby-bundler').with({
             'ensure' => 'latest',
           })
         }
@@ -340,9 +317,6 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should_not contain_package('ri1.9.1')
-        }
-        it {
-          should_not contain_package('ruby-bundler')
         }
         it {
           should_not contain_package('pkg-config')
@@ -453,11 +427,6 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
-          should contain_package('ruby-bundler').with({
-            'ensure' => 'installed',
-          })
-        }
-        it {
           should contain_package('pkg-config').with({
             'ensure' => 'installed',
           })
@@ -479,11 +448,6 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should contain_package('ri').with({
-            'ensure' => 'latest',
-          })
-        }
-        it {
-          should contain_package('ruby-bundler').with({
             'ensure' => 'latest',
           })
         }
@@ -515,9 +479,6 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should_not contain_package('ri')
-        }
-        it {
-          should_not contain_package('ruby-bundler')
         }
         it {
           should_not contain_package('pkg-config')
@@ -628,11 +589,6 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
-          should contain_package('ruby-bundler').with({
-            'ensure' => 'installed',
-          })
-        }
-        it {
           should contain_package('pkg-config').with({
             'ensure' => 'installed',
           })
@@ -654,11 +610,6 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should contain_package('ri').with({
-            'ensure' => 'latest',
-          })
-        }
-        it {
-          should contain_package('ruby-bundler').with({
             'ensure' => 'latest',
           })
         }
@@ -690,9 +641,6 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should_not contain_package('ri')
-        }
-        it {
-          should_not contain_package('ruby-bundler')
         }
         it {
           should_not contain_package('pkg-config')
