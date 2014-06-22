@@ -1,18 +1,23 @@
 source 'https://rubygems.org'
 
-group :development, :test do
-  gem 'rake',                   :require => false
-  gem 'rspec-puppet',           :require => false
-  gem 'puppetlabs_spec_helper', :require => false
+group :development do
   gem 'rspec-system',           :require => false
   gem 'rspec-system-puppet',    :require => false
-  gem 'puppet-lint',            :require => false
+  gem "beaker"
+  gem "beaker-rspec"
+  gem "travis"
+  gem "travis-lint"
+  gem "vagrant-wrapper"
+  gem "puppet-blacksmith"
+  gem "guard-rake"
 end
 
-if puppetversion = ENV['PUPPET_GEM_VERSION']
-  gem 'puppet', puppetversion,  :require => false
-else
-  gem 'puppet',                 :require => false
+group :test do
+  gem "rake"
+  gem "puppet", ENV['PUPPET_VERSION'] || '~> 3.4.0'
+  gem "puppet-lint"
+  gem "rspec-puppet", :git => 'https://github.com/rodjek/rspec-puppet.git'
+  gem "rspec", '< 3.0.0'
+  gem "puppet-syntax"
+  gem "puppetlabs_spec_helper"
 end
-
-# vim:ft=ruby
