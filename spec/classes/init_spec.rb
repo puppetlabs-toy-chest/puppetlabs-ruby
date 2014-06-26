@@ -100,7 +100,26 @@ describe 'ruby', :type => :class do
       })
     }
   end
-
+  describe 'when called with custom rubygems version on Ubuntu 14.04' do
+    let (:facts) { {   :osfamily  => 'Debian',
+                       :operatingsystemrelease => '14.04',
+                       :path      => '/usr/local/bin:/usr/bin:/bin' } }
+    it {
+      should contain_package('ruby').with({
+        'ensure'  => 'installed',
+        'name'    => 'ruby1.9.1',
+      })
+    }
+    it {
+      should contain_package('rubygems').with({
+        'ensure'  => 'installed',
+        'require' => 'Package[ruby]',
+        'name'    => 'ruby1.9.1-full'
+      })
+    }
+    it {should_not contain_package('rubygems-update')}
+    it {should_not contain_exec('ruby::update_rubygems')}
+  end
   describe 'when called with custom ruby package name' do
     let (:facts) { { :osfamily => 'Debian',
                      :path     => '/usr/local/bin:/usr/bin:/bin' } }
