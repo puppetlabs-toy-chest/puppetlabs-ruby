@@ -170,9 +170,18 @@ class ruby (
             name    => $ruby::params::ruby_switch_package,
             require => Package['ruby'],
           }
+
+          # The ruby<VERSION>-full package names cannot be used as arguments to
+          # ruby-switch so handle these cases explicitly.
+          $ruby_interpreter = $real_ruby_package ? {
+            'ruby1.8-full'   => 'ruby1.8',
+            'ruby1.9.1-full' => 'ruby1.9.1',
+            default          => $real_ruby_package,
+          }
+
           exec{'switch_ruby':
-            command => "/usr/bin/ruby-switch --set ${real_ruby_package}",
-            unless  => "/usr/bin/ruby-switch --check|/bin/grep ${real_ruby_package}",
+            command => "/usr/bin/ruby-switch --set ${ruby_interpreter}",
+            unless  => "/usr/bin/ruby-switch --check|/bin/grep ${ruby_interpreter}",
             require => Package['ruby-switch'],
           }
         } else {
