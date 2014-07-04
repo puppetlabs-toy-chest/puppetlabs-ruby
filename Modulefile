@@ -1,5 +1,5 @@
 name 'puppetlabs-ruby'
-version '0.1.1'
+version '0.2.0'
 source  'https://github.com/puppetlabs/puppetlabs-ruby'
 author  'Puppet Labs'
 license 'Apache License 2.0'
