@@ -1,5 +1,5 @@
 {
-    "name": "ruby",
+    "name": "puppetlabs-ruby",
     "version": "0.2.0",
     "summary": "Manage Ruby",
     "source": "git@github.com/puppetlabs/puppetlabs-ruby.git",
