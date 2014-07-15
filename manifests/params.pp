@@ -18,7 +18,6 @@ class ruby::params {
       $rake_package     = 'rubygem-rake'
       $bundler_package  = 'bundler'
       $bundler_provider = 'gem'
-      $bundler_package  = 'rubygem-bundler'
     }
     'debian': {
       $ruby_dev         = [
