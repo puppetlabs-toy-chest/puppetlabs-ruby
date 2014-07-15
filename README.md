@@ -2,6 +2,10 @@
 
 This module manages Ruby and Rubygems on Debian and Redhat based systems.
 
+# Dependencies
+
+* [PuppetLabs stdlib](https://forge.puppetlabs.com/puppetlabs/stdlib)
+
 ## Ruby Class
 
 Installs and manages the core Ruby packages.
