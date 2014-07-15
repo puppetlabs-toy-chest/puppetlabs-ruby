@@ -37,12 +37,14 @@ class ruby::dev (
   $rake_package       = $ruby::params::rake_package,
   $bundler_ensure     = 'installed',
   $bundler_package    = $ruby::params::bundler_package,
+  $bundler_provider   = $ruby::params::bundler_provider,
 ) inherits ruby::params {
   require ruby
 
   # as the package ensure covers _multiple_ packages
   # specifying a version may cause issues.
   validate_re($ensure,['^installed$', '^present$', '^absent$', '^latest$'])
+  validate_re($bundler_provider,['^gem$','^apt$'])
 
   case $::osfamily {
     'Debian': {
@@ -117,9 +119,10 @@ class ruby::dev (
   }
 
   package { 'bundler':
-    ensure  => $bundler_ensure,
-    name    => $bundler_package,
-    require => Package['ruby'],
+    ensure    => $bundler_ensure,
+    name      => $bundler_package,
+    provider  => $bundler_provider,
+    require   => Package['ruby'],
   }
 
   if $ruby_dev_gems {

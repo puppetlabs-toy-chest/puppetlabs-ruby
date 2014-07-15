@@ -113,8 +113,10 @@ This class often installs a list of packages, so setting a package version is no
  This parameter replaces the default rake package.
 * *bundler_ensure*: (default is 'installed') -
  This sets the `ensure` parameter of the bundler package.
-* *bundler_package*: (default is depends on OS distribution) -
+* *bundler_package*: (default is dependent on OS distribution) -
  This parameter replaces the default bundler package.
+* *bundler_provider*: (default is dependent on OS distribution) -
+ This parameter specifies what package provider should be used, `gem` or `apt`.
 
 ## Rake Resource
 
