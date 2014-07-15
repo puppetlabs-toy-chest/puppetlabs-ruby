@@ -101,8 +101,15 @@ define ruby::bundle
       if $option {
         validate_re(
           $option,
-          ['--clean', '--deployment', '--gemfile=', '--path=', '--no-prune'],
-          'Only bundler options supported for the install command are: clean, deployment, gemfile, path, and no-prune'
+          [
+            '\s*--clean\s*',
+            '\s*--deployment\s*',
+            '\s*--gemfile=[a-zA-Z0-9\/\\:]+\s*',
+            '\s*--path=[a-zA-Z0-9\/\\:]+\s*',
+            '\s*--no-prune\s*',
+            '\s*--without [[a-z0-9]+ ]+\s*'
+          ],
+          'Only bundler options supported for the install command are: clean, deployment, gemfile, path, without, and no-prune'
         )
         $real_command = "bundle ${command}${multicore_str} ${option}"
       } else {

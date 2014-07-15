@@ -19,7 +19,6 @@ describe 'ruby::bundle', :type => :define do
           'command'     => 'bundle install',
           'environment' => 'RAILS_ENV=production',
           'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
-          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
           'unless'      => 'bundle check',
           'require'     => 'Package[bundler]'
         })
@@ -195,9 +194,9 @@ describe 'ruby::bundle', :type => :define do
       end
       it {
         should contain_exec('ruby_bundle_install').with({
-          'command'     => 'bundle --jobs 4 install',
+          'command'     => 'bundle install --jobs 4',
           'environment' => 'RAILS_ENV=production',
-          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
+          'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
           'unless'      => 'bundle check',
           'require'     => 'Package[bundler]'
         })
@@ -215,9 +214,9 @@ describe 'ruby::bundle', :type => :define do
       end
       it {
         should contain_exec('ruby_bundle_install').with({
-          'command'     => 'bundle --jobs 3 install',
+          'command'     => 'bundle install --jobs 3',
           'environment' => 'RAILS_ENV=production',
-          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
+          'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
           'unless'      => 'bundle check',
           'require'     => 'Package[bundler]'
         })
@@ -235,9 +234,9 @@ describe 'ruby::bundle', :type => :define do
       end
       it {
         should contain_exec('ruby_bundle_install').with({
-          'command'     => 'bundle --jobs 4 install',
+          'command'     => 'bundle install --jobs 4',
           'environment' => 'RAILS_ENV=production',
-          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
+          'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
           'unless'      => 'bundle check',
           'require'     => 'Package[bundler]'
         })
@@ -255,9 +254,9 @@ describe 'ruby::bundle', :type => :define do
       end
       it {
         should contain_exec('ruby_bundle_update').with({
-          'command'     => 'bundle --jobs 4 update',
+          'command'     => 'bundle update --jobs 4',
           'environment' => 'RAILS_ENV=production',
-          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
+          'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
           'unless'      => 'bundle outdated',
           'require'     => 'Package[bundler]'
         })
@@ -275,9 +274,9 @@ describe 'ruby::bundle', :type => :define do
       end
       it {
         should contain_exec('ruby_bundle_update').with({
-          'command'     => 'bundle --jobs 3 update',
+          'command'     => 'bundle update --jobs 3',
           'environment' => 'RAILS_ENV=production',
-          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
+          'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
           'unless'      => 'bundle outdated',
           'require'     => 'Package[bundler]'
         })
@@ -295,9 +294,9 @@ describe 'ruby::bundle', :type => :define do
       end
       it {
         should contain_exec('ruby_bundle_update').with({
-          'command'     => 'bundle --jobs 4 update',
+          'command'     => 'bundle update --jobs 4',
           'environment' => 'RAILS_ENV=production',
-          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
+          'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
           'unless'      => 'bundle outdated',
           'require'     => 'Package[bundler]'
         })
