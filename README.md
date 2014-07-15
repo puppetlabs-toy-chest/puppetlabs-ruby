@@ -97,7 +97,7 @@ The `ruby::dev` class requires the base `ruby` class.
 
 Installs and manages the installation of the Ruby development packages and tools, including [Rake](http://docs.seattlerb.org/rake/) and [Bundler](http://bundler.io/). Note that the `ruby::dev` class may not install all the dependencies required to install some gems.
 
-There is some selection logic in the `ruby::dev` class that attempts to install the correct development libraries for the Ruby version installed by the base `ruby` class. Hence the `ruby::dev` class requires the `ruby` class.
+There is some selection logic in the `ruby::dev` class that attempts to install the correct development libraries and tools for the Ruby version installed by the base `ruby` class. Hence the `ruby::dev` class requires the `ruby` class.
 
 This class often installs a list of packages, so setting a package version is not available as this may behave unpredictably.
 
@@ -116,7 +116,7 @@ This class often installs a list of packages, so setting a package version is no
 * *bundler_package*: (default is dependent on OS distribution) -
  This parameter replaces the default bundler package.
 * *bundler_provider*: (default is dependent on OS distribution) -
- This parameter specifies what package provider should be used, `gem` or `apt`.
+ This parameter specifies what package provider should be used, only `gem` or `apt` are accepted.
 
 ## Rake Resource
 
@@ -208,12 +208,12 @@ This sets the options for the bundler command. Not all options are supported.
 * *try_sleep*: (default is undefined) -
  Passed through to the underlying `exec` resource that runs the bundler task.
 * *unless*: (default is undefined) -
- The `unless` parameter is only passed through to the underlying `exec` resource that runs the bundler task if the `ruby::bundler` resource `command` parameter is `exec`. For the `install` or `update` commands `unless` will be automatically set to, or overridden with, a command that makes the `ruby::bundle` resource idempotent.
+ The `unless` parameter is passed through to the underlying `exec` resource that runs the bundler task if the `ruby::bundler` resource `command` parameter is `exec`. For the `install` or `update` commands `unless` will be automatically set to, or overridden with, a command that makes the `ruby::bundle` resource idempotent.
 
 #### Supported Bundler Commands
 
 * **exec**: For the `exec` command to work, the command to be executed is passed as the option string. If the command is a rake task, it is recommended that the `ruby::rake` resource is used with the `bundle` parameter set to true. There are currently no constraints on the option string for the `exec` command.
-* **install**: The `install` command only currently supports the `--clean`,`--deployment`,`--gemfile`,`--path` and `--no-prune` options.
+* **install**: The `install` command only currently supports the `--clean`,`--deployment`,`--gemfile`,`--path`, `--without`, and `--no-prune` options.
 * **update**: The `update` command only currently supports the `--local` and `--source` options. This command will try and update all the gems in a directory every time puppet runs.
 
 ## Ruby Configuration Class
