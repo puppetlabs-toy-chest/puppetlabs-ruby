@@ -53,6 +53,7 @@ define ruby::bundle
   $command      = 'install',
   $option       = undef,
   $rails_env    = $ruby::params::rails_env,
+  $multicore    = undef,
   $creates      = undef,
   $cwd          = undef,
   $environment  = undef,
@@ -85,6 +86,16 @@ define ruby::bundle
     $real_environment = "RAILS_ENV=${rails_env}"
   }
 
+  if $multicore {
+    if $multicore == '0' or $multicore >= $::processorcount {
+      $multicore_str = " --jobs ${::processorcount}"
+    } else {
+      $multicore_str = " --jobs ${multicore}"
+    }
+  } else {
+    $multicore_str = ''
+  }
+
   case $command {
     'install': {
       if $option {
@@ -93,15 +104,15 @@ define ruby::bundle
           ['--clean', '--deployment', '--gemfile=', '--path=', '--no-prune'],
           'Only bundler options supported for the install command are: clean, deployment, gemfile, path, and no-prune'
         )
-        $real_command = join(['bundle', $command, $option], ' ')
+        $real_command = "bundle ${command}${multicore_str} ${option}"
       } else {
-        $real_command = join(['bundle', $command], ' ')
+        $real_command = "bundle ${command}${multicore_str}"
       }
       $real_unless  = 'bundle check'
     }
     'exec': {
       if $option {
-        $real_command = join(['bundle', $command, $option], ' ')
+        $real_command = "bundle ${command}${multicore_str} ${option}"
         $real_unless  = $unless
       } else {
         fail ('When given the exec command the ruby::bundle resource requires the command to be executed to be passed to the option parameter')
@@ -114,10 +125,10 @@ define ruby::bundle
           ['--local', '--source='],
           'Only bundler options supported for the update command are: local and source'
         )
-        $real_command = join(['bundle', $command, $option], ' ')
-        $real_unless  = join(['bundle', 'outdated', $option], ' ')
+        $real_command = "bundle ${command}${multicore_str} ${option}"
+        $real_unless  = "bundle outdated${multicore_str} ${option}"
       } else {
-        $real_command = join(['bundle', $command], ' ')
+        $real_command = "bundle ${command}${multicore_str}"
         $real_unless  = 'bundle outdated'
       }
     }
