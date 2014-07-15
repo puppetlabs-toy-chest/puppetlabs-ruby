@@ -75,7 +75,7 @@ describe 'ruby::bundle', :type => :define do
       end
       it {
         should contain_exec('ruby_bundle_install').with({
-          'command'     => 'bundle --jobs 4 install',
+          'command'     => 'bundle install --jobs 4',
           'environment' => 'RAILS_ENV=production',
           'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
           'unless'      => 'bundle check',
@@ -95,7 +95,7 @@ describe 'ruby::bundle', :type => :define do
       end
       it {
         should contain_exec('ruby_bundle_install').with({
-          'command'     => 'bundle --jobs 3 install',
+          'command'     => 'bundle install --jobs 3',
           'environment' => 'RAILS_ENV=production',
           'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
           'unless'      => 'bundle check',
@@ -115,7 +115,7 @@ describe 'ruby::bundle', :type => :define do
       end
       it {
         should contain_exec('ruby_bundle_install').with({
-          'command'     => 'bundle --jobs 4 install',
+          'command'     => 'bundle install --jobs 4',
           'environment' => 'RAILS_ENV=production',
           'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
           'unless'      => 'bundle check',
@@ -135,7 +135,7 @@ describe 'ruby::bundle', :type => :define do
       end
       it {
         should contain_exec('ruby_bundle_update').with({
-          'command'     => 'bundle --jobs 4 update',
+          'command'     => 'bundle update --jobs 4',
           'environment' => 'RAILS_ENV=production',
           'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
           'unless'      => 'bundle outdated',
@@ -155,7 +155,7 @@ describe 'ruby::bundle', :type => :define do
       end
       it {
         should contain_exec('ruby_bundle_update').with({
-          'command'     => 'bundle --jobs 3 update',
+          'command'     => 'bundle update --jobs 3',
           'environment' => 'RAILS_ENV=production',
           'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
           'unless'      => 'bundle outdated',
@@ -175,9 +175,129 @@ describe 'ruby::bundle', :type => :define do
       end
       it {
         should contain_exec('ruby_bundle_update').with({
-          'command'     => 'bundle --jobs 4 update',
+          'command'     => 'bundle update --jobs 4',
           'environment' => 'RAILS_ENV=production',
           'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin'],
+          'unless'      => 'bundle outdated',
+          'require'     => 'Package[bundler]'
+        })
+      }
+    end
+    context 'with the install command with multicore 0' do
+      let :title do
+        'install'
+      end
+      let :params do
+        {
+          :command   => 'install',
+          :multicore => '0'
+        }
+      end
+      it {
+        should contain_exec('ruby_bundle_install').with({
+          'command'     => 'bundle --jobs 4 install',
+          'environment' => 'RAILS_ENV=production',
+          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
+          'unless'      => 'bundle check',
+          'require'     => 'Package[bundler]'
+        })
+      }
+    end
+    context 'with the install command with multicore less than max' do
+      let :title do
+        'install'
+      end
+      let :params do
+        {
+          :command   => 'install',
+          :multicore => '3'
+        }
+      end
+      it {
+        should contain_exec('ruby_bundle_install').with({
+          'command'     => 'bundle --jobs 3 install',
+          'environment' => 'RAILS_ENV=production',
+          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
+          'unless'      => 'bundle check',
+          'require'     => 'Package[bundler]'
+        })
+      }
+    end
+    context 'with the install command with multicore greater than max' do
+      let :title do
+        'install'
+      end
+      let :params do
+        {
+          :command   => 'install',
+          :multicore => '17'
+        }
+      end
+      it {
+        should contain_exec('ruby_bundle_install').with({
+          'command'     => 'bundle --jobs 4 install',
+          'environment' => 'RAILS_ENV=production',
+          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
+          'unless'      => 'bundle check',
+          'require'     => 'Package[bundler]'
+        })
+      }
+    end
+    context 'with the update command with multicore 0' do
+      let :title do
+        'update'
+      end
+      let :params do
+        {
+          :command   => 'update',
+          :multicore => '0'
+        }
+      end
+      it {
+        should contain_exec('ruby_bundle_update').with({
+          'command'     => 'bundle --jobs 4 update',
+          'environment' => 'RAILS_ENV=production',
+          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
+          'unless'      => 'bundle outdated',
+          'require'     => 'Package[bundler]'
+        })
+      }
+    end
+    context 'with the update command with multicore less than max' do
+      let :title do
+        'update'
+      end
+      let :params do
+        {
+          :command   => 'update',
+          :multicore => '3'
+        }
+      end
+      it {
+        should contain_exec('ruby_bundle_update').with({
+          'command'     => 'bundle --jobs 3 update',
+          'environment' => 'RAILS_ENV=production',
+          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
+          'unless'      => 'bundle outdated',
+          'require'     => 'Package[bundler]'
+        })
+      }
+    end
+    context 'with the update command with multicore greater than max' do
+      let :title do
+        'update'
+      end
+      let :params do
+        {
+          :command   => 'update',
+          :multicore => '17'
+        }
+      end
+      it {
+        should contain_exec('ruby_bundle_update').with({
+          'command'     => 'bundle --jobs 4 update',
+          'environment' => 'RAILS_ENV=production',
+          'path'        => ['/usr/bin','/bin','/usr/sbin','/sbin'],
           'unless'      => 'bundle outdated',
           'require'     => 'Package[bundler]'
         })
