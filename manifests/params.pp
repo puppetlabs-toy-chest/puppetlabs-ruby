@@ -18,10 +18,13 @@ class ruby::params {
     'Debian': {
       $ruby_dev             = [ 'ruby-dev', 'rake', 'ri', 'ruby-bundler', 'pkg-config' ]
       $rubygems_update      = false
+      $ruby_bin_base        = '/usr/bin/ruby'
+      $ruby_gem_base        = '/usr/bin/gem'
+      $gem_integration_package = 'rubygems-integration'
       case $::operatingsystemrelease {
         '14.04': {
           #Ubuntu 14.04 changed ruby/rubygems to be all in one package. Specifying these as defaults will permit the module to behave as anticipated.
-          $ruby_package     = 'ruby1.9.1'
+          $ruby_package     = 'ruby'
           $rubygems_package = 'ruby1.9.1-full'
         }
         default: {
