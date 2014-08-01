@@ -245,7 +245,7 @@ class ruby (
             }
           }
         }
-        # update-alternatives does not support ruby in 14.04! 
+        # update-alternatives does not support ruby in 14.04!
         file{'ruby_bin':
           ensure  => link,
           path    => $::ruby::params::ruby_bin_base,
