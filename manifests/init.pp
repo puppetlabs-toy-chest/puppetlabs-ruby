@@ -172,13 +172,13 @@ class ruby (
       ensure   => $gems_version,
       provider => 'gem',
       require  => Package['rubygems'],
+      notify   => Exec['ruby::update_rubygems'],
     }
 
     exec { 'ruby::update_rubygems':
       path        => '/usr/local/bin:/usr/bin:/bin',
       command     => 'update_rubygems',
       refreshonly => true,
-      subscribe   => Package['rubygems-update'],
     }
   }
 

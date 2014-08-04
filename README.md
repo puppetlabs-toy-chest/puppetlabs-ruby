@@ -27,7 +27,21 @@ the rubygems package resource will be versioned from $gems_version
 * *rubygems_package*: (default rubygems) -
  Set the package name for rubygems
 
-* *switch*: Installs `ruby-switch` and uses this to set the installed package as the system default. This may not be available for all distributions.
+* *ruby_dev_packages*: (default undefined) This sets the list of development packages passed to `ruby::dev`.
+
+* *suppress_warnings*: (default false) This suppresses warnings when a package is not expected to be available for a specific Ruby version for specific Ubuntu\Debian distributions and releases, but when a repository is provided that supplies the unnatural packages.
+
+* *set_system_default*: (default false) This sets the system default ruby and gem binaries to that specified by the `version` parameter. Only supported in Debian and Ubuntu.
+
+* *system_default_bin*: (default undefined) This sets a custom ruby binary used by the `set_system_default` parameter. To be used when a custom ruby package is supplied.
+
+* *system_default_gem*: (default undefined) This sets a custom gem binary used by the `set_system_default` parameter. To be used when a custom ruby or rubygems package is supplied.
+
+* *gem_integration*: (default false) Install the `rubygems_integration` package for Debian/Ubuntu that provides some integration between gems and distribution packages. Only supported in Debian and Ubuntu.
+
+* *gem_integration_package*: (default false) Specifies a custom `rubygems-integration` package.
+
+* *switch*: This parameter is depreciated, but continued for compatibility. Has the same function as `set_system_default`.
 
 ### Usage
 
