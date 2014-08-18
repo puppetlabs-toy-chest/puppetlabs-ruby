@@ -18,7 +18,22 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
-          should contain_package('rubygems-bundler').with({
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
             'ensure' => 'installed',
           })
         }
@@ -33,14 +48,29 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
-          should contain_package('rubygems-bundler').with({
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
             'ensure' => 'latest',
           })
         }
       end
       context 'when using custom packages' do
         let :params do
-          { :ruby_dev_packages  => ['magic-ruby-dev','rubygems-bundler'] }
+          { :ruby_dev_packages  => ['magic-ruby-dev','rubygem-rake'] }
         end
         it {
           should contain_package('magic-ruby-dev').with({
@@ -48,12 +78,21 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
-          should contain_package('rubygems-bundler').with({
+          should contain_package('rubygem-rake').with({
             'ensure' => 'installed',
           })
         }
         it {
           should_not contain_package('ruby-devel')
+        }
+        it {
+          should_not contain_package('ruby-rdoc')
+        }
+        it {
+          should_not contain_package('ruby-irb')
+        }
+        it {
+          should_not contain_package('ruby-ri')
         }
       end
     end
