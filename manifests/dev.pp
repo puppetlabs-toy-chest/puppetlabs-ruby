@@ -22,7 +22,7 @@ class ruby::dev (
   validate_re($ensure,['^installed$','^present$','^absent$','^latest$'])
 
   case $::osfamily {
-    Debian: {
+    'Debian': {
       if $ruby_dev_packages {
         $ruby_dev = $ruby_dev_packages
       } else {
@@ -78,7 +78,24 @@ class ruby::dev (
     }
   }
 
+  # The "version" switch seems to do nothing on a non-Debian distro. This is
+  # probably the safest behavior for the moment, since RedHat doesn't change
+  # the ruby package name the way Debian does when new versions become
+  # available. It's a bit misleading for the user, though, since they can
+  # specify a version and it will just silently continue installing the
+  # default version.
   package { $ruby_dev:
     ensure => $ensure,
   }
+
+  # This block specifically covers the case where there is no distro-provided
+  # package for bundler. We install it using gem instead. Right now, this is
+  # done on RedHat and Amazon (see params.pp).
+  if $ruby_dev_gems {
+    package { $ruby_dev_gems:
+      ensure => $ensure,
+      provider => gem,
+    }
+  }
+
 }

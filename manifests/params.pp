@@ -8,13 +8,14 @@ class ruby::params {
   $ruby_switch_package  = 'ruby-switch'
 
   case $::osfamily {
-    'redhat', 'amazon': {
+    'RedHat', 'Amazon': {
       $ruby_dev             = ['ruby-devel', 'rubygem-rake', 'ruby-rdoc', 'ruby-irb', 'ruby-ri']
+      $ruby_dev_gems        = ['rubygems-bundler']
       $rubygems_update      = true
       $ruby_package         = 'ruby'
       $rubygems_package     = 'rubygems'
     }
-    'debian': {
+    'Debian': {
       $ruby_dev             = [ 'ruby-dev', 'rake', 'ri', 'ruby-bundler', 'pkg-config' ]
       $rubygems_update      = false
       case $::operatingsystemrelease {

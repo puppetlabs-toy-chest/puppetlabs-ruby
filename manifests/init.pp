@@ -94,7 +94,7 @@ class ruby (
   }
 
   case $::osfamily {
-    Debian: {
+    'Debian': {
       case $ruby_package {
         installed: {
           $real_ruby_package  = $ruby_package
@@ -125,6 +125,12 @@ class ruby (
     }
   }
 
+  # The "version" switch seems to do nothing on a non-Debian distro. This is
+  # probably the safest behavior for the moment, since RedHat doesn't change
+  # the ruby package name the way Debian does when new versions become
+  # available. It's a bit misleading for the user, though, since they can
+  # specify a version and it will just silently continue installing the
+  # default version.
   package { 'ruby':
     ensure => $ruby_package_ensure,
     name   => $real_ruby_package,
@@ -163,7 +169,7 @@ class ruby (
 
   if $switch {
     case $::operatingsystem {
-      Ubuntu: {
+      'Ubuntu': {
         if versioncmp($::lsbdistrelease, '14.04') < 0 {
           package{'ruby-switch':
             ensure  => installed,
