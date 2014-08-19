@@ -13,8 +13,7 @@
 #
 class ruby::dev (
   $ensure             = 'installed',
-  $ruby_dev_packages  = undef,
-  $ruby_dev_gems      = undef
+  $ruby_dev_packages  = undef
 ) inherits ruby::params {
   require ruby
 
@@ -70,17 +69,17 @@ class ruby::dev (
         }
       }
     }
-    default: {
+    'RedHat', 'Amazon': {
+      # This specifically covers the case where there is no distro-provided
+      # package for bundler. We install it using gem instead. Right now, this is
+      # only set on RedHat and Amazon (see params.pp).
+      $ruby_dev_gems = $::ruby::params::ruby_dev_gems
+
       if $ruby_dev_packages {
         $ruby_dev = $ruby_dev_packages
       } else {
         $ruby_dev = $::ruby::params::ruby_dev
       }
-
-      # This specifically covers the case where there is no distro-provided
-      # package for bundler. We install it using gem instead. Right now, this is
-      # done on RedHat and Amazon (see params.pp).
-      $ruby_dev_gems = $::ruby::params::ruby_dev_gems
     }
   }
 
