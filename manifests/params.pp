@@ -10,7 +10,7 @@ class ruby::params {
   case $::osfamily {
     'RedHat', 'Amazon': {
       $ruby_dev             = ['ruby-devel', 'rubygem-rake', 'ruby-rdoc', 'ruby-irb', 'ruby-ri']
-      $ruby_dev_gems        = ['rubygems-bundler']
+      $ruby_dev_gems        = ['bundler', 'rubygems-bundler']
       $rubygems_update      = true
       $ruby_package         = 'ruby'
       $rubygems_package     = 'rubygems'

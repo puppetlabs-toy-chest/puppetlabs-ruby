@@ -13,7 +13,8 @@
 #
 class ruby::dev (
   $ensure             = 'installed',
-  $ruby_dev_packages  = undef
+  $ruby_dev_packages  = undef,
+  $ruby_dev_gems      = undef
 ) inherits ruby::params {
   require ruby
 
@@ -93,7 +94,7 @@ class ruby::dev (
   # done on RedHat and Amazon (see params.pp).
   if $ruby_dev_gems {
     package { $ruby_dev_gems:
-      ensure => $ensure,
+      ensure   => $ensure,
       provider => gem,
     }
   }

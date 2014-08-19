@@ -154,9 +154,9 @@ class ruby (
 
   if $rubygems_update {
     package { 'rubygems-update':
-      ensure    => $gems_version,
-      provider  => 'gem',
-      require   => Package['rubygems'],
+      ensure   => $gems_version,
+      provider => 'gem',
+      require  => Package['rubygems'],
     }
 
     exec { 'ruby::update_rubygems':

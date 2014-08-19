@@ -38,6 +38,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
@@ -73,6 +78,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'latest',
           })
@@ -89,6 +99,11 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
             'ensure' => 'installed',
           })
         }
@@ -149,6 +164,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
@@ -184,6 +204,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'latest',
           })
@@ -200,6 +225,11 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
             'ensure' => 'installed',
           })
         }
@@ -361,6 +391,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
@@ -396,6 +431,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'latest',
           })
@@ -412,6 +452,11 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
             'ensure' => 'installed',
           })
         }
@@ -472,6 +517,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
@@ -507,6 +557,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'latest',
           })
@@ -523,6 +578,11 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
             'ensure' => 'installed',
           })
         }
@@ -684,6 +744,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
@@ -719,6 +784,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'latest',
           })
@@ -735,6 +805,11 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
             'ensure' => 'installed',
           })
         }
@@ -795,6 +870,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
@@ -830,6 +910,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'latest',
           })
@@ -846,6 +931,11 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
             'ensure' => 'installed',
           })
         }
@@ -1007,6 +1097,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
@@ -1042,6 +1137,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'latest',
           })
@@ -1058,6 +1158,11 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
             'ensure' => 'installed',
           })
         }
@@ -1118,6 +1223,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
@@ -1153,6 +1263,11 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'latest',
           })
@@ -1169,6 +1284,11 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
             'ensure' => 'installed',
           })
         }

@@ -5,6 +5,9 @@ require 'puppet-lint/tasks/puppet-lint'
 PuppetLint.configuration.send('disable_80chars')
 PuppetLint.configuration.send('disable_class_parameter_defaults')
 PuppetLint.configuration.send('disable_class_inherits_from_params_class')
+# No idea why the next line is necessary, because it looks like everything is
+# right, but we get errors anyway.
+PuppetLint.configuration.send('disable_autoloader_layout')
 PuppetLint.configuration.ignore_paths = ["spec/**/*.pp", "pkg/**/*.pp", "tests/**/*.pp"]
 
 desc 'Check for puppet syntax errors.'
