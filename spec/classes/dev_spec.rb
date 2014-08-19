@@ -18,6 +18,31 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
@@ -33,6 +58,31 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'latest',
           })
@@ -40,10 +90,20 @@ describe 'ruby::dev', :type => :class do
       end
       context 'when using custom packages' do
         let :params do
-          { :ruby_dev_packages  => ['magic-ruby-dev','rubygems-bundler'] }
+          { :ruby_dev_packages  => ['magic-ruby-devel','magic-rubygem-rake'] }
         end
         it {
-          should contain_package('magic-ruby-dev').with({
+          should contain_package('magic-ruby-devel').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
             'ensure' => 'installed',
           })
         }
@@ -54,6 +114,18 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should_not contain_package('ruby-devel')
+        }
+        it {
+          should_not contain_package('rubygem-rake')
+        }
+        it {
+          should_not contain_package('ruby-rdoc')
+        }
+        it {
+          should_not contain_package('ruby-irb')
+        }
+        it {
+          should_not contain_package('ruby-ri')
         }
       end
     end
@@ -72,9 +144,114 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
+        }
+      end
+      context 'when using latest version' do
+        let :params do
+          { :ensure  => 'latest' }
+        end
+        it {
+          should contain_package('ruby-devel').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+      end
+      context 'when using custom packages' do
+        let :params do
+          { :ruby_dev_packages  => ['magic-ruby-devel','magic-rubygem-rake'] }
+        end
+        it {
+          should contain_package('magic-ruby-devel').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should_not contain_package('ruby-devel')
+        }
+        it {
+          should_not contain_package('rubygem-rake')
+        }
+        it {
+          should_not contain_package('ruby-rdoc')
+        }
+        it {
+          should_not contain_package('ruby-irb')
+        }
+        it {
+          should_not contain_package('ruby-ri')
         }
       end
     end
@@ -194,6 +371,31 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
@@ -209,6 +411,31 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'latest',
           })
@@ -216,10 +443,20 @@ describe 'ruby::dev', :type => :class do
       end
       context 'when using custom packages' do
         let :params do
-          { :ruby_dev_packages  => ['magic-ruby-dev','rubygems-bundler'] }
+          { :ruby_dev_packages  => ['magic-ruby-devel','magic-rubygem-rake'] }
         end
         it {
-          should contain_package('magic-ruby-dev').with({
+          should contain_package('magic-ruby-devel').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
             'ensure' => 'installed',
           })
         }
@@ -230,6 +467,18 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should_not contain_package('ruby-devel')
+        }
+        it {
+          should_not contain_package('rubygem-rake')
+        }
+        it {
+          should_not contain_package('ruby-rdoc')
+        }
+        it {
+          should_not contain_package('ruby-irb')
+        }
+        it {
+          should_not contain_package('ruby-ri')
         }
       end
     end
@@ -248,12 +497,118 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
         }
       end
+      context 'when using latest version' do
+        let :params do
+          { :ensure  => 'latest' }
+        end
+        it {
+          should contain_package('ruby-devel').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+      end
+      context 'when using custom packages' do
+        let :params do
+          { :ruby_dev_packages  => ['magic-ruby-devel','magic-rubygem-rake'] }
+        end
+        it {
+          should contain_package('magic-ruby-devel').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should_not contain_package('ruby-devel')
+        }
+        it {
+          should_not contain_package('rubygem-rake')
+        }
+        it {
+          should_not contain_package('ruby-rdoc')
+        }
+        it {
+          should_not contain_package('ruby-irb')
+        }
+        it {
+          should_not contain_package('ruby-ri')
+        }
+      end
     end
+
     describe 'when called on Debian' do
       let (:facts) do
         {
@@ -369,6 +724,31 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
@@ -384,6 +764,31 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'latest',
           })
@@ -391,10 +796,20 @@ describe 'ruby::dev', :type => :class do
       end
       context 'when using custom packages' do
         let :params do
-          { :ruby_dev_packages  => ['magic-ruby-dev','rubygems-bundler'] }
+          { :ruby_dev_packages  => ['magic-ruby-devel','magic-rubygem-rake'] }
         end
         it {
-          should contain_package('magic-ruby-dev').with({
+          should contain_package('magic-ruby-devel').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
             'ensure' => 'installed',
           })
         }
@@ -405,6 +820,18 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should_not contain_package('ruby-devel')
+        }
+        it {
+          should_not contain_package('rubygem-rake')
+        }
+        it {
+          should_not contain_package('ruby-rdoc')
+        }
+        it {
+          should_not contain_package('ruby-irb')
+        }
+        it {
+          should_not contain_package('ruby-ri')
         }
       end
     end
@@ -423,12 +850,118 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
         }
       end
+      context 'when using latest version' do
+        let :params do
+          { :ensure  => 'latest' }
+        end
+        it {
+          should contain_package('ruby-devel').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+      end
+      context 'when using custom packages' do
+        let :params do
+          { :ruby_dev_packages  => ['magic-ruby-devel','magic-rubygem-rake'] }
+        end
+        it {
+          should contain_package('magic-ruby-devel').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should_not contain_package('ruby-devel')
+        }
+        it {
+          should_not contain_package('rubygem-rake')
+        }
+        it {
+          should_not contain_package('ruby-rdoc')
+        }
+        it {
+          should_not contain_package('ruby-irb')
+        }
+        it {
+          should_not contain_package('ruby-ri')
+        }
+      end
     end
+
     describe 'when called on Debian' do
       let (:facts) do
         {
@@ -544,6 +1077,31 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
@@ -559,6 +1117,31 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'latest',
           })
@@ -566,10 +1149,20 @@ describe 'ruby::dev', :type => :class do
       end
       context 'when using custom packages' do
         let :params do
-          { :ruby_dev_packages  => ['magic-ruby-dev','rubygems-bundler'] }
+          { :ruby_dev_packages  => ['magic-ruby-devel','magic-rubygem-rake'] }
         end
         it {
-          should contain_package('magic-ruby-dev').with({
+          should contain_package('magic-ruby-devel').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
             'ensure' => 'installed',
           })
         }
@@ -580,6 +1173,18 @@ describe 'ruby::dev', :type => :class do
         }
         it {
           should_not contain_package('ruby-devel')
+        }
+        it {
+          should_not contain_package('rubygem-rake')
+        }
+        it {
+          should_not contain_package('ruby-rdoc')
+        }
+        it {
+          should_not contain_package('ruby-irb')
+        }
+        it {
+          should_not contain_package('ruby-ri')
         }
       end
     end
@@ -598,12 +1203,118 @@ describe 'ruby::dev', :type => :class do
           })
         }
         it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
           should contain_package('rubygems-bundler').with({
             'ensure' => 'installed',
           })
         }
       end
+      context 'when using latest version' do
+        let :params do
+          { :ensure  => 'latest' }
+        end
+        it {
+          should contain_package('ruby-devel').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('rubygem-rake').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-rdoc').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-irb').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('ruby-ri').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'latest',
+          })
+        }
+      end
+      context 'when using custom packages' do
+        let :params do
+          { :ruby_dev_packages  => ['magic-ruby-devel','magic-rubygem-rake'] }
+        end
+        it {
+          should contain_package('magic-ruby-devel').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('magic-rubygem-rake').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should contain_package('rubygems-bundler').with({
+            'ensure' => 'installed',
+          })
+        }
+        it {
+          should_not contain_package('ruby-devel')
+        }
+        it {
+          should_not contain_package('rubygem-rake')
+        }
+        it {
+          should_not contain_package('ruby-rdoc')
+        }
+        it {
+          should_not contain_package('ruby-irb')
+        }
+        it {
+          should_not contain_package('ruby-ri')
+        }
+      end
     end
+
     describe 'when called on Debian' do
       let (:facts) do
         {
