@@ -76,6 +76,11 @@ class ruby::dev (
       } else {
         $ruby_dev = $::ruby::params::ruby_dev
       }
+
+      # This specifically covers the case where there is no distro-provided
+      # package for bundler. We install it using gem instead. Right now, this is
+      # done on RedHat and Amazon (see params.pp).
+      $ruby_dev_gems = $::ruby::params::ruby_dev_gems
     }
   }
 
@@ -89,9 +94,6 @@ class ruby::dev (
     ensure => $ensure,
   }
 
-  # This block specifically covers the case where there is no distro-provided
-  # package for bundler. We install it using gem instead. Right now, this is
-  # done on RedHat and Amazon (see params.pp).
   if $ruby_dev_gems {
     package { $ruby_dev_gems:
       ensure   => $ensure,
