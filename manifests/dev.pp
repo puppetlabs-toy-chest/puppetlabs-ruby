@@ -4,22 +4,47 @@
 #
 # Parameters:
 #
+# [*ensure*]
+# (default is 'installed') This parameter sets the `ensure` parameter for all the Ruby development packages.
+# [*ruby_dev_packages*]
+# (default is depends on OS distribution) This parameter replaces the list of default Ruby development packages.
+# [*rake_ensure*]
+# (default is 'installed') This sets the `ensure` parameter of the rake package.
+# [*rake_package*]
+# (default depends on OS distribution) This parameter replaces the default rake package.
+# [*bundler_ensure*]
+# (default is 'installed') This sets the `ensure` parameter of the bundler package.
+# [*bundler_package*]
+# (default is depends on OS distribution) This parameter replaces the default bundler package.
+#
 # Actions:
-#   - Install RDoc, IRB, Rake and development libraries
+#   - Install RDoc, IRB, and development libraries
+#   - Optionally install Rake and Bundler (installed by default)
 #
 # Requires:
 #
+#   - Ruby
+#
 # Sample Usage:
+#
+# include ruby
+# include ruby::dev
 #
 class ruby::dev (
   $ensure             = 'installed',
-  $ruby_dev_packages  = undef
+  $ruby_dev_packages  = undef,
+  $rake_ensure        = 'installed',
+  $rake_package       = $ruby::params::rake_package,
+  $bundler_ensure     = 'installed',
+  $bundler_package    = $ruby::params::bundler_package,
+  $bundler_provider   = $ruby::params::bundler_provider,
 ) inherits ruby::params {
   require ruby
 
   # as the package ensure covers _multiple_ packages
   # specifying a version may cause issues.
-  validate_re($ensure,['^installed$','^present$','^absent$','^latest$'])
+  validate_re($ensure,['^installed$', '^present$', '^absent$', '^latest$'])
+  validate_re($bundler_provider,['^gem$','^apt$'])
 
   case $::osfamily {
     'Debian': {
@@ -31,8 +56,6 @@ class ruby::dev (
             $ruby_dev = [
               'ruby1.8-dev',
               'ri1.8',
-              'rake',
-              'ruby-bundler',
               'pkg-config'
             ]
           }
@@ -40,8 +63,6 @@ class ruby::dev (
             $ruby_dev = [
               'ruby1.9.1-dev',
               'ri1.9.1',
-              'rake',
-              'ruby-bundler',
               'pkg-config'
             ]
           }
@@ -49,8 +70,6 @@ class ruby::dev (
             $ruby_dev = [
               'ruby2.0-dev',
               'ri',
-              'rake',
-              'ruby-bundler',
               'pkg-config'
             ]
           }
@@ -58,8 +77,6 @@ class ruby::dev (
             $ruby_dev = [
               'ruby2.0-dev',
               'ri',
-              'rake',
-              'ruby-bundler',
               'pkg-config'
             ]
           }
@@ -90,7 +107,22 @@ class ruby::dev (
   # specify a version and it will just silently continue installing the
   # default version.
   package { $ruby_dev:
-    ensure => $ensure,
+    ensure  => $ensure,
+    before  => Package['rake', 'bundler'],
+    require => Package['ruby'],
+  }
+
+  package { 'rake':
+    ensure  => $rake_ensure,
+    name    => $rake_package,
+    require => Package['ruby'],
+  }
+
+  package { 'bundler':
+    ensure    => $bundler_ensure,
+    name      => $bundler_package,
+    provider  => $bundler_provider,
+    require   => Package['ruby'],
   }
 
   if $ruby_dev_gems {

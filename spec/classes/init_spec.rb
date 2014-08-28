@@ -464,4 +464,17 @@ describe 'ruby', :type => :class do
     }
   end
 
+  describe 'on an Unknown OS' do
+    let :facts do
+      {
+        :osfamily   => 'Unknown',
+      }
+    end
+    it do
+      expect {
+        should contain_class('puppet::params')
+      }.to raise_error(Puppet::Error, /Unsupported OS family: Unknown/)
+    end
+  end
+
 end
