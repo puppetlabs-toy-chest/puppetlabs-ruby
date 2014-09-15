@@ -26,7 +26,7 @@ class ruby::params {
         'pkg-config'
       ]
       $rake_package     = 'rake'
-      $bundler_package  = 'ruby-bundler'
+      $bundler_package  = 'bundler'
       $bundler_provider = 'apt'
       $rubygems_update  = false
       $ruby_gem_base    = '/usr/bin/gem'
