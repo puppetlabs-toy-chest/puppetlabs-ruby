@@ -26,15 +26,7 @@ class ruby::params {
         'pkg-config'
       ]
       $rake_package     = 'rake'
-      case $::lsbmajdistrelease {
-        '6': {
-          #Squeeze doesn't package bundler
-          $bundler_provider = 'gem'
-        }
-        default: {
-          $bundler_provider = 'apt'
-        }
-      }
+      $bundler_provider = 'gem'
       $bundler_package  = 'bundler'
       $rubygems_update  = false
       $ruby_gem_base    = '/usr/bin/gem'
