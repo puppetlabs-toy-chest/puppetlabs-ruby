@@ -118,6 +118,7 @@ class ruby::dev (
     require => Package['ruby'],
   }
 
+  notify { "BUNDLER PROVIDER IS #{bundler_provider}!!!!!!!!!!!!!!!!": }
   package { 'bundler':
     ensure    => $bundler_ensure,
     name      => $bundler_package,
