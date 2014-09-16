@@ -1,3 +1,31 @@
+2014-09-16 Release 0.3.0
+
+Summary:
+
+This release includes many new features and improvements, including better
+handling for bundler and rake.
+
+Special thanks to Aaron Hicks for his hard work improving this module!
+
+Features:
+- Added `$ruby_dev_gems` parameter to `ruby::dev`
+- Added the following params to `ruby`
+  - `$suppress_warnings`
+  - `$set_system_default`
+  - `$system_default_bin`
+  - `$system_default_gem`
+  - `$gem_integration`
+  - `$gem_integration_package`
+- Manage rake and bundler separately from core ruby packages with the addition
+of ruby::bundle and ruby::rake
+- Deprecated `$switch` in favor of `$set_system_default`
+- Improved testing and documentation
+
+Fixes:
+- Fix package name to be 'bundler' instead of 'ruby-bundler' for Debian/Ubuntu
+- Fix package list defaults for RHEL5 and RHEL6
+- Fix package logic for trusty
+
 2014-07-15 Release 0.2.1
 
 Summary:
@@ -24,8 +52,6 @@ Fixes:
 - Fix for selecting the right package name when using versions.
 - Ruby-switch is gone from Ubuntu 14.04 onwards.
 - Fixes to ruby-switch in general.
-
-
 
 2013-10-09 - Version 0.1.1
 
