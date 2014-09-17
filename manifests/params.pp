@@ -27,10 +27,14 @@ class ruby::params {
       ]
       $rake_package     = 'rake'
       $bundler_provider = 'gem'
-      $bundler_package  = 'bundler'
       $rubygems_update  = false
       $ruby_gem_base    = '/usr/bin/gem'
       $ruby_bin_base    = '/usr/bin/ruby'
+      if $::operatingsystemmajrelease == '12.04' {
+        $bundler_package = 'ruby-bundler'
+      } else {
+        $bundler_package = 'bundler'
+      }
       case $::operatingsystemrelease {
         '14.04': {
           #Ubuntu 14.04 changed ruby/rubygems to be all in one package. Specifying these as defaults will permit the module to behave as anticipated.
