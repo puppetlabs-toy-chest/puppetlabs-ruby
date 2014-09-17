@@ -26,14 +26,11 @@ class ruby::params {
         'pkg-config'
       ]
       $rake_package     = 'rake'
-      $bundler_provider = 'gem'
       $rubygems_update  = false
       $ruby_gem_base    = '/usr/bin/gem'
       $ruby_bin_base    = '/usr/bin/ruby'
-      if $::operatingsystemmajrelease == '12.04' {
-        $bundler_package = 'ruby-bundler'
-      } else {
-        $bundler_package = 'bundler'
+      $bundler_package = 'bundler'
+      $bundler_provider = 'gem'
       }
       case $::operatingsystemrelease {
         '14.04': {
