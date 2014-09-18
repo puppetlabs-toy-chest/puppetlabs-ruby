@@ -26,11 +26,11 @@ class ruby::params {
         'pkg-config'
       ]
       $rake_package     = 'rake'
-      $bundler_provider = 'gem'
-      $bundler_package  = 'bundler'
       $rubygems_update  = false
       $ruby_gem_base    = '/usr/bin/gem'
       $ruby_bin_base    = '/usr/bin/ruby'
+      $bundler_package  = 'bundler'
+      $bundler_provider = 'gem'
       case $::operatingsystemrelease {
         '10.04': {
           $bundler_enable = '0.9.9'
