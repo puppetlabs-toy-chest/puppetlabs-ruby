@@ -34,6 +34,8 @@ class ruby::params {
       case $::operatingsystemrelease {
         '10.04': {
           $bundler_enable = '0.9.9'
+          $ruby_package     = 'ruby'
+          $rubygems_package = 'rubygems'
         }
         '14.04': {
           #Ubuntu 14.04 changed ruby/rubygems to be all in one package. Specifying these as defaults will permit the module to behave as anticipated.
