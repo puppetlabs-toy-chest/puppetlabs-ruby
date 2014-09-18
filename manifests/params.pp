@@ -32,6 +32,7 @@ class ruby::params {
         'pkg-config'
       ]
       $rake_package     = 'rake'
+      $rake_provider    = 'apt'
       $rubygems_update  = false
       $ruby_gem_base    = '/usr/bin/gem'
       $ruby_bin_base    = '/usr/bin/ruby'
