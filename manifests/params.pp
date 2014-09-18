@@ -15,7 +15,13 @@ class ruby::params {
       $rubygems_package = 'rubygems'
       $ruby_dev         = 'ruby-devel'
       $rubygems_update  = true
-      $rake_package     = 'rubygem-rake'
+      if $::operatingsystemrelease == 5 {
+        $rake_package  = 'rake'
+        $rake_provider = 'gem'
+      } else {
+        $rake_package     = 'rubygem-rake'
+        $rake_provider    = 'yum'
+      }
       $bundler_package  = 'bundler'
       $bundler_provider = 'gem'
     }
