@@ -184,7 +184,7 @@ describe 'ruby::dev', :type => :class do
           should contain_package('bundler').with({
             'ensure'    => 'installed',
             'name'      => 'bundler',
-            'provider'  => 'apt',
+            'provider'  => 'gem',
             'require'   => 'Package[ruby]',
           })
         }
@@ -345,7 +345,7 @@ describe 'ruby::dev', :type => :class do
           should contain_package('bundler').with({
             'ensure'    => 'installed',
             'name'      => 'bundler',
-            'provider'  => 'apt',
+            'provider'  => 'gem',
             'require'   => 'Package[ruby]',
           })
         }
@@ -507,7 +507,7 @@ describe 'ruby::dev', :type => :class do
           should contain_package('bundler').with({
             'ensure'    => 'installed',
             'name'      => 'bundler',
-            'provider'  => 'apt',
+            'provider'  => 'gem',
             'require'   => 'Package[ruby]',
           })
         }
@@ -669,7 +669,7 @@ describe 'ruby::dev', :type => :class do
           should contain_package('bundler').with({
             'ensure'    => 'installed',
             'name'      => 'bundler',
-            'provider'  => 'apt',
+            'provider'  => 'gem',
             'require'   => 'Package[ruby]',
           })
         }
