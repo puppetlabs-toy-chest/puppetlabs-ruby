@@ -22,6 +22,7 @@ class ruby::params {
         $rake_package     = 'rubygem-rake'
         $rake_provider    = 'yum'
       }
+      $bundler_ensure   = 'installed'
       $bundler_package  = 'bundler'
       $bundler_provider = 'gem'
     }
