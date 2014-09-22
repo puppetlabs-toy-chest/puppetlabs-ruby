@@ -15,7 +15,7 @@ class ruby::params {
       $rubygems_package = 'rubygems'
       $ruby_dev         = 'ruby-devel'
       $rubygems_update  = true
-      if $::operatingsystemrelease == 5 {
+      if $::operatingsystemmajrelease == 5 {
         $rake_ensure   = '10.3.2'
         $rake_package  = 'rake'
         $rake_provider = 'gem'
