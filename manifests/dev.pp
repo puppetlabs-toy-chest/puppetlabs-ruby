@@ -12,10 +12,14 @@
 # (default is 'installed') This sets the `ensure` parameter of the rake package.
 # [*rake_package*]
 # (default depends on OS distribution) This parameter replaces the default rake package.
+# [*rake_provider*]
+# (default depends on OS distribution) This parameter replaces the default rake provider.
 # [*bundler_ensure*]
 # (default is 'installed') This sets the `ensure` parameter of the bundler package.
 # [*bundler_package*]
 # (default is depends on OS distribution) This parameter replaces the default bundler package.
+# [*bundler_provider*]
+# (default depends on OS distribution) This parameter replaces the default bundler provider.
 #
 # Actions:
 #   - Install RDoc, IRB, and development libraries
