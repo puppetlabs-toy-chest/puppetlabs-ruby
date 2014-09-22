@@ -114,9 +114,10 @@ class ruby::dev (
   }
 
   package { 'rake':
-    ensure  => $rake_ensure,
-    name    => $rake_package,
-    require => Package['ruby'],
+    ensure   => $rake_ensure,
+    name     => $rake_package,
+    provider => $rake_provider,
+    require  => Package['ruby'],
   }
 
   package { 'bundler':
