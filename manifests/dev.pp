@@ -12,10 +12,14 @@
 # (default is 'installed') This sets the `ensure` parameter of the rake package.
 # [*rake_package*]
 # (default depends on OS distribution) This parameter replaces the default rake package.
+# [*rake_provider*]
+# (default depends on OS distribution) This parameter replaces the default rake provider.
 # [*bundler_ensure*]
 # (default is 'installed') This sets the `ensure` parameter of the bundler package.
 # [*bundler_package*]
 # (default is depends on OS distribution) This parameter replaces the default bundler package.
+# [*bundler_provider*]
+# (default depends on OS distribution) This parameter replaces the default bundler provider.
 #
 # Actions:
 #   - Install RDoc, IRB, and development libraries
@@ -33,9 +37,10 @@
 class ruby::dev (
   $ensure             = 'installed',
   $ruby_dev_packages  = undef,
-  $rake_ensure        = 'installed',
+  $rake_ensure        = $ruby::params::rake_ensure,
   $rake_package       = $ruby::params::rake_package,
-  $bundler_ensure     = 'installed',
+  $rake_provider      = $ruby::params::rake_provider,
+  $bundler_ensure     = $ruby::params::bundler_ensure,
   $bundler_package    = $ruby::params::bundler_package,
   $bundler_provider   = $ruby::params::bundler_provider,
 ) inherits ruby::params {
@@ -113,16 +118,17 @@ class ruby::dev (
   }
 
   package { 'rake':
-    ensure  => $rake_ensure,
-    name    => $rake_package,
-    require => Package['ruby'],
+    ensure   => $rake_ensure,
+    name     => $rake_package,
+    provider => $rake_provider,
+    require  => Package['ruby'],
   }
 
   package { 'bundler':
-    ensure    => $bundler_ensure,
-    name      => $bundler_package,
-    provider  => $bundler_provider,
-    require   => Package['ruby'],
+    ensure   => $bundler_ensure,
+    name     => $bundler_package,
+    provider => $bundler_provider,
+    require  => Package['ruby'],
   }
 
   if $ruby_dev_gems {
