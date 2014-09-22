@@ -33,7 +33,7 @@
 class ruby::dev (
   $ensure             = 'installed',
   $ruby_dev_packages  = undef,
-  $rake_ensure        = 'installed',
+  $rake_ensure        = $ruby::params::rake_ensure,
   $rake_package       = $ruby::params::rake_package,
   $rake_provider      = $ruby::params::rake_provider,
   $bundler_ensure     = $ruby::params::bundler_ensure,

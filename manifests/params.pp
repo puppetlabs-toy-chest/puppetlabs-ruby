@@ -16,9 +16,11 @@ class ruby::params {
       $ruby_dev         = 'ruby-devel'
       $rubygems_update  = true
       if $::operatingsystemrelease == 5 {
+        $rake_ensure   = '10.3.2'
         $rake_package  = 'rake'
         $rake_provider = 'gem'
       } else {
+        $rake_ensure      = 'installed'
         $rake_package     = 'rubygem-rake'
         $rake_provider    = 'yum'
       }
@@ -32,6 +34,7 @@ class ruby::params {
         'ri',
         'pkg-config'
       ]
+      $rake_ensure      = 'installed'
       $rake_package     = 'rake'
       $rake_provider    = 'apt'
       $rubygems_update  = false
