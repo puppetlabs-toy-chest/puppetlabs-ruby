@@ -125,10 +125,10 @@ class ruby::dev (
   }
 
   package { 'bundler':
-    ensure    => $bundler_ensure,
-    name      => $bundler_package,
-    provider  => $bundler_provider,
-    require   => Package['ruby'],
+    ensure   => $bundler_ensure,
+    name     => $bundler_package,
+    provider => $bundler_provider,
+    require  => Package['ruby'],
   }
 
   if $ruby_dev_gems {

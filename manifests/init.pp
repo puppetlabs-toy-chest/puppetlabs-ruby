@@ -183,7 +183,7 @@ class ruby (
   }
 
   if $set_system_default or $switch {
-    case $osfamily {
+    case $::osfamily {
       Debian: {
         if $system_default_bin {
           $real_default_bin = $system_default_bin
@@ -274,9 +274,9 @@ class ruby (
   }
 
   if $gem_integration {
-    case $osfamily {
+    case $::osfamily {
       Debian: {
-        if ! $suppress_warnings and $operatingsystem == 'Ubuntu' and versioncmp($::lsbdistrelease, '13.04') < 0 {
+        if ! $suppress_warnings and $::operatingsystem == 'Ubuntu' and versioncmp($::lsbdistrelease, '13.04') < 0 {
           warning('No package for rubygems_integration available from default repositories')
         }
         package{'rubygems_integration':

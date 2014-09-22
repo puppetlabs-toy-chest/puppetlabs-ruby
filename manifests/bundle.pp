@@ -145,22 +145,22 @@ define ruby::bundle
   }
 
   exec{"ruby_bundle_${name}":
-    command      => $real_command,
-    creates      => $creates,
-    cwd          => $cwd,
-    environment  => $real_environment,
-    user         => $user,
-    group        => $group,
-    logoutput    => $logoutput,
-    onlyif       => $onlyif,
-    path         => $real_path,
-    refresh      => $refresh,
-    refreshonly  => $refreshonly,
-    timeout      => $timeout,
-    tries        => $tries,
-    try_sleep    => $try_sleep,
-    unless       => $real_unless,
-    require      => Package['bundler']
+    command     => $real_command,
+    creates     => $creates,
+    cwd         => $cwd,
+    environment => $real_environment,
+    user        => $user,
+    group       => $group,
+    logoutput   => $logoutput,
+    onlyif      => $onlyif,
+    path        => $real_path,
+    refresh     => $refresh,
+    refreshonly => $refreshonly,
+    timeout     => $timeout,
+    tries       => $tries,
+    try_sleep   => $try_sleep,
+    unless      => $real_unless,
+    require     => Package['bundler']
   }
 
 }
