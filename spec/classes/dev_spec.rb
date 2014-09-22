@@ -17,21 +17,45 @@ describe 'ruby::dev', :type => :class do
             'ensure' => 'installed',
           })
         }
-        it {
-          should contain_package('rake').with({
-            'ensure'  => 'installed',
-            'name'    => 'rubygem-rake',
-            'require' => 'Package[ruby]',
+        context 'if on el 5 release' do
+          let(:facts) do
+            {
+              :osfamily                  => 'RedHat',
+              :operatingsystemmajrelease => '5',
+              :path                      => '/usr/local/bin:/usr/bin:/bin'
+            }
+          end
+          it {
+            should contain_package('rake').with({
+              'ensure'   => '10.3.2',
+              'name'     => 'rake',
+              'provider' => 'gem',
           })
         }
-        it {
-          should contain_package('bundler').with({
-            'ensure'    => 'installed',
-            'name'      => 'bundler',
-            'provider'  => 'gem',
-            'require'   => 'Package[ruby]',
-          })
-        }
+        end
+        context 'if on non-el5 release' do
+          let (:facts) do
+            {
+              :osfamily => 'Redhat',
+              :path     => '/usr/local/bin:/usr/bin:/bin'
+            }
+          end
+          it {
+            should contain_package('rake').with({
+              'ensure'  => 'installed',
+              'name'    => 'rubygem-rake',
+              'require' => 'Package[ruby]',
+            })
+          }
+          it {
+            should contain_package('bundler').with({
+              'ensure'    => 'installed',
+              'name'      => 'bundler',
+              'provider'  => 'gem',
+              'require'   => 'Package[ruby]',
+            })
+          }
+        end
       end
       context 'when using latest version' do
         let :params do
@@ -180,14 +204,57 @@ describe 'ruby::dev', :type => :class do
             'require' => 'Package[ruby]',
           })
         }
-        it {
-          should contain_package('bundler').with({
-            'ensure'    => 'installed',
-            'name'      => 'bundler',
-            'provider'  => 'gem',
-            'require'   => 'Package[ruby]',
-          })
-        }
+        context 'when on Ubuntu 10.04' do
+          let (:facts) do
+            {
+              :osfamily =>               'Debian',
+              :operatingsystemrelease => '10.04',
+              :path =>                   '/usr/local/bin:/usr/bin:/bin'
+            }
+          end
+          it {
+            should contain_package('bundler').with({
+              'ensure'           => '0.9.9',
+              'name'             => 'bundler',
+              'provider'         => 'gem',
+              'require'          => 'Package[ruby]'
+            })
+          }
+        end
+        context 'when on Ubuntu 14.04' do
+          let (:facts) do
+            {
+              :osfamily =>               'Debian',
+              :operatingsystemrelease => '14.04',
+              :path =>                   '/usr/local/bin:/usr/bin:/bin'
+            }
+          end
+          it {
+            should contain_package('bundler').with({
+              'ensure'           => 'installed',
+              'name'             => 'bundler',
+              'provider'         => 'gem',
+              'require'          => 'Package[ruby]'
+            })
+          }
+        end
+        context 'when on other Debian or Ubuntu' do
+          let (:facts) do
+            {
+              :osfamily =>               'Debian',
+              :operatingsystemrelease => '14.04',
+              :path =>                   '/usr/local/bin:/usr/bin:/bin'
+            }
+          end
+          it {
+            should contain_package('bundler').with({
+              'ensure'    => 'installed',
+              'name'      => 'bundler',
+              'provider'  => 'gem',
+              'require'   => 'Package[ruby]',
+            })
+          }
+        end
       end
       context 'when using latest version' do
         let :params do
