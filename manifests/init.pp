@@ -10,7 +10,7 @@
 #  gems_version: (default installed)
 #    Set the version of Rubygems to be installed
 #
-#  rubygems_update: (default true)
+#  rubygems_update: (default false)
 #    If set to true, the module will ensure that the rubygems package is
 #    installed but will use rubygems-update (same as gem update --system
 #    but versionable) to update Rubygems to the version defined in
@@ -26,34 +26,46 @@
 # Actions:
 #   - Install Ruby
 #   - Install Rubygems
-#   - Update Rubygems
+#   - Optionally Update Rubygems
 #
 # Requires:
 #
 # Sample Usage:
 #
 #  For a standard install using the latest Rubygems provided by
-#  rubygems-update on Redhat use:
+#  rubygems *without update* on Redhat use:
 #
 #    class { 'ruby':
 #      gems_version  => 'latest',
 #    }
 #
-#  On Redhat this is equivilant to
+#  On Redhat this is equivalent to
 #    $ yum install ruby rubygems
+#
+#  To install a specific version of ruby and then call
+#  gem update, use:
+#
+#    class { 'ruby':
+#      version         => '1.8.7',
+#      rubygems_update => true,
+#    }
+#
+#  On RedHat this is equivalent to
+#    $ yum install ruby-1.8.7 rubygems
 #    $ gem update --system
 #
 #  To install a specific version of ruby and rubygems
-#  but *not* use rubygems-update use:
+#  use:
 #
 #    class { 'ruby':
 #      version         => '1.8.7',
 #      gems_version    => '1.8.24',
-#      rubygems_update => false,
+#      rubygems_update => true,
 #    }
 #
 #  On Redhat this is equivalent to
 #    $ yum install ruby-1.8.7 rubygems-1.8.24
+#    $ gem update --system
 #
 #  If you need to use different packages for either ruby or rubygems you
 #  can. This could be for different versions or custom packages. For instance

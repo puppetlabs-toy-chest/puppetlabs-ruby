@@ -14,7 +14,7 @@ class ruby::params {
       $ruby_package     = 'ruby'
       $rubygems_package = 'rubygems'
       $ruby_dev         = 'ruby-devel'
-      $rubygems_update  = false,
+      $rubygems_update  = false
       if $::operatingsystemmajrelease == 5 {
         $rake_ensure   = '10.3.2'
         $rake_package  = 'rake'
