@@ -21,26 +21,36 @@ describe 'ruby', :type => :class do
         'require' => 'Package[ruby]',
       })
     }
-    it {
-      should contain_package('rubygems-update').with({
-        'ensure'    => 'installed',
-        'require'   => 'Package[rubygems]',
-        'provider'  => 'gem',
-        'notify'    => 'Exec[ruby::update_rubygems]'
-      })
-    }
-    it {
-      should contain_exec('ruby::update_rubygems').with({
-        'path'        => '/usr/local/bin:/usr/bin:/bin',
-        'command'     => 'update_rubygems',
-        'refreshonly' => true
-      })
-    }
     it { should_not contain_package('ruby-switch') }
     it { should_not contain_package('rubygems-integration') }
+    it { should_not contain_package('rubygems-update') }
+    it { should_not contain_exec('ruby::update_rubygems') }
     it { should_not contain_exec('switch_ruby') }
     it { should_not contain_file('ruby_bin') }
     it { should_not contain_file('gem_bin') }
+
+    describe 'when passed true to update rubygems' do
+      let :params do
+        {
+          :rubygems_update => 'true'
+        }
+      end
+      it {
+        should contain_package('rubygems-update').with({
+          'ensure'    => 'installed',
+          'require'   => 'Package[rubygems]',
+          'provider'  => 'gem',
+          'notify'    => 'Exec[ruby::update_rubygems]'
+        })
+      }
+      it {
+        should contain_exec('ruby::update_rubygems').with({
+          'path'        => '/usr/local/bin:/usr/bin:/bin',
+          'command'     => 'update_rubygems',
+          'refreshonly' => true
+        })
+      }
+    end
 
     describe 'when passed a custom rubygem version' do
       let :params do
@@ -50,14 +60,23 @@ describe 'ruby', :type => :class do
       end
       it {
         should contain_package('rubygems').with({
-          'ensure'    => 'installed'
-        })
-      }
-      it {
-        should contain_package('rubygems-update').with({
           'ensure'    => '1.8.7'
         })
       }
+      it { should_not contain_package('rubygems-update') }
+      describe 'with rubygems_update set to true' do
+        let :params do
+          {
+            :gems_version    => '1.8.7',
+            :rubygems_update => 'true'
+          }
+        end
+        it {
+          should contain_package('rubygems-update').with({
+            'ensure' => '1.8.7'
+          })
+        }
+      end
     end
 
     describe 'when given ruby and rubygem versions' do
@@ -73,11 +92,22 @@ describe 'ruby', :type => :class do
           'name'    => 'ruby'
         })
       }
-      it {
-        should contain_package('rubygems-update').with({
-          'ensure'    => '1.8.6'
-        })
-      }
+      it { should_not contain_package('rubygems-update') }
+
+      describe 'with rubygems_update set to true' do
+        let :params do
+          {
+            :gems_version    => '1.8.6',
+            :version         => '1.8.7',
+            :rubygems_update => 'true'
+          }
+        end
+        it {
+          should contain_package('rubygems-update').with({
+            'ensure'    => '1.8.6'
+          })
+        }
+      end
     end
 
     describe 'with a custom ruby package' do
@@ -220,26 +250,37 @@ describe 'ruby', :type => :class do
         'require' => 'Package[ruby]',
       })
     }
-    it {
-      should contain_package('rubygems-update').with({
-        'ensure'    => 'installed',
-        'require'   => 'Package[rubygems]',
-        'provider'  => 'gem',
-        'notify'    => 'Exec[ruby::update_rubygems]'
-      })
-    }
-    it {
-      should contain_exec('ruby::update_rubygems').with({
-        'path'        => '/usr/local/bin:/usr/bin:/bin',
-        'command'     => 'update_rubygems',
-        'refreshonly' => true
-      })
-    }
+
     it { should_not contain_package('ruby-switch') }
     it { should_not contain_package('rubygems-integration') }
+    it { should_not contain_package('rubygems-update') }
+    it { should_not contain_exec('ruby::update_rubygems') }
     it { should_not contain_exec('switch_ruby') }
     it { should_not contain_file('ruby_bin') }
     it { should_not contain_file('gem_bin') }
+
+    describe 'when rubygems_update is set to true' do
+      let :params do
+        {
+          :rubygems_update => 'true'
+        }
+      end
+      it {
+        should contain_package('rubygems-update').with({
+          'ensure'    => 'installed',
+          'require'   => 'Package[rubygems]',
+          'provider'  => 'gem',
+          'notify'    => 'Exec[ruby::update_rubygems]'
+        })
+      }
+      it {
+        should contain_exec('ruby::update_rubygems').with({
+          'path'        => '/usr/local/bin:/usr/bin:/bin',
+          'command'     => 'update_rubygems',
+          'refreshonly' => true
+        })
+      }
+    end
 
     describe 'when passed a custom rubygem version' do
       let :params do
@@ -249,14 +290,24 @@ describe 'ruby', :type => :class do
       end
       it {
         should contain_package('rubygems').with({
-          'ensure'    => 'installed'
-        })
-      }
-      it {
-        should contain_package('rubygems-update').with({
           'ensure'    => '1.8.7'
         })
       }
+      it { should_not contain_package('rubygems-update') }
+
+      describe 'when rubygems_update is set to true' do
+        let :params do
+          {
+            :gems_version => '1.8.7',
+            :rubygems_update => 'true'
+          }
+        end
+        it {
+          should contain_package('rubygems-update').with({
+            'ensure'    => '1.8.7'
+          })
+        }
+      end
     end
 
     describe 'when given ruby and rubygem versions' do
@@ -272,11 +323,22 @@ describe 'ruby', :type => :class do
           'name'    => 'ruby'
         })
       }
-      it {
-        should contain_package('rubygems-update').with({
-          'ensure'    => '1.8.6'
-        })
-      }
+      it { should_not contain_package('rubygems-update') }
+
+      describe 'when rubygems_update is set to true' do
+        let :params do
+          {
+            :gems_version    => '1.8.6',
+            :version         => '1.8.7',
+            :rubygems_update => 'true'
+          }
+        end
+        it {
+          should contain_package('rubygems-update').with({
+            'ensure'    => '1.8.6'
+          })
+        }
+      end
     end
 
     describe 'with a custom ruby package' do
