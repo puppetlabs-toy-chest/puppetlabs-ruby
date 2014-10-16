@@ -122,7 +122,7 @@ class ruby (
             /^1\.8.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}1.8"
               if ! $suppress_warnings and versioncmp($::lsbdistrelease, '14.04') >= 0 {
-                warning('Packages for Ruby 1.8 are not available from default respostiories.')
+                warning('Packages for Ruby 1.8 are not available from default repositories.')
               }
             }
             /^1\.9.*$/:{
@@ -131,13 +131,13 @@ class ruby (
             /^2\.0.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}2.0"
               if ! $suppress_warnings and versioncmp($::lsbdistrelease, '13.10') < 0 {
-                warning('Packages for Ruby 2.0 are not available from default respostiories.')
+                warning('Packages for Ruby 2.0 are not available from default repositories.')
               }
             }
             /^2\.1.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}2.1"
               if ! $suppress_warnings {
-                warning('Packages for Ruby 2.1 are not available from default respostiories.')
+                warning('Packages for Ruby 2.1 are not available from default repositories.')
               }
             }
             default: {
