@@ -3,11 +3,12 @@
 # This class handles the Ruby module parameters
 #
 class ruby::params {
-  $version              = 'installed'
-  $gems_version         = 'installed'
-  $ruby_switch_package  = 'ruby-switch'
-  $rails_env            = 'production'
-  $minimum_path         = ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
+  $version                 = 'installed'
+  $gems_version            = 'installed'
+  $ruby_switch_package     = 'ruby-switch'
+  $rails_env               = 'production'
+  $minimum_path            = ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
+  $gem_integration_package = false
 
   case $::osfamily {
     'redhat', 'amazon': {
