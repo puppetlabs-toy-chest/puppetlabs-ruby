@@ -1,6 +1,6 @@
 {
   "name": "puppetlabs-ruby",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "Puppet Labs",
   "summary": "Manage Ruby",
   "license": "Apache-2.0",
