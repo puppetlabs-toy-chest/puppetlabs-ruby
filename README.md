@@ -1,6 +1,15 @@
 # Ruby Module
 
-This module manages Ruby and Rubygems on Debian and Redhat based systems.
+This module manages Ruby and Rubygems.
+
+# Compatibility
+Puppet v3 with Ruby 1.8.7, 1.9.3, 2.0.0 and 2.1.1 on the following platforms.
+
+  * EL 5
+  * EL 6
+  * EL 7
+  * SLES 11 SP1
+
 
 # Dependencies
 
