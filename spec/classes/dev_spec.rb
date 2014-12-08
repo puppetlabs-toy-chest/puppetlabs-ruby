@@ -711,7 +711,7 @@ describe 'ruby::dev', :type => :class do
       end
       context 'with no parameters' do
         it {
-          should contain_package('ruby2.0-dev').with({
+          should contain_package('ruby2.1-dev').with({
             'ensure' => 'installed',
           })
         }
@@ -750,7 +750,7 @@ describe 'ruby::dev', :type => :class do
           }
         end
         it {
-          should contain_package('ruby2.0-dev').with_ensure('latest')
+          should contain_package('ruby2.1-dev').with_ensure('latest')
         }
         it {
           should contain_package('ri').with_ensure('latest')
@@ -786,7 +786,7 @@ describe 'ruby::dev', :type => :class do
           should contain_package('bundler').with_name('sparkly-bundler')
         }
         it {
-          should_not contain_package('ruby2.0-dev')
+          should_not contain_package('ruby2.1-dev')
         }
         it {
           should_not contain_package('ri')

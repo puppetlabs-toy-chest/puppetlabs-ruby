@@ -80,7 +80,7 @@ class ruby::dev (
           }
           /^2\.1.*$/:{
             $ruby_dev = [
-              'ruby2.0-dev',
+              'ruby2.1-dev',
               'ri',
               'pkg-config'
             ]
