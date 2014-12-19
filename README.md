@@ -58,7 +58,7 @@ Installs and manages the core Ruby packages.
 ### Usage
 
 For a standard install using the latest Rubygems provided by rubygems-update on
-CentOS or Redhat use:  
+CentOS or Redhat use:
 ```puppet
     class { 'ruby':
       gems_version  => 'latest'
@@ -73,7 +73,7 @@ On Redhat this is equivilant to
 #### Specify Version
 
 To install a specific version of ruby and rubygems but *not* use
-rubygems-update use:  
+rubygems-update use:
 ```puppet
     class { 'ruby':
       version         => '1.8.7',
@@ -90,14 +90,14 @@ On Redhat this is equivilant to
 
 If you need to use different packages for either ruby or rubygems you
 can. This could be for different versions or custom packages. For
-instance the following installs ruby 1.9 on Ubuntu 12.04.  
+instance the following installs ruby 1.9 on Ubuntu 12.04.
 ```puppet
     class { 'ruby':
       ruby_package     => 'ruby1.9.1-full',
       rubygems_package => 'rubygems1.9.1',
       gems_version     => 'latest',
     }
-```  
+```
 This parameter will be particularly important if an alternative package repository is defined with [`yumrepo`](http://docs.puppetlabs.com/references/latest/type.html#yumrepo) or [`apt::source` or `apt::ppa`](https://forge.puppetlabs.com/puppetlabs/apt).
 
 ## Ruby Development Class
@@ -290,6 +290,6 @@ If the required Ruby version is not available for the distribution being used ch
         version         => '1.9.1',
         switch          => true,
         latest_release  => true,
-        require         => Apt:Ppa['ppa:brightbox/ruby-ng-experimental'],
+        require         => Apt::Ppa['ppa:brightbox/ruby-ng-experimental'],
     }
     ```
