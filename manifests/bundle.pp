@@ -104,8 +104,8 @@ define ruby::bundle
           [
             '\s*--clean\s*',
             '\s*--deployment\s*',
-            '\s*--gemfile=[a-zA-Z0-9\/\\:]+\s*',
-            '\s*--path=[a-zA-Z0-9\/\\:]+\s*',
+            '\s*--gemfile=[a-zA-Z0-9\/\\:\.]+\s*',
+            '\s*--path=[a-zA-Z0-9\/\\:\.]+\s*',
             '\s*--no-prune\s*',
             '\s*--without [[a-z0-9]+ ]+\s*'
           ],
