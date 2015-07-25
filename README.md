@@ -14,6 +14,7 @@ Puppet v3 with Ruby 1.8.7, 1.9.3, 2.0.0 and 2.1.1 on the following platforms.
 # Dependencies
 
 * [PuppetLabs stdlib](https://forge.puppetlabs.com/puppetlabs/stdlib)
+* [zleslie pkgng](https://forge.puppetlabs.com/zleslie/pkgng) must be installed for FreeBSD support on Puppet versions < 4.1.0
 
 ## Ruby Class
 
