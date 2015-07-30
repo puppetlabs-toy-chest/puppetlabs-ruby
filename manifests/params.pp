@@ -63,6 +63,22 @@ class ruby::params {
         }
       }
     }
+    'FreeBSD': {
+      $ruby_dev         = [
+        'ruby-build',
+      ]
+      $rake_ensure      = 'installed'
+      $rake_package     = 'rake'
+      $rake_provider    = 'gem'
+      $rubygems_update  = false
+      $ruby_gem_base    = '/usr/local/bin/gem'
+      $ruby_bin_base    = '/usr/local/bin/ruby'
+      $bundler_package  = 'bundler'
+      $bundler_provider = 'gem'
+      $bundler_ensure   = 'installed'
+      $ruby_package     = 'ruby'
+      $rubygems_package = 'ruby20-gems'
+    }
     default: {
       fail("Unsupported OS family: ${::osfamily}")
     }
