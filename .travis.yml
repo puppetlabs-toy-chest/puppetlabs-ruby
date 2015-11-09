@@ -1,6 +1,6 @@
 language: ruby
-bundler_args: --without development
-before_script: 
+bundler_args: --without development system_tests
+before_script:
   - bundle exec rake validate_puppet_syntax
   - bundle exec rake validate_ruby_syntax
   - bundle exec rake check_line_endings
