@@ -2,7 +2,7 @@
 # Any modifications will be overwritten on the next run
 <%- if @sources and ! @sources.empty? -%>
 :sources:
-  - <%= Array(@sources).join("\n - ") %>
+  - <%= Array(@sources).join("\n  - ") %>
 <%- end -%>
 <%- unless @update_sources.nil? -%>
 :update_sources: <%= @update_sources %>

@@ -37,7 +37,7 @@ describe 'ruby::gemrc', :type => :class do
       })
     }
     it {
-      should contain_file('gemrc').with_content(%r{ourgems.org})
+      should contain_file('gemrc').with_content(/:sources:\n\s{2}-\shttps:\/\/rubygems.org\n\s{2}-\shttps:\/\/ourgems.org/)
     }
   end
 
