@@ -61,8 +61,8 @@ Installs and manages the core Ruby packages.
 For a standard install using the latest Rubygems provided by rubygems-update on
 CentOS or Redhat use:
 ```puppet
-    class { 'ruby':
-      gems_version  => 'latest'
+    class { '::ruby':
+      gems_version => 'latest',
     }
 ```
 
@@ -76,10 +76,10 @@ On Redhat this is equivilant to
 To install a specific version of ruby and rubygems but *not* use
 rubygems-update use:
 ```puppet
-    class { 'ruby':
+    class { '::ruby':
       version         => '1.8.7',
       gems_version    => '1.8.24',
-      rubygems_update => false
+      rubygems_update => false,
     }
 ```
 
@@ -93,7 +93,7 @@ If you need to use different packages for either ruby or rubygems you
 can. This could be for different versions or custom packages. For
 instance the following installs ruby 1.9 on Ubuntu 12.04.
 ```puppet
-    class { 'ruby':
+    class { '::ruby':
       ruby_package     => 'ruby1.9.1-full',
       rubygems_package => 'rubygems1.9.1',
       gems_version     => 'latest',
@@ -255,17 +255,17 @@ It should be possible to set any number of parameters, but setting no parameters
 If `ruby::config` is given with no parameters it removes the environment settings from the system, which restores the default Ruby settings.
 
 ```puppet
-include ruby::config
+include ::ruby::config
 ```
 
 #### With Parameters
 
 ```puppet
-class {'ruby::config':
-  heap_min_slots            => 500000,
-  heap_slots_increment      => 250000,
-  heap_slots_growth_factor  => 1,
-  gc_malloc_limit           => 50000000,
+class { '::ruby::config':
+  heap_min_slots           => 500000,
+  heap_slots_increment     => 250000,
+  heap_slots_growth_factor => 1,
+  gc_malloc_limit          => 50000000,
 }
 ```
 
@@ -285,12 +285,14 @@ If the required Ruby version is not available for the distribution being used ch
 * For Ubuntu the [Brightbox Ruby PPA](http://www.ubuntuupdates.org/ppa/brightbox_ruby_ng_experimental) provides Ruby packages, use the following puppet code:
 
     ```puppet
-    include apt
-    apt::ppa{'ppa:brightbox/ruby-ng-experimental':}
-    class{'ruby':
-        version         => '1.9.1',
-        switch          => true,
-        latest_release  => true,
-        require         => Apt::Ppa['ppa:brightbox/ruby-ng-experimental'],
+    include ::apt
+
+    ::apt::ppa { 'ppa:brightbox/ruby-ng-experimental': }
+    
+    class { '::ruby':
+      version        => '1.9.1',
+      switch         => true,
+      latest_release => true,
+      require        => Apt::Ppa['ppa:brightbox/ruby-ng-experimental'],
     }
     ```
