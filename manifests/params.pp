@@ -17,7 +17,7 @@ class ruby::params {
       $rubygems_package = 'rubygems'
       $ruby_dev         = 'ruby-devel'
       $rubygems_update  = false
-      if $::operatingsystemmajrelease == 5 {
+      if $::operatingsystemmajrelease and versioncmp($::operatingsystemmajrelease, '5') == 0 {
         $rake_ensure   = '10.3.2'
         $rake_package  = 'rake'
         $rake_provider = 'gem'
@@ -42,8 +42,14 @@ class ruby::params {
       $rubygems_update  = false
       $ruby_gem_base    = '/usr/bin/gem'
       $ruby_bin_base    = '/usr/bin/ruby'
-      $bundler_package  = 'bundler'
       $bundler_provider = 'gem'
+      if $::operatingsystem == 'Ubuntu'
+      and $::operatingsystemrelease
+      and versioncmp($::operatingsystemrelease, '14.04') < 0 {
+        $bundler_package  = 'ruby-bundler'
+      } else {
+        $bundler_package  = 'bundler'
+      }
       case $::operatingsystemrelease {
         '10.04': {
           $bundler_ensure   = '0.9.9'
