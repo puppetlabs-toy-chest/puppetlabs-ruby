@@ -464,7 +464,9 @@ describe 'ruby', :type => :class do
   context 'On a Debian family operating system' do
     let :facts do
       {
-        :osfamily   => 'Debian',
+        :osfamily               => 'Debian',
+        :operatingsystem        => 'Debian',
+        :operatingsystemrelease => '6.0',
       }
     end
     it { should contain_class('ruby::params') }

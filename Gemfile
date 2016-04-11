@@ -46,4 +46,11 @@ else
   gem 'puppet', :require => false
 end
 
+if RUBY_VERSION >= '1.8.7' and RUBY_VERSION < '1.9'
+  # rspec must be v2 for ruby 1.8.7
+  gem 'rspec', '~> 2.0'
+  # rake must be v10 for ruby 1.8.7
+  gem 'rake', '~> 10.0'
+end
+
 # vim:ft=ruby

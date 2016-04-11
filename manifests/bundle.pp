@@ -87,7 +87,7 @@ define ruby::bundle
   }
 
   if $multicore {
-    if $multicore == '0' or $multicore >= $::processorcount {
+    if "${multicore}" == '0' or versioncmp($multicore,$::processorcount) >= 0 { #lint:ignore:only_variable_string
       $multicore_str = " --jobs ${::processorcount}"
     } else {
       $multicore_str = " --jobs ${multicore}"

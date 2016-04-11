@@ -3,7 +3,7 @@
 This module manages Ruby and Rubygems.
 
 # Compatibility
-Puppet v3 with Ruby 1.8.7, 1.9.3, 2.0.0 and 2.1.1 on the following platforms.
+Puppet v3 with Ruby 1.9.x, 2.1.x on the following platforms.
 
   * EL 5
   * EL 6
