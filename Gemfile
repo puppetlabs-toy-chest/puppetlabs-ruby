@@ -16,7 +16,6 @@ group :development, :unit_tests do
   gem 'puppetlabs_spec_helper',  :require => false
   gem 'simplecov',               :require => false
   gem 'puppet_facts',            :require => false
-  gem 'json',                    :require => false
 end
 
 group :system_tests do
@@ -51,6 +50,15 @@ if RUBY_VERSION >= '1.8.7' and RUBY_VERSION < '1.9'
   gem 'rspec', '~> 2.0'
   # rake must be v10 for ruby 1.8.7
   gem 'rake', '~> 10.0'
+end
+
+if RUBY_VERSION < '2.0'
+  # json 2.x requires ruby 2.0.
+  gem 'json', '~> 1.0'
+  # json_pure 2.0.2 requires ruby 2.0. Lock to 2.0.1
+  gem 'json_pure', '= 2.0.1'
+else
+  gem 'json'
 end
 
 # vim:ft=ruby
