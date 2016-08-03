@@ -52,6 +52,9 @@ class ruby::dev (
   validate_re($bundler_provider,['^gem$','^apt$'])
 
   case $::osfamily {
+    default: {
+      fail("Detected osfamily is <${::osfamily}> and supported values are 'Debian', 'RedHat' and 'Amazon'")
+    }
     'Debian': {
       if $ruby_dev_packages {
         $ruby_dev = $ruby_dev_packages
