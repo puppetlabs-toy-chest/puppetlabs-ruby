@@ -231,7 +231,7 @@ describe 'ruby::dev', :type => :class do
           it {
             should contain_package('bundler').with({
               'ensure'           => '0.9.9',
-              'name'             => 'ruby-bundler',
+              'name'             => 'bundler',
               'provider'         => 'gem',
               'require'          => 'Package[ruby]'
             })
@@ -249,7 +249,7 @@ describe 'ruby::dev', :type => :class do
           it {
             should contain_package('bundler').with({
               'ensure'           => 'installed',
-              'name'             => 'ruby-bundler',
+              'name'             => 'bundler',
               'provider'         => 'gem',
               'require'          => 'Package[ruby]'
             })
