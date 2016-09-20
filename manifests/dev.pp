@@ -49,7 +49,7 @@ class ruby::dev (
   # as the package ensure covers _multiple_ packages
   # specifying a version may cause issues.
   validate_re($ensure,['^installed$', '^present$', '^absent$', '^latest$'])
-  validate_re($bundler_provider,['^gem$','^apt$'])
+  validate_re($bundler_provider,['^gem$','^apt$', '^yum$'])
 
   case $::osfamily {
     'Debian': {

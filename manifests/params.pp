@@ -26,9 +26,15 @@ class ruby::params {
         $rake_package     = 'rubygem-rake'
         $rake_provider    = 'yum'
       }
-      $bundler_ensure   = 'installed'
-      $bundler_package  = 'bundler'
-      $bundler_provider = 'gem'
+      if versioncmp($::operatingsystemmajrelease, '7') < 0 {
+        $bundler_ensure   = 'installed'
+        $bundler_package  = 'bundler'
+        $bundler_provider = 'gem'
+      } else {
+        $bundler_ensure   = 'installed'
+        $bundler_package  = 'rubygem-bundler'
+        $bundler_provider = 'yum'
+      }
     }
     'debian': {
       $ruby_dev         = [
