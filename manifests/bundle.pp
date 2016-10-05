@@ -70,7 +70,7 @@ define ruby::bundle
   $unless       = undef,
 ) {
 
-  require ruby
+  require ::ruby
 
   # ensure minimum path requirements for bundler
   if $path {
@@ -107,7 +107,7 @@ define ruby::bundle
             '\s*--gemfile=[a-zA-Z0-9\/\\:\.]+\s*',
             '\s*--path=[a-zA-Z0-9\/\\:\.]+\s*',
             '\s*--no-prune\s*',
-            '\s*--without [[a-z0-9]+ ]+\s*'
+            '\s*--without [[a-z0-9]+ ]+\s*',
           ],
           'Only bundler options supported for the install command are: clean, deployment, gemfile, path, without, and no-prune'
         )
@@ -160,7 +160,7 @@ define ruby::bundle
     tries       => $tries,
     try_sleep   => $try_sleep,
     unless      => $real_unless,
-    require     => Package['bundler']
+    require     => Package['bundler'],
   }
 
 }

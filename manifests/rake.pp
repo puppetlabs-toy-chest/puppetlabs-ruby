@@ -81,7 +81,7 @@ define ruby::rake
   $unless       = undef,
 ) {
 
-  require ruby
+  require ::ruby
 
   # Hmm this works on http://rubular.com/
   # validate_re($task, '^[a-z][a-z0-9]*((:[a-z][a-z0-9]*)?)*$', "The rake task '${task}' does not conform to an expected format.")
@@ -123,7 +123,7 @@ define ruby::rake
       tries       => $tries,
       try_sleep   => $try_sleep,
       unless      => $unless,
-      require     => Package['rake']
+      require     => Package['rake'],
     }
   } else {
     exec{"ruby_rake_${name}":
@@ -142,7 +142,7 @@ define ruby::rake
       tries       => $tries,
       try_sleep   => $try_sleep,
       unless      => $unless,
-      require     => Package['rake']
+      require     => Package['rake'],
     }
   }
 
