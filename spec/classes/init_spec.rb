@@ -654,6 +654,37 @@ describe 'ruby', :type => :class do
       }
     end
 
+    describe 'with ruby 2.2 with switch' do
+      let :params do
+        {
+          :version      => '2.2',
+          :switch       => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'ruby2.2'
+        })
+      }
+      it {
+        should contain_file('ruby_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/ruby',
+          'target'  => '/usr/bin/ruby2.2',
+          'require' => 'Package[ruby]'
+        } )
+      }
+      it {
+        should contain_file('gem_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/gem',
+          'target'  => '/usr/bin/gem2.2',
+          'require' => 'Package[rubygems]'
+        } )
+      }
+    end
+
     describe 'with ruby 1.8 with set_system_default' do
       let :params do
         {
