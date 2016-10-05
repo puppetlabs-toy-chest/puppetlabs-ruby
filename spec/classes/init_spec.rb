@@ -716,37 +716,6 @@ describe 'ruby', :type => :class do
       }
     end
 
-    describe 'with ruby 2.30 with switch' do
-      let :params do
-        {
-          :version      => '2.30',
-          :switch       => true
-        }
-      end
-      it {
-        should_not contain_package('ruby').with({
-          'ensure'  => 'installed',
-          'name'    => 'ruby2.30'
-        })
-      }
-      it {
-        should_not contain_file('ruby_bin').with({
-          'ensure'  => 'link',
-          'path'    => '/usr/bin/ruby',
-          'target'  => '/usr/bin/ruby2.30',
-          'require' => 'Package[ruby]'
-        } )
-      }
-      it {
-        should_not contain_file('gem_bin').with({
-          'ensure'  => 'link',
-          'path'    => '/usr/bin/gem',
-          'target'  => '/usr/bin/gem2.30',
-          'require' => 'Package[rubygems]'
-        } )
-      }
-    end
-
     describe 'with ruby 1.8 with set_system_default' do
       let :params do
         {
