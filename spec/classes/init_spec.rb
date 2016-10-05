@@ -716,6 +716,37 @@ describe 'ruby', :type => :class do
       }
     end
 
+    describe 'with ruby 2.30 with switch' do
+      let :params do
+        {
+          :version      => '2.30',
+          :switch       => true
+        }
+      end
+      it {
+        should_not contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'ruby2.30'
+        })
+      }
+      it {
+        should_not contain_file('ruby_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/ruby',
+          'target'  => '/usr/bin/ruby2.30',
+          'require' => 'Package[ruby]'
+        } )
+      }
+      it {
+        should_not contain_file('gem_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/gem',
+          'target'  => '/usr/bin/gem2.30',
+          'require' => 'Package[rubygems]'
+        } )
+      }
+    end
+
     describe 'with ruby 1.8 with set_system_default' do
       let :params do
         {
@@ -1480,7 +1511,7 @@ describe 'ruby', :type => :class do
 
   end
 
-  context 'On Ubuntu 14.04LTS (Trusty Tahr' do
+  context 'On Ubuntu 14.04LTS (Trusty Tahr)' do
     let :facts do
       {
         :osfamily               => 'Debian',
@@ -1792,6 +1823,139 @@ describe 'ruby', :type => :class do
           'ensure'  => 'link',
           'path'    => '/usr/bin/gem',
           'target'  => '/usr/bin/gem2.1',
+          'require' => 'Package[rubygems]'
+        } )
+      }
+    end
+
+  end
+
+  context 'On Ubuntu 16.04LTS (Xenial Xerus)' do
+    let :facts do
+      {
+        :osfamily               => 'Debian',
+        :operatingsystem        => 'Ubuntu',
+        :operatingsystemrelease => '16.04'
+      }
+    end
+    it { should contain_class('ruby::params') }
+    it {
+      should contain_package('ruby').with({
+        'ensure'  => 'installed',
+        'name'    => 'ruby',
+      })
+    }
+    it {
+      should contain_package('rubygems').with({
+        'ensure'  => 'installed',
+        'name'    => 'rubygems',
+        'require' => 'Package[ruby]',
+      })
+    }
+    it { should_not contain_package('rubygems-update') }
+    it { should_not contain_exec('ruby::update_rubygems') }
+    it { should_not contain_package('ruby-switch') }
+    it { should_not contain_exec('switch_ruby') }
+    it { should_not contain_file('ruby_bin') }
+    it { should_not contain_file('gem_bin') }
+
+    describe 'with a custom ruby package' do
+      let :params do
+        {
+          :ruby_package => 'sparkly-ruby'
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'sparkly-ruby'
+        })
+      }
+    end
+
+    describe 'with a custom rubygems package' do
+      let :params do
+        {
+          :rubygems_package => 'sparkly-rubygems'
+        }
+      end
+      it {
+        should contain_package('rubygems').with({
+          'name'    => 'sparkly-rubygems',
+        })
+      }
+    end
+
+    describe 'when using the latest release' do
+      let :params do
+        {
+          :latest_release  => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'latest'
+        })
+      }
+    end
+
+    describe 'with ruby 2.3 with switch' do
+      let :params do
+        {
+          :version      => '2.3',
+          :switch       => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'ruby2.3'
+        })
+      }
+      it {
+        should contain_file('ruby_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/ruby',
+          'target'  => '/usr/bin/ruby2.3',
+          'require' => 'Package[ruby]'
+        } )
+      }
+      it {
+        should contain_file('gem_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/gem',
+          'target'  => '/usr/bin/gem2.3',
+          'require' => 'Package[rubygems]'
+        } )
+      }
+    end
+
+    describe 'with ruby 2.3 with set_system_default' do
+      let :params do
+        {
+          :version            => '2.3',
+          :set_system_default => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'ruby2.3'
+        })
+      }
+      it {
+        should contain_file('ruby_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/ruby',
+          'target'  => '/usr/bin/ruby2.3',
+          'require' => 'Package[ruby]'
+        } )
+      }
+      it {
+        should contain_file('gem_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/gem',
+          'target'  => '/usr/bin/gem2.3',
           'require' => 'Package[rubygems]'
         } )
       }
