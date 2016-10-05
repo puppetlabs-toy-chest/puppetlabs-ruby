@@ -1,3 +1,3 @@
-class{'ruby':
-  version => '1.8'
+class { '::ruby':
+  version => '1.8',
 }
