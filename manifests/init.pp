@@ -119,34 +119,34 @@ class ruby (
         }
         default:{
           case $version {
-            /^1\.8.*$/:{
+            /^1\.8\.?.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}1.8"
               if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '14.04') >= 0 {
                 warning('Packages for Ruby 1.8 are not available from default repositories.')
               }
             }
-            /^1\.9.*$/:{
+            /^1\.9\.?.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}1.9.1"
             }
-            /^2\.0.*$/:{
+            /^2\.0\.?.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}2.0"
               if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '13.10') < 0 {
                 warning('Packages for Ruby 2.0 are not available from default repositories.')
               }
             }
-            /^2\.1.*$/:{
+            /^2\.1\.?.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}2.1"
               if ! $suppress_warnings {
                 warning('Packages for Ruby 2.1 are not available from default repositories.')
               }
             }
-            /^2\.2.*$/:{
+            /^2\.2\.?.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}2.2"
               if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '14.10') < 0 {
                 warning('Packages for Ruby 2.2 are not available from default repositories.')
               }
             }
-            /^2\.3.*$/:{
+            /^2\.3\.?.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}2.3"
               if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '16.04') < 0 {
                 warning('Packages for Ruby 2.3 are not available from default repositories.')
@@ -213,34 +213,34 @@ class ruby (
           $real_default_bin = $system_default_bin
         } else {
           case $version {
-            /^1\.8.*$/:{
+            /^1\.8\.?.*$/:{
               $real_default_bin  = "${ruby::params::ruby_bin_base}1.8"
               if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '14.04') >= 0 {
                 warning('No binary for Ruby 1.8.x available from default repositories')
               }
             }
-            /^1\.9.*$/:{
+            /^1\.9\.?.*$/:{
               $real_default_bin  = "${ruby::params::ruby_bin_base}1.9.1"
             }
-            /^2\.0.*$/:{
+            /^2\.0\.?.*$/:{
               $real_default_bin  = "${ruby::params::ruby_bin_base}2.0"
               if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '13.10') < 0 {
                 warning('No binary for Ruby 2.0.x available from default repositories')
               }
             }
-            /^2\.1.*$/:{
+            /^2\.1\.?.*$/:{
               $real_default_bin  = "${ruby::params::ruby_bin_base}2.1"
               if ! $suppress_warnings {
                 warning('No binary for Ruby 2.1.x available from default repositories')
               }
             }
-            /^2\.2.*$/:{
+            /^2\.2\.?.*$/:{
               $real_default_bin  = "${ruby::params::ruby_bin_base}2.2"
               if ! $suppress_warnings {
                 warning('No binary for Ruby 2.2.x available from default repositories')
               }
             }
-            /^2\.3.*$/:{
+            /^2\.3\.?.*$/:{
               $real_default_bin  = "${ruby::params::ruby_bin_base}2.3"
               if ! $suppress_warnings {
                 warning('No binary for Ruby 2.3.x available from default repositories')
@@ -255,34 +255,34 @@ class ruby (
           $real_default_gem = $system_default_gem
         } else {
           case $version {
-            /^1\.8.*$/:{
+            /^1\.8\.?.*$/:{
               $real_default_gem  = "${ruby::params::ruby_gem_base}1.8"
               if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '14.04') >= 0 {
                 warning('No binary package for Ruby 1.8.x available from default repositories')
               }
             }
-            /^1\.9.*$/:{
+            /^1\.9\.?.*$/:{
               $real_default_gem  = "${ruby::params::ruby_gem_base}1.9.1"
             }
-            /^2\.0.*$/:{
+            /^2\.0\.?.*$/:{
               $real_default_gem  = "${ruby::params::ruby_gem_base}2.0"
               if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '13.10') < 0 {
                 warning('No binary package for Ruby 2.0.x available from default repositories')
               }
             }
-            /^2\.1.*$/:{
+            /^2\.1\.?.*$/:{
               $real_default_gem  = "${ruby::params::ruby_gem_base}2.1"
               if ! $suppress_warnings {
                 warning('No binary package for Ruby 2.1.x available from default repositories')
               }
             }
-            /^2\.2.*$/:{
+            /^2\.2\.?.*$/:{
               $real_default_gem  = "${ruby::params::ruby_gem_base}2.2"
               if ! $suppress_warnings {
                 warning('No binary package for Ruby 2.2.x available from default repositories')
               }
             }
-            /^2\.3.*$/:{
+            /^2\.3\.?.*$/:{
               $real_default_gem  = "${ruby::params::ruby_gem_base}2.3"
               if ! $suppress_warnings {
                 warning('No binary package for Ruby 2.3.x available from default repositories')
