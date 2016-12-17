@@ -1,3 +1,22 @@
+## Release 0.5.0
+### Summary
+This release includes several new OS support features/bugfixes and multiple updates to Gemfile, Rakefile and metadata.
+
+#### Features
+- Bundle options: Allow . char in filepath args
+- Added FreeBSD 10 support
+- Gemfile updated
+- Rakefile updated to new syntax
+- Pinned rake to v10 when using Ruby 1.8.7 as v11 drops support for it
+
+#### Bugfixes
+- Updated metadata summary
+- Now requires ruby2.1-dev when installing on 2.1 Debian
+- General typo fixes
+- Readme updates and fixes
+- Fixed issue were multiple gem sources generated an invalid yaml file
+- Now uses ruby bundler on ubuntu < 14.04
+
 ##2014-11-18 - Release 0.4.0
 ###Summary
 This release includes the ability to specify the `rake_provider`, improved default parameters for OSes, and updates to tests and docs.

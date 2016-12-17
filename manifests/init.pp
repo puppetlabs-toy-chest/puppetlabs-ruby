@@ -121,7 +121,7 @@ class ruby (
           case $version {
             /^1\.8.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}1.8"
-              if ! $suppress_warnings and versioncmp($::lsbdistrelease, '14.04') >= 0 {
+              if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '14.04') >= 0 {
                 warning('Packages for Ruby 1.8 are not available from default repositories.')
               }
             }
@@ -130,7 +130,7 @@ class ruby (
             }
             /^2\.0.*$/:{
               $real_ruby_package  = "${ruby::params::ruby_package}2.0"
-              if ! $suppress_warnings and versioncmp($::lsbdistrelease, '13.10') < 0 {
+              if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '13.10') < 0 {
                 warning('Packages for Ruby 2.0 are not available from default repositories.')
               }
             }
@@ -196,14 +196,14 @@ class ruby (
 
   if $set_system_default or $switch {
     case $::osfamily {
-      Debian: {
+      'Debian': {
         if $system_default_bin {
           $real_default_bin = $system_default_bin
         } else {
           case $version {
             /^1\.8.*$/:{
               $real_default_bin  = "${ruby::params::ruby_bin_base}1.8"
-              if ! $suppress_warnings and versioncmp($::lsbdistrelease, '14.04') >= 0 {
+              if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '14.04') >= 0 {
                 warning('No binary for Ruby 1.8.x available from default repositories')
               }
             }
@@ -212,7 +212,7 @@ class ruby (
             }
             /^2\.0.*$/:{
               $real_default_bin  = "${ruby::params::ruby_bin_base}2.0"
-              if ! $suppress_warnings and versioncmp($::lsbdistrelease, '13.10') < 0 {
+              if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '13.10') < 0 {
                 warning('No binary for Ruby 2.0.x available from default repositories')
               }
             }
@@ -233,7 +233,7 @@ class ruby (
           case $version {
             /^1\.8.*$/:{
               $real_default_gem  = "${ruby::params::ruby_gem_base}1.8"
-              if ! $suppress_warnings and versioncmp($::lsbdistrelease, '14.04') >= 0 {
+              if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '14.04') >= 0 {
                 warning('No binary package for Ruby 1.8.x available from default repositories')
               }
             }
@@ -242,7 +242,7 @@ class ruby (
             }
             /^2\.0.*$/:{
               $real_default_gem  = "${ruby::params::ruby_gem_base}2.0"
-              if ! $suppress_warnings and versioncmp($::lsbdistrelease, '13.10') < 0 {
+              if ! $suppress_warnings and versioncmp($::operatingsystemrelease, '13.10') < 0 {
                 warning('No binary package for Ruby 2.0.x available from default repositories')
               }
             }
@@ -288,7 +288,7 @@ class ruby (
   if $gem_integration {
     case $::osfamily {
       Debian: {
-        if ! $suppress_warnings and $::operatingsystem == 'Ubuntu' and versioncmp($::lsbdistrelease, '13.04') < 0 {
+        if ! $suppress_warnings and $::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '13.04') < 0 {
           warning('No package for rubygems_integration available from default repositories')
         }
         package{'rubygems_integration':

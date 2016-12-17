@@ -178,6 +178,7 @@ describe 'ruby::dev', :type => :class do
       let (:facts) do
         {
           :osfamily => 'Debian',
+          :operatingsystem => 'Debian',
           :path     => '/usr/local/bin:/usr/bin:/bin'
         }
       end
@@ -208,6 +209,7 @@ describe 'ruby::dev', :type => :class do
           let (:facts) do
             {
               :osfamily =>               'Debian',
+              :operatingsystem        => 'Ubuntu',
               :operatingsystemrelease => '10.04',
               :path =>                   '/usr/local/bin:/usr/bin:/bin'
             }
@@ -215,7 +217,25 @@ describe 'ruby::dev', :type => :class do
           it {
             should contain_package('bundler').with({
               'ensure'           => '0.9.9',
-              'name'             => 'bundler',
+              'name'             => 'ruby-bundler',
+              'provider'         => 'gem',
+              'require'          => 'Package[ruby]'
+            })
+          }
+        end
+        context 'when on Ubuntu 12.04' do
+          let (:facts) do
+            {
+              :osfamily =>               'Debian',
+              :operatingsystem => 'Ubuntu',
+              :operatingsystemrelease => '12.04',
+              :path =>                   '/usr/local/bin:/usr/bin:/bin'
+            }
+          end
+          it {
+            should contain_package('bundler').with({
+              'ensure'           => 'installed',
+              'name'             => 'ruby-bundler',
               'provider'         => 'gem',
               'require'          => 'Package[ruby]'
             })
@@ -242,6 +262,7 @@ describe 'ruby::dev', :type => :class do
           let (:facts) do
             {
               :osfamily =>               'Debian',
+              :operatingsystem => 'Ubuntu',
               :operatingsystemrelease => '14.04',
               :path =>                   '/usr/local/bin:/usr/bin:/bin'
             }
@@ -544,6 +565,8 @@ describe 'ruby::dev', :type => :class do
       let (:facts) do
         {
           :osfamily => 'Debian',
+          :operatingsystem => 'Debian',
+          :operatingsystemrelease => '6',
           :path     => '/usr/local/bin:/usr/bin:/bin'
         }
       end
@@ -706,6 +729,7 @@ describe 'ruby::dev', :type => :class do
       let (:facts) do
         {
           :osfamily => 'Debian',
+          :operatingsystem => 'Debian',
           :path     => '/usr/local/bin:/usr/bin:/bin'
         }
       end
