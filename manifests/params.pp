@@ -35,9 +35,6 @@ class ruby::params {
         $bundler_package  = 'rubygem-bundler'
         $bundler_provider = 'yum'
       }
-      $bundler_ensure   = 'installed'
-      $bundler_package  = 'bundler'
-      $bundler_provider = 'gem'
     }
     'debian': {
       $ruby_dev         = [
