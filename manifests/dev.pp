@@ -44,7 +44,7 @@ class ruby::dev (
   $bundler_package    = $ruby::params::bundler_package,
   $bundler_provider   = $ruby::params::bundler_provider,
 ) inherits ruby::params {
-  require ruby
+  require ::ruby
 
   # as the package ensure covers _multiple_ packages
   # specifying a version may cause issues.
@@ -64,28 +64,28 @@ class ruby::dev (
             $ruby_dev = [
               'ruby1.8-dev',
               'ri1.8',
-              'pkg-config'
+              'pkg-config',
             ]
           }
           /^1\.9.*$/:{
             $ruby_dev = [
               'ruby1.9.1-dev',
               'ri1.9.1',
-              'pkg-config'
+              'pkg-config',
             ]
           }
           /^2\.0.*$/:{
             $ruby_dev = [
               'ruby2.0-dev',
               'ri',
-              'pkg-config'
+              'pkg-config',
             ]
           }
           /^2\.1.*$/:{
             $ruby_dev = [
               'ruby2.1-dev',
               'ri',
-              'pkg-config'
+              'pkg-config',
             ]
           }
           default: {

@@ -34,7 +34,7 @@ class ruby::params {
       $ruby_dev         = [
         'ruby-dev',
         'ri',
-        'pkg-config'
+        'pkg-config',
       ]
       $rake_ensure      = 'installed'
       $rake_package     = 'rake'
