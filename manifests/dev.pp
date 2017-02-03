@@ -60,30 +60,44 @@ class ruby::dev (
         $ruby_dev = $ruby_dev_packages
       } else {
         case $::ruby::version {
-          /^1\.8.*$/:{
+          /^1\.8(\..*)*$/:{
             $ruby_dev = [
               'ruby1.8-dev',
               'ri1.8',
               'pkg-config',
             ]
           }
-          /^1\.9.*$/:{
+          /^1\.9(\..*)*$/:{
             $ruby_dev = [
               'ruby1.9.1-dev',
               'ri1.9.1',
               'pkg-config',
             ]
           }
-          /^2\.0.*$/:{
+          /^2\.0(\..*)*$/:{
             $ruby_dev = [
               'ruby2.0-dev',
               'ri',
               'pkg-config',
             ]
           }
-          /^2\.1.*$/:{
+          /^2\.1(\..*)*$/:{
             $ruby_dev = [
               'ruby2.1-dev',
+              'ri',
+              'pkg-config',
+            ]
+          }
+          /^2\.2(\..*)*$/:{
+            $ruby_dev = [
+              'ruby2.2-dev',
+              'ri',
+              'pkg-config',
+            ]
+          }
+          /^2\.3(\..*)*$/:{
+            $ruby_dev = [
+              'ruby2.3-dev',
               'ri',
               'pkg-config',
             ]
