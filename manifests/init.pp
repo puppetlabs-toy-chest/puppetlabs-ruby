@@ -96,6 +96,7 @@ class ruby (
   $ruby_package             = $ruby::params::ruby_package,
   $ruby_dev_packages        = $ruby::params::ruby_dev,
   $rubygems_package         = $ruby::params::rubygems_package,
+  $manage_rubygems          = $ruby::params::manage_rubygems,
   $suppress_warnings        = false,
   $set_system_default       = false,
   $system_default_bin       = undef,
@@ -173,24 +174,26 @@ class ruby (
     $rubygems_ensure = $gems_version
   }
 
-  package { 'rubygems':
-    ensure  => $rubygems_ensure,
-    name    => $rubygems_package,
-    require => Package['ruby'],
-  }
-
-  if $rubygems_update {
-    package { 'rubygems-update':
-      ensure   => $gems_version,
-      provider => 'gem',
-      require  => Package['rubygems'],
-      notify   => Exec['ruby::update_rubygems'],
+  if $manage_rubygems {
+    package { 'rubygems':
+      ensure  => $rubygems_ensure,
+      name    => $rubygems_package,
+      require => Package['ruby'],
     }
 
-    exec { 'ruby::update_rubygems':
-      path        => '/usr/local/bin:/usr/bin:/bin',
-      command     => 'update_rubygems',
-      refreshonly => true,
+    if $rubygems_update {
+      package { 'rubygems-update':
+        ensure   => $gems_version,
+        provider => 'gem',
+        require  => Package['rubygems'],
+        notify   => Exec['ruby::update_rubygems'],
+      }
+
+      exec { 'ruby::update_rubygems':
+        path        => '/usr/local/bin:/usr/bin:/bin',
+        command     => 'update_rubygems',
+        refreshonly => true,
+      }
     }
   }
 
