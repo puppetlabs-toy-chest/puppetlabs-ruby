@@ -1,1 +1,1 @@
-include ruby
+include ::ruby

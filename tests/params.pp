@@ -1,1 +1,1 @@
-include ruby::params
+include ::ruby::params
