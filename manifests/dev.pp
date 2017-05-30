@@ -114,31 +114,30 @@ class ruby::dev (
   # available. It's a bit misleading for the user, though, since they can
   # specify a version and it will just silently continue installing the
   # default version.
-  package { $ruby_dev:
+  ensure_packages([$ruby_dev], {
     ensure  => $ensure,
     before  => Package['rake', 'bundler'],
     require => Package['ruby'],
-  }
+  })
 
-  package { 'rake':
+  ensure_packages(['rake'], {
     ensure   => $rake_ensure,
     name     => $rake_package,
     provider => $rake_provider,
     require  => Package['ruby'],
-  }
+  })
 
-  package { 'bundler':
+  ensure_packages(['bundler'], {
     ensure   => $bundler_ensure,
     name     => $bundler_package,
     provider => $bundler_provider,
     require  => Package['ruby'],
-  }
+  })
 
   if $ruby_dev_gems {
-    package { $ruby_dev_gems:
+    ensure_packages([$ruby_dev_gems], {
       ensure   => $ensure,
       provider => gem,
-    }
+    })
   }
-
 }
