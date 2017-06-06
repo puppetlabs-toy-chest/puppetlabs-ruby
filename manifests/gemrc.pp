@@ -37,12 +37,12 @@ class ruby::gemrc (
   Optional[Variant[Boolean, Enum[':really']]] $verbose  = undef,
   Optional[Boolean] $update_sources                     = undef,
   Optional[Boolean] $backtrace                          = undef,
-  $gempath                                              = undef,
-  $gem_command                                          = undef,
-  $gemrc                                                = $::ruby::params::gemrc,
-  $owner                                                = 'root',
-  $group                                                = 'root',
-  $mode                                                 = '0644',
+  Optional[Array[String]] $gempath                      = undef,
+  Optional[Hash] $gem_command                           = undef,
+  Stdlib::Absolutepath $gemrc                           = $::ruby::params::gemrc,
+  String $owner                                         = 'root',
+  String $group                                         = 'root',
+  Pattern[/[0-7]{4}/] $mode                             = '0644',
   Optional[Boolean] $disable_default_gem_server         = undef
 ) inherits ruby::params {
 
