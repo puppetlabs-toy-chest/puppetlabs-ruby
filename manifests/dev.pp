@@ -42,7 +42,7 @@ class ruby::dev (
   $rake_provider                                            = $ruby::params::rake_provider,
   $bundler_ensure                                           = $ruby::params::bundler_ensure,
   $bundler_package                                          = $ruby::params::bundler_package,
-  Enum['gem', 'apt'] $bundler_provider                      = $ruby::params::bundler_provider,
+  Enum['gem', 'apt', 'yum'] $bundler_provider               = $ruby::params::bundler_provider,
 ) inherits ruby::params {
   require ::ruby
 

@@ -1,3 +1,17 @@
+## Release 0.6.0
+### Summary
+This release includes support for Puppet 4 AIO, test fixes and cleanup.
+
+#### Features
+- Support Puppet v4 AIO
+
+#### Bugfixes
+- Fix bundler_package name for ubuntu
+- Fix testing
+- Update supported platforms
+- Remove unused metadata
+- Use community style
+
 ## Release 0.5.0
 ### Summary
 This release includes several new OS support features/bugfixes and multiple updates to Gemfile, Rakefile and metadata.
