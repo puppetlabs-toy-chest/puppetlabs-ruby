@@ -2,7 +2,6 @@
 language: ruby
 
 rvm:
-  - 1.9.3
   - 2.0.0
   - 2.1.9
   - 2.3.1
@@ -11,6 +10,7 @@ env:
   matrix:
     - PUPPET_GEM_VERSION="~> 4.7.0"
     - PUPPET_GEM_VERSION="~> 4.8.0"
+    - PUPPET_GEM_VERSION="~> 4.9.0"
     - PUPPET_GEM_VERSION="~> 4"
 
 sudo: false
@@ -28,6 +28,10 @@ matrix:
   exclude:
     - rvm: 2.0.0
       env: PUPPET_GEM_VERSION="~> 3.1.0"
+    - rvm: 2.0.0
+      env: PUPPET_GEM_VERSION="~> 4"
+    - rvm: 2.0.0
+      env: PUPPET_GEM_VERSION="~> 4.9.0"
     - rvm: 2.1.9
       env: PUPPET_GEM_VERSION="~> 3.1.0"
     - rvm: 2.1.9
