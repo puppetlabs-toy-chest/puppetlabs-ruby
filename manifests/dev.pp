@@ -35,21 +35,16 @@
 # include ruby::dev
 #
 class ruby::dev (
-  $ensure             = 'installed',
-  $ruby_dev_packages  = undef,
-  $rake_ensure        = $ruby::params::rake_ensure,
-  $rake_package       = $ruby::params::rake_package,
-  $rake_provider      = $ruby::params::rake_provider,
-  $bundler_ensure     = $ruby::params::bundler_ensure,
-  $bundler_package    = $ruby::params::bundler_package,
-  $bundler_provider   = $ruby::params::bundler_provider,
+  Enum['installed', 'present', 'absent', 'latest'] $ensure  = 'installed',
+  $ruby_dev_packages                                        = undef,
+  $rake_ensure                                              = $ruby::params::rake_ensure,
+  $rake_package                                             = $ruby::params::rake_package,
+  $rake_provider                                            = $ruby::params::rake_provider,
+  $bundler_ensure                                           = $ruby::params::bundler_ensure,
+  $bundler_package                                          = $ruby::params::bundler_package,
+  Enum['gem', 'apt', 'yum'] $bundler_provider               = $ruby::params::bundler_provider,
 ) inherits ruby::params {
   require ::ruby
-
-  # as the package ensure covers _multiple_ packages
-  # specifying a version may cause issues.
-  validate_re($ensure,['^installed$', '^present$', '^absent$', '^latest$'])
-  validate_re($bundler_provider,['^gem$','^apt$', '^yum$'])
 
   case $::osfamily {
     default: {
