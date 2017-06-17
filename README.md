@@ -12,6 +12,7 @@ Puppet v3 with Ruby 1.9.3, 2.0.0, 2.1.9 and 2.3.1 on the following platforms.
   * EL 7
   * FreeBSD 10
   * SLES 11 SP1
+  * Arch Linux
 
 
 # Dependencies
@@ -291,7 +292,7 @@ If the required Ruby version is not available for the distribution being used ch
     include ::apt
 
     ::apt::ppa { 'ppa:brightbox/ruby-ng-experimental': }
-    
+
     class { '::ruby':
       version        => '1.9.1',
       switch         => true,
