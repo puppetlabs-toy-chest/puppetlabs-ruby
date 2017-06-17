@@ -173,10 +173,12 @@ class ruby (
     $rubygems_ensure = $gems_version
   }
 
-  package { 'rubygems':
-    ensure  => $rubygems_ensure,
-    name    => $rubygems_package,
-    require => Package['ruby'],
+  if $rubygems_package {
+    package { 'rubygems':
+      ensure  => $rubygems_ensure,
+      name    => $rubygems_package,
+      require => Package['ruby'],
+    }
   }
 
   if $rubygems_update {
