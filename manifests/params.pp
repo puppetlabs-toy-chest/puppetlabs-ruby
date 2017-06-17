@@ -30,6 +30,18 @@ class ruby::params {
       $bundler_package  = 'bundler'
       $bundler_provider = 'gem'
     }
+    'Archlinux': {
+      $ruby_package     = 'ruby'
+      $rubygems_package = undef
+      $ruby_dev         = undef
+      $rubygems_update  = false
+      $rake_ensure      = 'installed'
+      $rake_package     = undef
+      $rake_provider    = 'pacman'
+      $bundler_ensure   = 'installed'
+      $bundler_package  = 'ruby-bundler'
+      $bundler_provider = 'pacman'
+    }
     'debian': {
       $ruby_dev         = [
         'ruby-dev',
