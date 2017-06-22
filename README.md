@@ -3,7 +3,7 @@
 This module manages Ruby and Rubygems.
 
 # Compatibility
-Puppet v3 with Ruby 1.9.3, 2.0.0, 2.1.9 and 2.3.1 on the following platforms.
+Puppet >= 4.7.0 with Ruby 2.1.9 and 2.4.1 on the following platforms.
 
   * Debian 6
   * Debian 7
@@ -17,7 +17,6 @@ Puppet v3 with Ruby 1.9.3, 2.0.0, 2.1.9 and 2.3.1 on the following platforms.
 # Dependencies
 
 * [PuppetLabs stdlib](https://forge.puppetlabs.com/puppetlabs/stdlib)
-* [zleslie pkgng](https://forge.puppetlabs.com/zleslie/pkgng) must be installed for FreeBSD support on Puppet versions < 4.1.0
 
 ## Ruby Class
 
