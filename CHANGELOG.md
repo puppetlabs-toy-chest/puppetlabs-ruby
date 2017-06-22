@@ -1,3 +1,14 @@
+## Release 1.0.0
+### Summary
+First major release. Brings it into the modern age with puppet 4, and into the future with archlinux.
+
+### Changed
+- Dropped puppet 3 compatibility
+- Bumped stdlib lower bound to 4.13.1
+
+### Added
+- archlinux support
+
 ## Release 0.6.0
 ### Summary
 This release includes support for Puppet 4 AIO, test fixes and cleanup.
