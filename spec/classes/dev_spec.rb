@@ -346,6 +346,28 @@ describe 'ruby::dev', :type => :class do
         }
       end
     end
+    describe 'when called on Arch Linux' do
+      let (:facts) do
+        {
+          :osfamily => 'Archlinux',
+          :path     => '/usr/bin'
+        }
+      end
+      context 'with no parameters' do
+        it { should_not contain_package('ruby-dev') }
+        it { should_not contain_package('rake') }
+        it do
+          should contain_package('bundler').with(
+            {
+              'ensure'   => 'installed',
+              'name'     => 'ruby-bundler',
+              'provider' => 'pacman',
+              'require' => 'Package[ruby]',
+            }
+          )
+        end
+      end
+    end
   end
 
   describe 'with ruby 1.9.1' do
