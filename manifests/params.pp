@@ -10,6 +10,7 @@ class ruby::params {
   $minimum_path            = ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
   $gem_integration_package = false
   $ruby_dev_gems           = false
+  $manage_rubygems         = true
 
   case $::osfamily {
     'redhat', 'amazon': {
