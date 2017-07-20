@@ -1,3 +1,28 @@
+## Release 1.0.0
+### Summary
+First major release. Brings it into the modern age with puppet 4, and into the future with archlinux.
+
+### Changed
+- Dropped puppet 3 compatibility
+- Bumped stdlib lower bound to 4.13.1
+
+### Added
+- archlinux support
+
+## Release 0.6.0
+### Summary
+This release includes support for Puppet 4 AIO, test fixes and cleanup.
+
+#### Features
+- Support Puppet v4 AIO
+
+#### Bugfixes
+- Fix bundler_package name for ubuntu
+- Fix testing
+- Update supported platforms
+- Remove unused metadata
+- Use community style
+
 ## Release 0.5.0
 ### Summary
 This release includes several new OS support features/bugfixes and multiple updates to Gemfile, Rakefile and metadata.
