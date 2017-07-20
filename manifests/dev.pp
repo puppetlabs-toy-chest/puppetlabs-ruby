@@ -116,7 +116,7 @@ class ruby::dev (
   if $ruby_dev {
     ensure_packages([$ruby_dev], {
       ensure  => $ensure,
-      before  => Package['rake', 'bundler'],
+      before  => Package[$rake_package, $bundler_package],
       require => Package['ruby'],
     })
   }
