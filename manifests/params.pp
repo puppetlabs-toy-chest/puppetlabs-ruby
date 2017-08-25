@@ -62,11 +62,11 @@ class ruby::params {
           $ruby_package     = 'ruby'
           $rubygems_package = 'rubygems'
         }
-        '14.04': {
+        '14.04', '16.04': {
           #Ubuntu 14.04 changed ruby/rubygems to be all in one package. Specifying these as defaults will permit the module to behave as anticipated.
           $bundler_ensure   = 'installed'
           $ruby_package     = 'ruby'
-          $rubygems_package = 'ruby1.9.1-full'
+          $rubygems_package = undef
         }
         default: {
           $bundler_ensure   = 'installed'
