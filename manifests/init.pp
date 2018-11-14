@@ -158,10 +158,7 @@ class ruby (
   # available. It's a bit misleading for the user, though, since they can
   # specify a version and it will just silently continue installing the
   # default version.
-  package { 'ruby':
-    ensure => $ruby_package_ensure,
-    name   => $real_ruby_package,
-  }
+  ensure_packages(['ruby'], {ensure => $ruby_package_ensure, 'name' => $real_ruby_package })
 
   # if rubygems_update is set to true then we only need to make the package
   # resource for rubygems ensure to installed, we'll let rubygems-update
