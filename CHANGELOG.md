@@ -1,3 +1,7 @@
+## Release v1.0.1
+### Summary
+Stdlib dependency updated to < 7.0.0.
+
 ## Release 1.0.0
 ### Summary
 First major release. Brings it into the modern age with puppet 4, and into the future with archlinux.
