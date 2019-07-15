@@ -780,7 +780,7 @@ describe 'ruby', :type => :class do
 
   end
 
-  context 'On Ubuntu 12.04LTS (Precise Pangolin)' do
+  context 'On Ubuntu 12.04 LTS (Precise Pangolin)' do
     let :facts do
       {
         :osfamily               => 'Debian',
@@ -1418,7 +1418,7 @@ describe 'ruby', :type => :class do
 
   end
 
-  context 'On Ubuntu 14.04LTS (Trusty Tahr' do
+  context 'On Ubuntu 14.04 LTS (Trusty Tahr)' do
     let :facts do
       {
         :osfamily               => 'Debian',
@@ -1736,6 +1736,326 @@ describe 'ruby', :type => :class do
     end
 
   end
+
+  context 'On Ubuntu 18.04 LTS (Bionic Beaver)' do
+    let :facts do
+      {
+        :osfamily               => 'Debian',
+        :operatingsystem        => 'Ubuntu',
+        :operatingsystemrelease => '18.04'
+      }
+    end
+    it { should contain_class('ruby::params') }
+    it {
+      should contain_package('ruby').with({
+        'ensure'  => 'installed',
+        'name'    => 'ruby',
+      })
+    }
+    it {
+      should contain_package('rubygems').with({
+        'ensure'  => 'installed',
+        'name'    => 'ruby-full',
+        'require' => 'Package[ruby]',
+      })
+    }
+    it { should_not contain_package('rubygems-update') }
+    it { should_not contain_exec('ruby::update_rubygems') }
+    it { should_not contain_package('ruby-switch') }
+    it { should_not contain_exec('switch_ruby') }
+    it { should_not contain_file('ruby_bin') }
+    it { should_not contain_file('gem_bin') }
+
+    describe 'with a custom ruby package' do
+      let :params do
+        {
+          :ruby_package => 'sparkly-ruby'
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'sparkly-ruby'
+        })
+      }
+    end
+
+    describe 'with a custom rubygems package' do
+      let :params do
+        {
+          :rubygems_package => 'sparkly-rubygems'
+        }
+      end
+      it {
+        should contain_package('rubygems').with({
+          'name'    => 'sparkly-rubygems',
+        })
+      }
+    end
+
+    describe 'when using the latest release' do
+      let :params do
+        {
+          :latest_release  => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'latest'
+        })
+      }
+    end
+
+    describe 'with ruby 1.8 with switch' do
+      let :params do
+        {
+          :version      => '1.8',
+          :switch       => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'ruby1.8'
+        })
+      }
+      it {
+        should contain_file('ruby_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/ruby',
+          'target'  => '/usr/bin/ruby1.8',
+          'require' => 'Package[ruby]'
+        } )
+      }
+      it {
+        should contain_file('gem_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/gem',
+          'target'  => '/usr/bin/gem1.8',
+          'require' => 'Package[rubygems]'
+        } )
+      }
+    end
+
+    describe 'with ruby 1.9.1 with switch' do
+      let :params do
+        {
+          :version      => '1.9.1',
+          :switch       => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'ruby1.9.1'
+        })
+      }
+      it {
+        should contain_file('ruby_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/ruby',
+          'target'  => '/usr/bin/ruby1.9.1',
+          'require' => 'Package[ruby]'
+        } )
+      }
+      it {
+        should contain_file('gem_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/gem',
+          'target'  => '/usr/bin/gem1.9.1',
+          'require' => 'Package[rubygems]'
+        } )
+      }
+    end
+
+    describe 'with ruby 2.0 with switch' do
+      let :params do
+        {
+          :version      => '2.0',
+          :switch       => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'ruby2.0'
+        })
+      }
+      it {
+        should contain_file('ruby_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/ruby',
+          'target'  => '/usr/bin/ruby2.0',
+          'require' => 'Package[ruby]'
+        } )
+      }
+      it {
+        should contain_file('gem_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/gem',
+          'target'  => '/usr/bin/gem2.0',
+          'require' => 'Package[rubygems]'
+        } )
+      }
+    end
+
+    describe 'with ruby 2.1 with switch' do
+      let :params do
+        {
+          :version      => '2.1',
+          :switch       => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'ruby2.1'
+        })
+      }
+      it {
+        should contain_file('ruby_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/ruby',
+          'target'  => '/usr/bin/ruby2.1',
+          'require' => 'Package[ruby]'
+        } )
+      }
+      it {
+        should contain_file('gem_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/gem',
+          'target'  => '/usr/bin/gem2.1',
+          'require' => 'Package[rubygems]'
+        } )
+      }
+    end
+
+    describe 'with ruby 1.8 with set_system_default' do
+      let :params do
+        {
+          :version            => '1.8',
+          :set_system_default => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'ruby1.8'
+        })
+      }
+      it {
+        should contain_file('ruby_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/ruby',
+          'target'  => '/usr/bin/ruby1.8',
+          'require' => 'Package[ruby]'
+        } )
+      }
+      it {
+        should contain_file('gem_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/gem',
+          'target'  => '/usr/bin/gem1.8',
+          'require' => 'Package[rubygems]'
+        } )
+      }
+    end
+
+    describe 'with ruby 1.9.1 with set_system_default' do
+      let :params do
+        {
+          :version            => '1.9.1',
+          :set_system_default => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'ruby1.9.1'
+        })
+      }
+      it {
+        should contain_file('ruby_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/ruby',
+          'target'  => '/usr/bin/ruby1.9.1',
+          'require' => 'Package[ruby]'
+        } )
+      }
+      it {
+        should contain_file('gem_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/gem',
+          'target'  => '/usr/bin/gem1.9.1',
+          'require' => 'Package[rubygems]'
+        } )
+      }
+    end
+
+    describe 'with ruby 2.0 with set_system_default' do
+      let :params do
+        {
+          :version            => '2.0',
+          :set_system_default => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'ruby2.0'
+        })
+      }
+      it {
+        should contain_file('ruby_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/ruby',
+          'target'  => '/usr/bin/ruby2.0',
+          'require' => 'Package[ruby]'
+        } )
+      }
+      it {
+        should contain_file('gem_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/gem',
+          'target'  => '/usr/bin/gem2.0',
+          'require' => 'Package[rubygems]'
+        } )
+      }
+    end
+
+    describe 'with ruby 2.1 with set_system_default' do
+      let :params do
+        {
+          :version            => '2.1',
+          :set_system_default => true
+        }
+      end
+      it {
+        should contain_package('ruby').with({
+          'ensure'  => 'installed',
+          'name'    => 'ruby2.1'
+        })
+      }
+      it {
+        should contain_file('ruby_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/ruby',
+          'target'  => '/usr/bin/ruby2.1',
+          'require' => 'Package[ruby]'
+        } )
+      }
+      it {
+        should contain_file('gem_bin').with({
+          'ensure'  => 'link',
+          'path'    => '/usr/bin/gem',
+          'target'  => '/usr/bin/gem2.1',
+          'require' => 'Package[rubygems]'
+        } )
+      }
+    end
+
+  end
+
 
   context 'On a Archlinux family operating system' do
     let :facts do
