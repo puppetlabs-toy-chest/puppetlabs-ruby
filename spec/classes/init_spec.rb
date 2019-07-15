@@ -1749,13 +1749,13 @@ describe 'ruby', :type => :class do
     it {
       should contain_package('ruby').with({
         'ensure'  => 'installed',
-        'name'    => 'ruby',
+        'name'    => 'ruby-full',
       })
     }
     it {
       should contain_package('rubygems').with({
         'ensure'  => 'installed',
-        'name'    => 'ruby-full',
+        'name'    => 'rubygems',
         'require' => 'Package[ruby]',
       })
     }
