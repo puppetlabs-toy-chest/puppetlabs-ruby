@@ -68,6 +68,11 @@ class ruby::params {
           $ruby_package     = 'ruby'
           $rubygems_package = 'ruby1.9.1-full'
         }
+        '18.04': {
+          $bundler_ensure   = 'installed'
+          $ruby_package     = 'ruby-full'
+          $rubygems_package = 'rubygems'
+        }
         default: {
           $bundler_ensure   = 'installed'
           $ruby_package     = 'ruby'
