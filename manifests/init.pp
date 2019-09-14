@@ -158,10 +158,10 @@ class ruby (
   # available. It's a bit misleading for the user, though, since they can
   # specify a version and it will just silently continue installing the
   # default version.
-  package { 'ruby':
+  ensure_packages(['ruby'], {
     ensure => $ruby_package_ensure,
     name   => $real_ruby_package,
-  }
+  })
 
   # if rubygems_update is set to true then we only need to make the package
   # resource for rubygems ensure to installed, we'll let rubygems-update
@@ -173,21 +173,19 @@ class ruby (
     $rubygems_ensure = $gems_version
   }
 
-  if $rubygems_package {
-    package { 'rubygems':
-      ensure  => $rubygems_ensure,
-      name    => $rubygems_package,
-      require => Package['ruby'],
-    }
-  }
+  ensure_packages(['rubygems'], {
+    ensure  => $rubygems_ensure,
+    name    => $rubygems_package,
+    require => Package['ruby'],
+  })
 
   if $rubygems_update {
-    package { 'rubygems-update':
+    ensure_packages(['rubygems-update'], {
       ensure   => $gems_version,
       provider => 'gem',
       require  => Package['rubygems'],
       notify   => Exec['ruby::update_rubygems'],
-    }
+    })
 
     exec { 'ruby::update_rubygems':
       path        => '/usr/local/bin:/usr/bin:/bin',
@@ -293,11 +291,11 @@ class ruby (
         if ! $suppress_warnings and $::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '13.04') < 0 {
           warning('No package for rubygems_integration available from default repositories')
         }
-        package{'rubygems_integration':
+        ensure_packages(['rubygems_integration'], {
           ensure  => $ruby_package_ensure,
           name    => $gem_integration_package,
           require => Package['rubygems'],
-        }
+        })
       }
       default: {
         notice("The gem_integration parameter for the ruby class does not work for ${::operatingsystem}, no action taken.")

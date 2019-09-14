@@ -114,36 +114,35 @@ class ruby::dev (
   # specify a version and it will just silently continue installing the
   # default version.
   if $ruby_dev {
-    package { $ruby_dev:
+    ensure_packages([$ruby_dev], {
       ensure  => $ensure,
-      before  => Package['rake', 'bundler'],
+      before  => Package[$rake_package, $bundler_package],
       require => Package['ruby'],
-    }
+    })
   }
 
   if $rake_package {
-    package { 'rake':
+    ensure_packages([$rake_package], {
       ensure   => $rake_ensure,
       name     => $rake_package,
       provider => $rake_provider,
       require  => Package['ruby'],
-    }
+    })
   }
 
   if $bundler_package {
-    package { 'bundler':
+    ensure_packages([$bundler_package], {
       ensure   => $bundler_ensure,
       name     => $bundler_package,
       provider => $bundler_provider,
       require  => Package['ruby'],
-    }
+    })
   }
 
   if $ruby_dev_gems {
-    package { $ruby_dev_gems:
+    ensure_packages([$ruby_dev_gems], {
       ensure   => $ensure,
       provider => gem,
-    }
+    })
   }
-
 }
