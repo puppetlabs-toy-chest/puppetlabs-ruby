@@ -94,7 +94,14 @@ class ruby::params {
       $bundler_provider = 'gem'
       $bundler_ensure   = 'installed'
       $ruby_package     = 'ruby'
-      $rubygems_package = 'ruby20-gems'
+      case $::operatingsystemmajrelease {
+        '11': {
+          $rubygems_package = 'ruby22-gems'
+        }
+        default: {
+          $rubygems_package = 'ruby20-gems'
+        }
+      }
     }
     default: {
       fail("Unsupported OS family: ${::osfamily}")
