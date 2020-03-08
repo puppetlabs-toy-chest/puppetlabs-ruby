@@ -56,27 +56,42 @@ class ruby::params {
       $ruby_bin_base    = '/usr/bin/ruby'
       $bundler_provider = 'gem'
       $bundler_package  = 'bundler'
-      case $::operatingsystemrelease {
-        '10.04': {
-          $bundler_ensure   = '0.9.9'
-          $ruby_package     = 'ruby'
-          $rubygems_package = 'rubygems'
-        }
-        '14.04': {
-          #Ubuntu 14.04 changed ruby/rubygems to be all in one package. Specifying these as defaults will permit the module to behave as anticipated.
-          $bundler_ensure   = 'installed'
-          $ruby_package     = 'ruby'
-          $rubygems_package = 'ruby1.9.1-full'
-        }
-        '18.04': {
-          $bundler_ensure   = 'installed'
-          $ruby_package     = 'ruby-full'
-          $rubygems_package = 'rubygems'
+      case $::facts['os']['name'] {
+        /LinuxMint/: {
+          case $::facts['os']['release']['major'] {
+            '19': {
+              $bundler_ensure   = 'installed'
+              $ruby_package     = 'ruby'
+              $rubygems_package = undef
+            }
+            default: {
+              $bundler_ensure   = 'installed'
+              $ruby_package     = 'ruby'
+              $rubygems_package = 'rubygems'
+            }
+          }
         }
         default: {
-          $bundler_ensure   = 'installed'
-          $ruby_package     = 'ruby'
-          $rubygems_package = 'rubygems'
+          case $::operatingsystemrelease {
+            '10.04': {
+              $bundler_ensure   = '0.9.9'
+              $ruby_package     = 'ruby'
+              $rubygems_package = 'rubygems'
+            }
+            '14.04': {
+              # Ubuntu 14.04 changed ruby/rubygems to be all in one package.
+              # Specifying these as defaults will permit the module to behave
+              # as anticipated.
+              $bundler_ensure   = 'installed'
+              $ruby_package     = 'ruby'
+              $rubygems_package = 'ruby1.9.1-full'
+            }
+            default: {
+              $bundler_ensure   = 'installed'
+              $ruby_package     = 'ruby'
+              $rubygems_package = 'rubygems'
+            }
+          }
         }
       }
     }
