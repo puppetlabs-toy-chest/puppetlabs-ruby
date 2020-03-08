@@ -13,6 +13,7 @@ Puppet >= 4.7.0 with Ruby 2.1.9 and 2.4.1 on the following platforms.
   * FreeBSD 10
   * SLES 11 SP1
   * Arch Linux
+  * LinuxMint 19
 
 
 # Dependencies
